@@ -19,7 +19,7 @@ import Svg, { Path, Circle, Rect, G, Line } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
-const DRAWER_WIDTH = Math.min(width * 0.82, 330);
+const DRAWER_WIDTH = Math.round(width * 0.56);
 
 interface DrawerMenuProps {
   visible: boolean;
@@ -260,6 +260,13 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
       },
     },
     {
+      id: 'language',
+      title: 'Language Setting',
+      iconName: 'language-outline',
+      showChevron: true,
+      onPress: () => handleNavigate('LanguageSetting'),
+    },
+    {
       id: 'settings',
       title: 'Settings',
       iconName: 'settings-outline',
@@ -315,7 +322,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
             >
               {/* Subtle watermark logo in top-right corner */}
               <Image
-                source={require('../../assets/images/logo.png')}
+                source={require('../assets/images/drawer_logo.png')}
                 style={styles.headerWatermark}
                 resizeMode="contain"
               />
@@ -323,7 +330,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
               {/* White Circular Badge with Logo */}
               <View style={styles.headerLogoCircle}>
                 <Image
-                  source={require('../../assets/images/logo.png')}
+                  source={require('../assets/images/drawer_logo.png')}
                   style={styles.headerLogoImage}
                   resizeMode="contain"
                 />
@@ -462,9 +469,9 @@ const styles = StyleSheet.create({
     tintColor: '#FFFFFF',
   },
   headerLogoCircle: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
+    width: 46,
+    height: 46,
+    borderRadius: 23,
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
@@ -475,21 +482,21 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   headerLogoImage: {
-    width: 44,
-    height: 44,
+    width: 38,
+    height: 38,
   },
   headerInfo: {
     flex: 1,
-    marginLeft: 14,
+    marginLeft: 10,
   },
   headerTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
     color: '#FFFFFF',
     letterSpacing: 0.2,
   },
   headerSubtitle: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: '400',
     color: '#9ED8C9',
     marginTop: 2,
@@ -503,9 +510,9 @@ const styles = StyleSheet.create({
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 11,
-    paddingHorizontal: 16,
-    marginHorizontal: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    marginHorizontal: 6,
     marginVertical: 1.5,
     borderRadius: 8,
     position: 'relative',
@@ -526,33 +533,33 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 2,
   },
   menuIconContainer: {
-    width: 28,
+    width: 24,
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
   menuTitle: {
     flex: 1,
-    fontSize: 15,
+    fontSize: 13.5,
     fontWeight: '600',
     color: '#1E293B',
-    marginLeft: 8,
+    marginLeft: 6,
   },
   menuTitleActive: {
     fontWeight: '700',
     color: '#111827',
   },
   badgeContainer: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
+    width: 18,
+    height: 18,
+    borderRadius: 9,
     backgroundColor: '#E03B3B',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 10,
+    marginRight: 6,
   },
   badgeText: {
     color: '#FFFFFF',
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: '700',
   },
   bottomSection: {
@@ -567,17 +574,17 @@ const styles = StyleSheet.create({
     paddingBottom: Platform.OS === 'ios' ? 24 : 16,
   },
   footerBrand: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: '800',
     color: '#0A4D3C',
   },
   footerDivider: {
-    fontSize: 12,
+    fontSize: 11,
     color: '#CBD5E1',
-    marginHorizontal: 8,
+    marginHorizontal: 6,
   },
   footerTagline: {
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: '500',
     color: '#64748B',
   },

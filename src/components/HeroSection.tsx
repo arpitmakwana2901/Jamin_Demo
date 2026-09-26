@@ -29,7 +29,7 @@ const FEATURE_ITEMS: FeatureCardData[] = [
 export const HeroSection: React.FC = () => {
   return (
     <ImageBackground
-      source={require('../../assets/images/hero_bg.jpg')}
+      source={require('../assets/images/homepage_image.png')}
       style={styles.backgroundImage}
       resizeMode="cover"
     >

@@ -4,6 +4,7 @@ import { BrowseStackParamList } from '../types';
 import { BrowseJaminScreen } from '../screens/BrowseJaminScreen';
 import { PropertyDetailScreen } from '../screens/PropertyDetailScreen';
 import { SearchResultsScreen } from '../screens/SearchResultsScreen';
+import { LanguageSettingScreen } from '../screens/LanguageSettingScreen';
 
 const Stack = createNativeStackNavigator<BrowseStackParamList>();
 
@@ -13,6 +14,7 @@ export const BrowseStack: React.FC = () => {
       <Stack.Screen name="BrowseHome" component={BrowseJaminScreen} />
       <Stack.Screen name="PropertyDetail" component={PropertyDetailScreen} />
       <Stack.Screen name="SearchResults" component={SearchResultsScreen} />
+      <Stack.Screen name="LanguageSetting" component={LanguageSettingScreen} />
     </Stack.Navigator>
   );
 };

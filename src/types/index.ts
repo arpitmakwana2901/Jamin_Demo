@@ -62,6 +62,7 @@ export type BrowseStackParamList = {
   BrowseHome: undefined;
   PropertyDetail: { property: Property };
   SearchResults: { location?: string; landType?: string; budget?: string; propertyId?: string };
+  LanguageSetting: undefined;
 };
 
 export type TabParamList = {
