@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   Modal,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -79,49 +78,38 @@ const LandscapeIllustration: React.FC<{ width: number }> = ({ width: svgWidth })
 
       {/* Group of stylized trees on the left */}
       <G opacity={0.85}>
-        {/* Tree 1 */}
         <Rect x="16" y="46" width="2" height="12" fill="#78AFA0" />
         <Circle cx="17" cy="40" r="8" fill="#91C7B8" />
 
-        {/* Tree 2 */}
         <Rect x="27" y="38" width="2.5" height="16" fill="#78AFA0" />
         <Circle cx="28" cy="30" r="12" fill="#82BDAE" />
 
-        {/* Tree 3 */}
         <Rect x="41" y="42" width="2" height="14" fill="#78AFA0" />
         <Circle cx="42" cy="35" r="9" fill="#99CEBF" />
 
-        {/* Accent Tree Bulbs */}
         <Circle cx="10" cy="45" r="6.5" fill="#A4D5C7" />
         <Circle cx="51" cy="41" r="6.5" fill="#A8D7CA" />
       </G>
 
       {/* Stylized tractor on the right field */}
       <G opacity={0.85}>
-        {/* Rear Wheel (Big) */}
         <Circle cx="230" cy="57" r="8" fill="#FFFFFF" stroke="#6FA695" strokeWidth="2.5" />
         <Circle cx="230" cy="57" r="3" fill="#6FA695" />
 
-        {/* Front Wheel (Small) */}
         <Circle cx="250" cy="61" r="4.5" fill="#FFFFFF" stroke="#6FA695" strokeWidth="2" />
         <Circle cx="250" cy="61" r="1.5" fill="#6FA695" />
 
-        {/* Tractor Body & Hood */}
         <Path
           d="M230 50 L238 50 L238 54 L250 54 L250 59 L230 59 Z"
           fill="#6FA695"
         />
 
-        {/* Tractor Mudguard / Seat */}
         <Path
           d="M225 51 Q227 44 233 45 L233 50 Z"
           fill="#7BB0A0"
         />
 
-        {/* Steering wheel */}
         <Line x1="238" y1="48" x2="235" y2="51" stroke="#6FA695" strokeWidth="1.4" />
-
-        {/* Exhaust pipe */}
         <Line x1="247" y1="54" x2="247" y2="47" stroke="#6FA695" strokeWidth="1.4" />
       </G>
     </Svg>
@@ -305,41 +293,46 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
       transparent={true}
       onRequestClose={onClose}
     >
-      <View style={styles.overlay}>
+      <View className="flex-1 bg-black/45 flex-row">
         {/* Backdrop tap to dismiss */}
         <TouchableWithoutFeedback onPress={onClose}>
-          <View style={styles.backdrop} />
+          <View className="absolute inset-0" />
         </TouchableWithoutFeedback>
 
         {/* Drawer Body */}
-        <View style={styles.drawerContainer}>
-          <View style={styles.drawerContent}>
+        <View
+          style={{ width: DRAWER_WIDTH }}
+          className="h-full bg-white elevation-20 shadow-xl shadow-black/25"
+        >
+          <View className="flex-1 bg-white">
             {/* Header: Dark Green with Logo, User Details & Watermark */}
             <TouchableOpacity
-              style={styles.drawerHeader}
+              style={{ paddingTop: Platform.OS === 'android' ? (StatusBar.currentHeight || 24) + 14 : 50 }}
+              className="bg-headerDark pb-5 px-4 flex-row items-center relative overflow-hidden"
               activeOpacity={0.85}
               onPress={() => handleNavigate('Account')}
             >
               {/* Subtle watermark logo in top-right corner */}
               <Image
                 source={require('../assets/images/drawer_logo.png')}
-                style={styles.headerWatermark}
+                className="absolute -right-[25px] -top-[20px] w-[140px] h-[140px] opacity-[0.12]"
+                style={{ tintColor: '#FFFFFF' }}
                 resizeMode="contain"
               />
 
               {/* White Circular Badge with Logo */}
-              <View style={styles.headerLogoCircle}>
+              <View className="w-[46px] h-[46px] rounded-[23px] bg-white justify-center items-center shadow-sm elevation-3">
                 <Image
                   source={require('../assets/images/drawer_logo.png')}
-                  style={styles.headerLogoImage}
+                  className="w-[38px] h-[38px]"
                   resizeMode="contain"
                 />
               </View>
 
               {/* User Title & Subtitle */}
-              <View style={styles.headerInfo}>
-                <Text style={styles.headerTitle}>Jamin Buddy</Text>
-                <Text style={styles.headerSubtitle}>Farmer / Land Seeker</Text>
+              <View className="flex-1 ml-[10px]">
+                <Text className="text-[16px] font-bold text-white tracking-[0.2px]">Jamin Buddy</Text>
+                <Text className="text-[12px] font-normal text-subHeaderGreen mt-[2px]">Farmer / Land Seeker</Text>
               </View>
 
               {/* Right Chevron */}
@@ -348,8 +341,8 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
 
             {/* Menu Items List */}
             <ScrollView
-              style={styles.menuScroll}
-              contentContainerStyle={styles.scrollContent}
+              className="flex-1"
+              contentContainerStyle={{ paddingVertical: 10 }}
               showsVerticalScrollIndicator={false}
               bounces={false}
             >
@@ -358,10 +351,9 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
                 return (
                   <TouchableOpacity
                     key={item.id}
-                    style={[
-                      styles.menuItem,
-                      isActive && styles.menuItemActive,
-                    ]}
+                    className={`flex-row items-center py-[10px] px-[12px] mx-[6px] my-[1.5px] rounded-[8px] relative ${
+                      isActive ? 'bg-[#EEF6F2]' : ''
+                    }`}
                     activeOpacity={0.7}
                     onPress={() => {
                       setActiveId(item.id);
@@ -369,10 +361,12 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
                     }}
                   >
                     {/* Active left green indicator */}
-                    {isActive && <View style={styles.activeIndicator} />}
+                    {isActive && (
+                      <View className="absolute left-0 top-[4px] bottom-[4px] w-[3.5px] bg-[#00A86B] rounded-r-[3px] rounded-l-[2px]" />
+                    )}
 
                     {/* Icon */}
-                    <View style={styles.menuIconContainer}>
+                    <View className="w-[24px] items-start justify-center">
                       <Ionicons
                         name={item.iconName}
                         size={21}
@@ -382,18 +376,17 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
 
                     {/* Title */}
                     <Text
-                      style={[
-                        styles.menuTitle,
-                        isActive && styles.menuTitleActive,
-                      ]}
+                      className={`flex-1 text-[13.5px] ml-[6px] ${
+                        isActive ? 'font-bold text-[#111827]' : 'font-semibold text-[#1E293B]'
+                      }`}
                     >
                       {item.title}
                     </Text>
 
                     {/* Badge if present (Notifications) */}
                     {item.badge != null && (
-                      <View style={styles.badgeContainer}>
-                        <Text style={styles.badgeText}>{item.badge}</Text>
+                      <View className="w-[18px] h-[18px] rounded-[9px] bg-badgeRed justify-center items-center mr-[6px]">
+                        <Text className="text-white text-[10px] font-bold">{item.badge}</Text>
                       </View>
                     )}
 
@@ -411,12 +404,15 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
             </ScrollView>
 
             {/* Bottom Section: Landscape Illustration & Footer */}
-            <View style={styles.bottomSection}>
+            <View className="mt-auto bg-white">
               <LandscapeIllustration width={DRAWER_WIDTH} />
-              <View style={styles.footerContainer}>
-                <Text style={styles.footerBrand}>Jamin24</Text>
-                <Text style={styles.footerDivider}>|</Text>
-                <Text style={styles.footerTagline}>Connecting Land & Dreams</Text>
+              <View
+                style={{ paddingBottom: Platform.OS === 'ios' ? 24 : 16 }}
+                className="flex-row items-center justify-center pt-2"
+              >
+                <Text className="text-[12px] font-extrabold text-headerDark">Jamin24</Text>
+                <Text className="text-[11px] text-[#CBD5E1] mx-[6px]">|</Text>
+                <Text className="text-[10px] font-medium text-[#64748B]">Connecting Land & Dreams</Text>
               </View>
             </View>
           </View>
@@ -425,167 +421,3 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  overlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.45)',
-    flexDirection: 'row',
-  },
-  backdrop: {
-    ...StyleSheet.absoluteFill,
-  },
-  drawerContainer: {
-    width: DRAWER_WIDTH,
-    height: '100%',
-    backgroundColor: '#FFFFFF',
-    elevation: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 4, height: 0 },
-    shadowOpacity: 0.25,
-    shadowRadius: 12,
-  },
-  drawerContent: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  drawerHeader: {
-    backgroundColor: '#0A4D3C',
-    paddingTop: Platform.OS === 'android' ? (StatusBar.currentHeight || 24) + 14 : 50,
-    paddingBottom: 20,
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  headerWatermark: {
-    position: 'absolute',
-    right: -25,
-    top: -20,
-    width: 140,
-    height: 140,
-    opacity: 0.12,
-    tintColor: '#FFFFFF',
-  },
-  headerLogoCircle: {
-    width: 46,
-    height: 46,
-    borderRadius: 23,
-    backgroundColor: '#FFFFFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  headerLogoImage: {
-    width: 38,
-    height: 38,
-  },
-  headerInfo: {
-    flex: 1,
-    marginLeft: 10,
-  },
-  headerTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#FFFFFF',
-    letterSpacing: 0.2,
-  },
-  headerSubtitle: {
-    fontSize: 12,
-    fontWeight: '400',
-    color: '#9ED8C9',
-    marginTop: 2,
-  },
-  menuScroll: {
-    flex: 1,
-  },
-  scrollContent: {
-    paddingVertical: 10,
-  },
-  menuItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    marginHorizontal: 6,
-    marginVertical: 1.5,
-    borderRadius: 8,
-    position: 'relative',
-  },
-  menuItemActive: {
-    backgroundColor: '#EEF6F2',
-  },
-  activeIndicator: {
-    position: 'absolute',
-    left: 0,
-    top: 4,
-    bottom: 4,
-    width: 3.5,
-    backgroundColor: '#00A86B',
-    borderTopRightRadius: 3,
-    borderBottomRightRadius: 3,
-    borderTopLeftRadius: 2,
-    borderBottomLeftRadius: 2,
-  },
-  menuIconContainer: {
-    width: 24,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  menuTitle: {
-    flex: 1,
-    fontSize: 13.5,
-    fontWeight: '600',
-    color: '#1E293B',
-    marginLeft: 6,
-  },
-  menuTitleActive: {
-    fontWeight: '700',
-    color: '#111827',
-  },
-  badgeContainer: {
-    width: 18,
-    height: 18,
-    borderRadius: 9,
-    backgroundColor: '#E03B3B',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 6,
-  },
-  badgeText: {
-    color: '#FFFFFF',
-    fontSize: 10,
-    fontWeight: '700',
-  },
-  bottomSection: {
-    marginTop: 'auto',
-    backgroundColor: '#FFFFFF',
-  },
-  footerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 8,
-    paddingBottom: Platform.OS === 'ios' ? 24 : 16,
-  },
-  footerBrand: {
-    fontSize: 12,
-    fontWeight: '800',
-    color: '#0A4D3C',
-  },
-  footerDivider: {
-    fontSize: 11,
-    color: '#CBD5E1',
-    marginHorizontal: 6,
-  },
-  footerTagline: {
-    fontSize: 10,
-    fontWeight: '500',
-    color: '#64748B',
-  },
-});

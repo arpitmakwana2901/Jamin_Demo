@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { colors } from '../theme/colors';
 
@@ -19,71 +19,24 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   onActionPress,
 }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.titleRow}>
+    <View className="my-[14px] px-5">
+      <View className="flex-row items-center">
         {badge && (
-          <View style={styles.badge}>
-            <Text style={styles.badgeText}>{badge}</Text>
+          <View className="bg-primary px-2 py-[3px] rounded-[12px] mr-2">
+            <Text className="text-white text-[10px] font-extrabold">{badge}</Text>
           </View>
         )}
-        <Text style={styles.title}>{title}</Text>
+        <Text className="text-[20px] font-extrabold text-text">{title}</Text>
       </View>
 
-      {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
+      {subtitle && <Text className="text-[13px] text-textLight mt-[2px] font-medium">{subtitle}</Text>}
 
       {actionText && (
-        <TouchableOpacity style={styles.actionButton} onPress={onActionPress}>
-          <Text style={styles.actionText}>{actionText}</Text>
+        <TouchableOpacity className="absolute right-5 top-[2px] flex-row items-center" onPress={onActionPress}>
+          <Text className="text-[13px] font-bold text-primary mr-[2px]">{actionText}</Text>
           <Ionicons name="chevron-forward" size={14} color={colors.primary} />
         </TouchableOpacity>
       )}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: 14,
-    paddingHorizontal: 20,
-  },
-  titleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  badge: {
-    backgroundColor: colors.primary,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 12,
-    marginRight: 8,
-  },
-  badgeText: {
-    color: '#FFFFFF',
-    fontSize: 10,
-    fontWeight: '800',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '800',
-    color: colors.text,
-  },
-  subtitle: {
-    fontSize: 13,
-    color: colors.textLight,
-    marginTop: 2,
-    fontWeight: '500',
-  },
-  actionButton: {
-    position: 'absolute',
-    right: 20,
-    top: 2,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  actionText: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: colors.primary,
-    marginRight: 2,
-  },
-});

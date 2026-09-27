@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   ScrollView,
   TouchableOpacity,
   Image,
@@ -13,7 +12,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { colors } from '../theme/colors';
 import { PROJECTS } from '../data/mockData';
-import { Project } from '../types';
 import { EmptyState } from '../components/EmptyState';
 
 const { width } = Dimensions.get('window');
@@ -33,29 +31,35 @@ export const ProjectsScreen: React.FC = () => {
   });
 
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+    <SafeAreaView className="flex-1 bg-white" edges={['top', 'left', 'right']}>
       {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>प्रॉपर्टी प्रोजेक्ट्स</Text>
-        <Text style={styles.headerSubtitle}>गुजरात में नई विकास परियोजनाएं</Text>
+      <View className="px-5 py-[14px] border-b border-border">
+        <Text className="text-[22px] font-extrabold text-text">प्रॉपर्टी प्रोजेक्ट्स</Text>
+        <Text className="text-[13px] text-textLight mt-[2px]">गुजरात में नई विकास परियोजनाएं</Text>
       </View>
 
       {/* Category Tabs */}
-      <View style={styles.tabContainer}>
+      <View className="bg-background py-[10px]">
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.tabScroll}
+          contentContainerStyle={{ paddingHorizontal: 20, gap: 8 }}
         >
           {CATEGORIES.map((cat) => {
             const isSelected = selectedCategory === cat;
             return (
               <TouchableOpacity
                 key={cat}
-                style={[styles.tabChip, isSelected && styles.tabChipSelected]}
+                className={`px-4 py-2 rounded-[20px] bg-white border ${
+                  isSelected ? 'bg-primary border-primary' : 'border-border'
+                }`}
                 onPress={() => setSelectedCategory(cat)}
               >
-                <Text style={[styles.tabText, isSelected && styles.tabTextSelected]}>
+                <Text
+                  className={`text-[13px] ${
+                    isSelected ? 'text-white font-bold' : 'font-semibold text-text'
+                  }`}
+                >
                   {cat}
                 </Text>
               </TouchableOpacity>
@@ -66,8 +70,8 @@ export const ProjectsScreen: React.FC = () => {
 
       {/* 2-Column Grid */}
       <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
+        className="flex-1 bg-background"
+        contentContainerStyle={{ padding: 20, paddingBottom: 40 }}
         showsVerticalScrollIndicator={false}
       >
         {filteredProjects.length === 0 ? (
@@ -78,11 +82,12 @@ export const ProjectsScreen: React.FC = () => {
             onAction={() => setSelectedCategory('सभी')}
           />
         ) : (
-          <View style={styles.grid}>
+          <View className="flex-row flex-wrap gap-3">
             {filteredProjects.map((project) => (
               <TouchableOpacity
                 key={project.id}
-                style={styles.projectCard}
+                style={{ width: cardWidth }}
+                className="bg-card rounded-[16px] border border-border overflow-hidden"
                 activeOpacity={0.85}
                 onPress={() =>
                   Alert.alert(
@@ -91,27 +96,27 @@ export const ProjectsScreen: React.FC = () => {
                   )
                 }
               >
-                <View style={styles.imageContainer}>
-                  <Image source={{ uri: project.image }} style={styles.image} resizeMode="cover" />
-                  <View style={styles.unitsBadge}>
-                    <Text style={styles.unitsBadgeText}>{project.unitsAvailable} इकाइयां</Text>
+                <View className="h-[120px] w-full relative">
+                  <Image source={{ uri: project.image }} className="w-full h-full" resizeMode="cover" />
+                  <View className="absolute top-2 right-2 bg-primary rounded-[8px] px-[6px] py-[3px]">
+                    <Text className="text-white text-[10px] font-bold">{project.unitsAvailable} इकाइयां</Text>
                   </View>
                 </View>
 
-                <View style={styles.cardContent}>
-                  <Text style={styles.projectName} numberOfLines={1}>
+                <View className="p-[10px]">
+                  <Text className="text-[14px] font-extrabold text-text mb-1" numberOfLines={1}>
                     {project.name}
                   </Text>
-                  <View style={styles.locationRow}>
+                  <View className="flex-row items-center mb-[6px]">
                     <Ionicons name="location-outline" size={12} color={colors.textLight} />
-                    <Text style={styles.locationText} numberOfLines={1}>
+                    <Text className="text-[11px] text-textLight ml-[2px]" numberOfLines={1}>
                       {project.location}
                     </Text>
                   </View>
-                  <Text style={styles.priceRange}>{project.priceRange}</Text>
+                  <Text className="text-[13px] font-extrabold text-primary mb-2">{project.priceRange}</Text>
 
-                  <View style={styles.enquireButton}>
-                    <Text style={styles.enquireText}>विवरण देखें</Text>
+                  <View className="bg-primaryLight py-[6px] rounded-[8px] items-center">
+                    <Text className="text-[11px] font-bold text-primary">विवरण देखें</Text>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -122,135 +127,3 @@ export const ProjectsScreen: React.FC = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.white,
-  },
-  header: {
-    paddingHorizontal: 20,
-    paddingVertical: 14,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-  },
-  headerTitle: {
-    fontSize: 22,
-    fontWeight: '800',
-    color: colors.text,
-  },
-  headerSubtitle: {
-    fontSize: 13,
-    color: colors.textLight,
-    marginTop: 2,
-  },
-  tabContainer: {
-    backgroundColor: colors.background,
-    paddingVertical: 10,
-  },
-  tabScroll: {
-    paddingHorizontal: 20,
-    gap: 8,
-  },
-  tabChip: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    backgroundColor: colors.white,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  tabChipSelected: {
-    backgroundColor: colors.primary,
-    borderColor: colors.primary,
-  },
-  tabText: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: colors.text,
-  },
-  tabTextSelected: {
-    color: colors.white,
-    fontWeight: '700',
-  },
-  scrollView: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  scrollContent: {
-    padding: 20,
-    paddingBottom: 40,
-  },
-  grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-  },
-  projectCard: {
-    width: cardWidth,
-    backgroundColor: colors.card,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: colors.border,
-    overflow: 'hidden',
-  },
-  imageContainer: {
-    height: 120,
-    width: '100%',
-    position: 'relative',
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-  },
-  unitsBadge: {
-    position: 'absolute',
-    top: 8,
-    right: 8,
-    backgroundColor: colors.primary,
-    borderRadius: 8,
-    paddingHorizontal: 6,
-    paddingVertical: 3,
-  },
-  unitsBadgeText: {
-    color: colors.white,
-    fontSize: 10,
-    fontWeight: '700',
-  },
-  cardContent: {
-    padding: 10,
-  },
-  projectName: {
-    fontSize: 14,
-    fontWeight: '800',
-    color: colors.text,
-    marginBottom: 4,
-  },
-  locationRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 6,
-  },
-  locationText: {
-    fontSize: 11,
-    color: colors.textLight,
-    marginLeft: 2,
-  },
-  priceRange: {
-    fontSize: 13,
-    fontWeight: '800',
-    color: colors.primary,
-    marginBottom: 8,
-  },
-  enquireButton: {
-    backgroundColor: colors.primaryLight,
-    paddingVertical: 6,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  enquireText: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: colors.primary,
-  },
-});

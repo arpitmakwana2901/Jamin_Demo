@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
   ScrollView,
   Alert,
@@ -60,91 +59,86 @@ export const LanguageSettingScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
+    <SafeAreaView className="flex-1 bg-white" edges={['top', 'left', 'right']}>
       {/* Header Bar */}
-      <View style={styles.headerBar}>
+      <View className="h-[56px] flex-row items-center justify-between px-4 border-b border-border bg-white">
         <TouchableOpacity
-          style={styles.backButton}
+          className="w-[40px] h-[40px] justify-center items-start"
           onPress={() => navigation.goBack()}
           activeOpacity={0.7}
         >
           <Ionicons name="arrow-back" size={24} color={colors.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Language Setting</Text>
-        <View style={styles.placeholder} />
+        <Text className="text-[18px] font-bold text-text">Language Setting</Text>
+        <View className="w-[40px]" />
       </View>
 
       <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}
+        className="flex-1 bg-background"
+        contentContainerStyle={{ padding: 20 }}
         showsVerticalScrollIndicator={false}
       >
         {/* Info Card */}
-        <View style={styles.infoCard}>
-          <View style={styles.iconCircle}>
+        <View className="bg-white rounded-[16px] p-5 items-center mb-5 border border-border">
+          <View className="w-[56px] h-[56px] rounded-[28px] bg-primaryLight justify-center items-center mb-3">
             <Ionicons
               name="language-outline"
               size={26}
               color={colors.primary}
             />
           </View>
-          <Text style={styles.infoTitle}>Select Your Language</Text>
-          <Text style={styles.infoSubtitle}>
+          <Text className="text-[18px] font-bold text-text mb-[6px]">Select Your Language</Text>
+          <Text className="text-[13px] text-textLight text-center leading-[18px]">
             Choose your preferred language for using Jamin24.
           </Text>
         </View>
 
         {/* Language Options List */}
-        <View style={styles.optionsList}>
+        <View className="gap-3 mb-[28px]">
           {languages.map(language => {
             const isSelected = selectedLanguage === language.id;
             return (
               <TouchableOpacity
                 key={language.id}
-                style={[
-                  styles.optionCard,
-                  isSelected && styles.optionCardSelected,
-                ]}
+                className={`rounded-[14px] py-4 px-[18px] flex-row items-center justify-between border-[1.5px] elevation-1 shadow-sm shadow-black/5 ${
+                  isSelected ? 'border-primary bg-[#F0F9F5]' : 'bg-white border-border'
+                }`}
                 activeOpacity={0.8}
                 onPress={() => handleSelectLanguage(language.id)}
               >
-                <View style={styles.optionLeft}>
+                <View className="flex-row items-center">
                   <View
-                    style={[
-                      styles.codeBadge,
-                      isSelected && styles.codeBadgeSelected,
-                    ]}
+                    className={`w-[42px] h-[42px] rounded-[21px] justify-center items-center mr-[14px] ${
+                      isSelected ? 'bg-primary' : 'bg-chipBg'
+                    }`}
                   >
                     <Text
-                      style={[
-                        styles.codeBadgeText,
-                        isSelected && styles.codeBadgeTextSelected,
-                      ]}
+                      className={`text-[13px] font-bold ${
+                        isSelected ? 'text-white' : 'text-textLight'
+                      }`}
                     >
                       {language.code}
                     </Text>
                   </View>
-                  <View style={styles.nameContainer}>
+                  <View className="justify-center">
                     <Text
-                      style={[
-                        styles.nativeNameText,
-                        isSelected && styles.nativeNameTextSelected,
-                      ]}
+                      className={`text-[16px] font-bold ${
+                        isSelected ? 'text-primary' : 'text-text'
+                      }`}
                     >
                       {language.nativeName}
                     </Text>
-                    <Text style={styles.englishNameText}>{language.name}</Text>
+                    <Text className="text-[13px] text-textLight mt-[2px]">{language.name}</Text>
                   </View>
                 </View>
 
                 {/* Radio button */}
                 <View
-                  style={[
-                    styles.radioCircle,
-                    isSelected && styles.radioCircleSelected,
-                  ]}
+                  className={`w-[22px] h-[22px] rounded-[11px] border-2 justify-center items-center ${
+                    isSelected ? 'border-primary' : 'border-[#D1D5DB]'
+                  }`}
                 >
-                  {isSelected && <View style={styles.radioInnerCircle} />}
+                  {isSelected && <View className="w-[12px] h-[12px] rounded-[6px] bg-primary" />}
                 </View>
               </TouchableOpacity>
             );
@@ -153,180 +147,13 @@ export const LanguageSettingScreen: React.FC<Props> = ({ navigation }) => {
 
         {/* Apply / Save Button */}
         <TouchableOpacity
-          style={styles.saveButton}
+          className="bg-primary rounded-[12px] py-[14px] items-center justify-center elevation-2 shadow-sm shadow-primary/25"
           activeOpacity={0.85}
           onPress={handleSave}
         >
-          <Text style={styles.saveButtonText}>Apply Language</Text>
+          <Text className="text-white text-[15px] font-bold">Apply Language</Text>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: colors.white,
-  },
-  headerBar: {
-    height: 56,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-    backgroundColor: colors.white,
-  },
-  backButton: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: colors.text,
-  },
-  placeholder: {
-    width: 40,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  contentContainer: {
-    padding: 20,
-  },
-  infoCard: {
-    backgroundColor: colors.white,
-    borderRadius: 16,
-    padding: 20,
-    alignItems: 'center',
-    marginBottom: 20,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  iconCircle: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: colors.primaryLight,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  infoTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: colors.text,
-    marginBottom: 6,
-  },
-  infoSubtitle: {
-    fontSize: 13,
-    color: colors.textLight,
-    textAlign: 'center',
-    lineHeight: 18,
-  },
-  optionsList: {
-    gap: 12,
-    marginBottom: 28,
-  },
-  optionCard: {
-    backgroundColor: colors.white,
-    borderRadius: 14,
-    paddingVertical: 16,
-    paddingHorizontal: 18,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderWidth: 1.5,
-    borderColor: colors.border,
-    elevation: 1,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 3,
-  },
-  optionCardSelected: {
-    borderColor: colors.primary,
-    backgroundColor: '#F0F9F5',
-  },
-  optionLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  codeBadge: {
-    width: 42,
-    height: 42,
-    borderRadius: 21,
-    backgroundColor: colors.chipBg,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 14,
-  },
-  codeBadgeSelected: {
-    backgroundColor: colors.primary,
-  },
-  codeBadgeText: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: colors.textLight,
-  },
-  codeBadgeTextSelected: {
-    color: colors.white,
-  },
-  nameContainer: {
-    justifyContent: 'center',
-  },
-  nativeNameText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: colors.text,
-  },
-  nativeNameTextSelected: {
-    color: colors.primary,
-  },
-  englishNameText: {
-    fontSize: 13,
-    color: colors.textLight,
-    marginTop: 2,
-  },
-  radioCircle: {
-    width: 22,
-    height: 22,
-    borderRadius: 11,
-    borderWidth: 2,
-    borderColor: '#D1D5DB',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  radioCircleSelected: {
-    borderColor: colors.primary,
-  },
-  radioInnerCircle: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    backgroundColor: colors.primary,
-  },
-  saveButton: {
-    backgroundColor: colors.primary,
-    borderRadius: 12,
-    paddingVertical: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 2,
-    shadowColor: colors.primary,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-  },
-  saveButtonText: {
-    color: colors.white,
-    fontSize: 15,
-    fontWeight: '700',
-  },
-});

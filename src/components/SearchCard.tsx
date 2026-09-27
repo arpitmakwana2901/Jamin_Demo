@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
   TextInput,
   Modal,
@@ -78,26 +77,25 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
   };
 
   return (
-    <View style={styles.cardContainer}>
+    <View className="bg-card mx-4 -mt-[45px] rounded-[16px] p-[18px] shadow-lg shadow-black/10 elevation-8 z-10">
       {/* Title */}
-      <Text style={styles.title}>Find Your Dream Jamin</Text>
+      <Text className="text-[18px] font-extrabold text-text text-center mb-4">Find Your Dream Jamin</Text>
 
       {/* Row 1: Location & Property ID */}
-      <View style={styles.row}>
+      <View className="flex-row gap-3 mb-3">
         {/* Left: Location */}
-        <View style={styles.column}>
-          <Text style={styles.label}>Location</Text>
+        <View className="flex-1">
+          <Text className="text-[12px] font-bold text-text mb-[6px]">Location</Text>
           <TouchableOpacity
-            style={styles.inputField}
+            className="flex-row items-center bg-chipBg border border-border rounded-[10px] px-[10px] h-[44px]"
             activeOpacity={0.7}
             onPress={() => setActiveModal('location')}
           >
-            <Ionicons name="location-outline" size={16} color={colors.primary} style={styles.inputIcon} />
+            <Ionicons name="location-outline" size={16} color={colors.primary} className="mr-[6px]" />
             <Text
-              style={[
-                styles.inputText,
-                location === 'Select City / District' && styles.placeholderText,
-              ]}
+              className={`flex-1 text-[12px] ${
+                location === 'Select City / District' ? 'text-textMuted font-normal' : 'text-text font-semibold'
+              }`}
               numberOfLines={1}
             >
               {location}
@@ -107,12 +105,12 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
         </View>
 
         {/* Right: Property ID */}
-        <View style={styles.column}>
-          <Text style={styles.label}>Property ID (If you have)</Text>
-          <View style={styles.inputField}>
-            <Ionicons name="barcode-outline" size={16} color={colors.primary} style={styles.inputIcon} />
+        <View className="flex-1">
+          <Text className="text-[12px] font-bold text-text mb-[6px]">Property ID (If you have)</Text>
+          <View className="flex-row items-center bg-chipBg border border-border rounded-[10px] px-[10px] h-[44px]">
+            <Ionicons name="barcode-outline" size={16} color={colors.primary} className="mr-[6px]" />
             <TextInput
-              style={styles.textInput}
+              className="flex-1 text-[12px] text-text p-0 font-medium"
               placeholder="e.g. GJ-01-382120-0001"
               placeholderTextColor={colors.textMuted}
               value={propertyId}
@@ -123,21 +121,20 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
       </View>
 
       {/* Row 2: Land Type & Budget */}
-      <View style={styles.row}>
+      <View className="flex-row gap-3 mb-3">
         {/* Left: Land Type */}
-        <View style={styles.column}>
-          <Text style={styles.label}>Land Type</Text>
+        <View className="flex-1">
+          <Text className="text-[12px] font-bold text-text mb-[6px]">Land Type</Text>
           <TouchableOpacity
-            style={styles.inputField}
+            className="flex-row items-center bg-chipBg border border-border rounded-[10px] px-[10px] h-[44px]"
             activeOpacity={0.7}
             onPress={() => setActiveModal('landType')}
           >
-            <Ionicons name="leaf-outline" size={16} color={colors.primary} style={styles.inputIcon} />
+            <Ionicons name="leaf-outline" size={16} color={colors.primary} className="mr-[6px]" />
             <Text
-              style={[
-                styles.inputText,
-                landType === 'All Land Types' && styles.placeholderText,
-              ]}
+              className={`flex-1 text-[12px] ${
+                landType === 'All Land Types' ? 'text-textMuted font-normal' : 'text-text font-semibold'
+              }`}
               numberOfLines={1}
             >
               {landType}
@@ -147,19 +144,18 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
         </View>
 
         {/* Right: Budget */}
-        <View style={styles.column}>
-          <Text style={styles.label}>Your Budget</Text>
+        <View className="flex-1">
+          <Text className="text-[12px] font-bold text-text mb-[6px]">Your Budget</Text>
           <TouchableOpacity
-            style={styles.inputField}
+            className="flex-row items-center bg-chipBg border border-border rounded-[10px] px-[10px] h-[44px]"
             activeOpacity={0.7}
             onPress={() => setActiveModal('budget')}
           >
-            <Ionicons name="cash-outline" size={16} color={colors.primary} style={styles.inputIcon} />
+            <Ionicons name="cash-outline" size={16} color={colors.primary} className="mr-[6px]" />
             <Text
-              style={[
-                styles.inputText,
-                budget === 'Max Budget (₹)' && styles.placeholderText,
-              ]}
+              className={`flex-1 text-[12px] ${
+                budget === 'Max Budget (₹)' ? 'text-textMuted font-normal' : 'text-text font-semibold'
+              }`}
               numberOfLines={1}
             >
               {budget}
@@ -171,12 +167,12 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
 
       {/* Search Button */}
       <TouchableOpacity
-        style={styles.searchButton}
+        className="bg-primary rounded-[10px] h-[48px] flex-row justify-center items-center mt-[6px] shadow-sm elevation-3"
         activeOpacity={0.85}
         onPress={handleSearch}
       >
-        <Ionicons name="search-outline" size={18} color={colors.white} style={styles.searchIcon} />
-        <Text style={styles.searchButtonText}>Search Jamin</Text>
+        <Ionicons name="search-outline" size={18} color={colors.white} className="mr-2" />
+        <Text className="text-white text-[15px] font-bold">Search Jamin</Text>
       </TouchableOpacity>
 
       {/* Trust Badges */}
@@ -190,10 +186,10 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
         onRequestClose={() => setActiveModal(null)}
       >
         <TouchableWithoutFeedback onPress={() => setActiveModal(null)}>
-          <View style={styles.modalOverlay}>
+          <View className="flex-1 bg-black/45 justify-center items-center p-5">
             <TouchableWithoutFeedback>
-              <View style={styles.modalContent}>
-                <Text style={styles.modalTitle}>
+              <View className="bg-white w-full max-h-[380px] rounded-[16px] p-[18px]">
+                <Text className="text-[16px] font-bold text-text mb-3 border-b border-border pb-[10px]">
                   {activeModal === 'location'
                     ? 'Select Location'
                     : activeModal === 'landType'
@@ -205,10 +201,10 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
                   keyExtractor={(item) => item}
                   renderItem={({ item }) => (
                     <TouchableOpacity
-                      style={styles.modalItem}
+                      className="flex-row justify-between items-center py-3 border-b border-divider"
                       onPress={() => handleSelect(item)}
                     >
-                      <Text style={styles.modalItemText}>{item}</Text>
+                      <Text className="text-[13px] text-text font-medium">{item}</Text>
                       <Ionicons name="chevron-forward-outline" size={16} color={colors.textMuted} />
                     </TouchableOpacity>
                   )}
@@ -221,128 +217,4 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  cardContainer: {
-    backgroundColor: colors.card,
-    marginHorizontal: 16,
-    marginTop: -45,
-    borderRadius: 16,
-    padding: 18,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.12,
-    shadowRadius: 10,
-    elevation: 8,
-    zIndex: 10,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '800',
-    color: colors.text,
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  row: {
-    flexDirection: 'row',
-    gap: 12,
-    marginBottom: 12,
-  },
-  column: {
-    flex: 1,
-  },
-  label: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: colors.text,
-    marginBottom: 6,
-  },
-  inputField: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.chipBg,
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    height: 44,
-  },
-  inputIcon: {
-    marginRight: 6,
-  },
-  inputText: {
-    flex: 1,
-    fontSize: 12,
-    color: colors.text,
-    fontWeight: '600',
-  },
-  placeholderText: {
-    color: colors.textMuted,
-    fontWeight: '400',
-  },
-  textInput: {
-    flex: 1,
-    fontSize: 12,
-    color: colors.text,
-    padding: 0,
-    fontWeight: '500',
-  },
-  searchButton: {
-    backgroundColor: colors.primary,
-    borderRadius: 10,
-    height: 48,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 6,
-    shadowColor: colors.primary,
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 6,
-    elevation: 3,
-  },
-  searchIcon: {
-    marginRight: 8,
-  },
-  searchButtonText: {
-    color: colors.white,
-    fontSize: 15,
-    fontWeight: '700',
-  },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.45)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  modalContent: {
-    backgroundColor: colors.white,
-    width: '100%',
-    maxHeight: 380,
-    borderRadius: 16,
-    padding: 18,
-  },
-  modalTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: colors.text,
-    marginBottom: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-    paddingBottom: 10,
-  },
-  modalItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.divider,
-  },
-  modalItemText: {
-    fontSize: 13,
-    color: colors.text,
-    fontWeight: '500',
-  },
-});
+  

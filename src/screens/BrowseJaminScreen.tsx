@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   ScrollView,
   TouchableOpacity,
   Image,
@@ -18,13 +17,11 @@ import { SearchCard } from '../components/SearchCard';
 import { PropertyCard } from '../components/PropertyCard';
 import { SectionHeader } from '../components/SectionHeader';
 import { colors } from '../theme/colors';
-import { PROPERTIES, TRADERS, BUYER_REQUESTS, DISTRICTS_HINDI } from '../data/mockData';
+import { PROPERTIES, TRADERS, BUYER_REQUESTS } from '../data/mockData';
 
 type Props = NativeStackScreenProps<BrowseStackParamList, 'BrowseHome'>;
 
 export const BrowseJaminScreen: React.FC<Props> = ({ navigation }) => {
-  const [selectedDistrict, setSelectedDistrict] = useState<string>('Ahmedabad');
-
   const handlePropertyPress = (property: Property) => {
     navigation.navigate('PropertyDetail', { property });
   };
@@ -34,13 +31,13 @@ export const BrowseJaminScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
+    <SafeAreaView className="flex-1 bg-white" edges={['top', 'left', 'right']}>
       {/* Top App Bar Header */}
       <TopBar />
 
       <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
+        className="flex-1 bg-background"
+        contentContainerStyle={{ paddingBottom: 40 }}
         showsVerticalScrollIndicator={false}
       >
         {/* Hero Section with background image and 2x2 feature pills */}
@@ -50,7 +47,7 @@ export const BrowseJaminScreen: React.FC<Props> = ({ navigation }) => {
         <SearchCard onSearch={handleSearch} />
 
         {/* SECTION: Featured Verified Listings */}
-        <View style={styles.sectionContainer}>
+        <View className="mt-6">
           <SectionHeader
             title="Featured Verified Lands"
             subtitle="100% Verified & Transparent Open Land Deals"
@@ -58,7 +55,7 @@ export const BrowseJaminScreen: React.FC<Props> = ({ navigation }) => {
             onActionPress={() => navigation.navigate('SearchResults', {})}
           />
 
-          <View style={styles.propertyListPadding}>
+          <View className="px-4">
             {PROPERTIES.map((property) => (
               <PropertyCard
                 key={property.id}
@@ -70,7 +67,7 @@ export const BrowseJaminScreen: React.FC<Props> = ({ navigation }) => {
         </View>
 
         {/* SECTION: Verified Land Traders */}
-        <View style={styles.sectionContainer}>
+        <View className="mt-6">
           <SectionHeader
             title="Verified Land Brokers & Traders"
             subtitle="Connect with trusted local land experts"
@@ -80,12 +77,12 @@ export const BrowseJaminScreen: React.FC<Props> = ({ navigation }) => {
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.traderScrollContainer}
+            contentContainerStyle={{ paddingHorizontal: 16, gap: 12, paddingBottom: 6 }}
           >
             {TRADERS.map((trader) => (
               <TouchableOpacity
                 key={trader.id}
-                style={styles.traderCard}
+                className="bg-card border border-border rounded-[14px] p-3 w-[148px] items-center"
                 activeOpacity={0.85}
                 onPress={() =>
                   Alert.alert(
@@ -94,35 +91,35 @@ export const BrowseJaminScreen: React.FC<Props> = ({ navigation }) => {
                   )
                 }
               >
-                <View style={styles.traderAvatarContainer}>
-                  <Image source={{ uri: trader.avatar }} style={styles.traderAvatar} />
+                <View className="relative mb-[6px]">
+                  <Image source={{ uri: trader.avatar }} className="w-[50px] h-[50px] rounded-[25px] bg-border" />
                   {trader.verified && (
-                    <View style={styles.traderVerifiedBadge}>
+                    <View className="absolute bottom-0 right-0 bg-primary w-[16px] h-[16px] rounded-[8px] justify-center items-center">
                       <Ionicons name="checkmark" size={10} color="#FFFFFF" />
                     </View>
                   )}
                 </View>
-                <Text style={styles.traderName}>{trader.name}</Text>
-                <Text style={styles.traderCity}>{trader.city}, Gujarat</Text>
+                <Text className="text-[13px] font-bold text-text text-center">{trader.name}</Text>
+                <Text className="text-[11px] text-textLight mb-[6px]">{trader.city}, Gujarat</Text>
 
-                <View style={styles.traderStatsRow}>
-                  <View style={styles.traderStat}>
-                    <Text style={styles.traderStatNumber}>{trader.deals}</Text>
-                    <Text style={styles.traderStatLabel}>Deals</Text>
+                <View className="flex-row items-center mb-2 w-full justify-evenly">
+                  <View className="items-center">
+                    <Text className="text-[11px] font-bold text-text">{trader.deals}</Text>
+                    <Text className="text-[9px] text-textMuted">Deals</Text>
                   </View>
-                  <View style={styles.statDivider} />
-                  <View style={styles.traderStat}>
-                    <Text style={styles.traderStatNumber}>⭐ {trader.rating}</Text>
-                    <Text style={styles.traderStatLabel}>Rating</Text>
+                  <View className="w-[1px] h-[14px] bg-border" />
+                  <View className="items-center">
+                    <Text className="text-[11px] font-bold text-text">⭐ {trader.rating}</Text>
+                    <Text className="text-[9px] text-textMuted">Rating</Text>
                   </View>
                 </View>
 
                 <TouchableOpacity
-                  style={styles.traderConnectBtn}
+                  className="flex-row items-center bg-primaryLight px-2 py-[6px] rounded-[8px] w-full justify-center"
                   onPress={() => Alert.alert('Contact', `Call ${trader.name}`)}
                 >
-                  <Ionicons name="call-outline" size={13} color={colors.primary} style={{ marginRight: 4 }} />
-                  <Text style={styles.traderConnectText}>Connect</Text>
+                  <Ionicons name="call-outline" size={13} color={colors.primary} className="mr-1" />
+                  <Text className="text-[11px] font-bold text-primary">Connect</Text>
                 </TouchableOpacity>
               </TouchableOpacity>
             ))}
@@ -130,33 +127,33 @@ export const BrowseJaminScreen: React.FC<Props> = ({ navigation }) => {
         </View>
 
         {/* SECTION: Buyer Demands */}
-        <View style={styles.sectionContainer}>
+        <View className="mt-6">
           <SectionHeader
             title="Recent Buyer Demands"
             subtitle="Active buyers searching for land right now"
           />
 
-          <View style={styles.demandListPadding}>
+          <View className="px-4 gap-[10px]">
             {BUYER_REQUESTS.map((req) => (
-              <View key={req.id} style={styles.demandCard}>
-                <View style={styles.demandIconCircle}>
+              <View key={req.id} className="bg-card rounded-[12px] border border-border p-3 flex-row items-center">
+                <View className="w-[38px] h-[38px] rounded-[19px] bg-primaryLight justify-center items-center mr-[10px]">
                   <Ionicons name="cart-outline" size={18} color={colors.primary} />
                 </View>
-                <View style={styles.demandInfo}>
-                  <View style={styles.demandHeaderRow}>
-                    <Text style={styles.demandTitle}>{req.name}</Text>
-                    <Text style={styles.demandTime}>{req.time}</Text>
+                <View className="flex-1">
+                  <View className="flex-row justify-between items-center">
+                    <Text className="text-[13px] font-bold text-text">{req.name}</Text>
+                    <Text className="text-[10px] text-textMuted">{req.time}</Text>
                   </View>
-                  <Text style={styles.demandDetails}>
+                  <Text className="text-[11px] text-textLight mt-[2px]">
                     Type: {req.type} • Location: {req.location || 'Gujarat'}
                   </Text>
-                  <Text style={styles.demandBudget}>Budget: {req.budget}</Text>
+                  <Text className="text-[11px] font-bold text-primary mt-[2px]">Budget: {req.budget}</Text>
                 </View>
                 <TouchableOpacity
-                  style={styles.demandMatchBtn}
+                  className="bg-primary px-[10px] py-[6px] rounded-[6px] ml-[6px]"
                   onPress={() => Alert.alert('Match Offer', `Send your property offer to buyer`)}
                 >
-                  <Text style={styles.demandMatchText}>Match</Text>
+                  <Text className="text-white text-[11px] font-bold">Match</Text>
                 </TouchableOpacity>
               </View>
             ))}
@@ -166,170 +163,3 @@ export const BrowseJaminScreen: React.FC<Props> = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: colors.white,
-  },
-  scrollView: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  scrollContent: {
-    paddingBottom: 40,
-  },
-  sectionContainer: {
-    marginTop: 24,
-  },
-  propertyListPadding: {
-    paddingHorizontal: 16,
-  },
-  traderScrollContainer: {
-    paddingHorizontal: 16,
-    gap: 12,
-    paddingBottom: 6,
-  },
-  traderCard: {
-    backgroundColor: colors.card,
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: 14,
-    padding: 12,
-    width: 148,
-    alignItems: 'center',
-  },
-  traderAvatarContainer: {
-    position: 'relative',
-    marginBottom: 6,
-  },
-  traderAvatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: colors.border,
-  },
-  traderVerifiedBadge: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    backgroundColor: colors.primary,
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  traderName: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: colors.text,
-    textAlign: 'center',
-  },
-  traderCity: {
-    fontSize: 11,
-    color: colors.textLight,
-    marginBottom: 6,
-  },
-  traderStatsRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-    width: '100%',
-    justifyContent: 'space-evenly',
-  },
-  traderStat: {
-    alignItems: 'center',
-  },
-  traderStatNumber: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: colors.text,
-  },
-  traderStatLabel: {
-    fontSize: 9,
-    color: colors.textMuted,
-  },
-  statDivider: {
-    width: 1,
-    height: 14,
-    backgroundColor: colors.border,
-  },
-  traderConnectBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.primaryLight,
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-    borderRadius: 8,
-    width: '100%',
-    justifyContent: 'center',
-  },
-  traderConnectText: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: colors.primary,
-  },
-  demandListPadding: {
-    paddingHorizontal: 16,
-    gap: 10,
-  },
-  demandCard: {
-    backgroundColor: colors.card,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: colors.border,
-    padding: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  demandIconCircle: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    backgroundColor: colors.primaryLight,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 10,
-  },
-  demandInfo: {
-    flex: 1,
-  },
-  demandHeaderRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  demandTitle: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: colors.text,
-  },
-  demandTime: {
-    fontSize: 10,
-    color: colors.textMuted,
-  },
-  demandDetails: {
-    fontSize: 11,
-    color: colors.textLight,
-    marginTop: 2,
-  },
-  demandBudget: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: colors.primary,
-    marginTop: 2,
-  },
-  demandMatchBtn: {
-    backgroundColor: colors.primary,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 6,
-    marginLeft: 6,
-  },
-  demandMatchText: {
-    color: colors.white,
-    fontSize: 11,
-    fontWeight: '700',
-  },
-});
