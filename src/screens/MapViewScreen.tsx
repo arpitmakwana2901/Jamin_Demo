@@ -1,5 +1,3 @@
-// TODO: Replace with react-native-maps in production
-
 import React, { useState } from 'react';
 import {
   View,
@@ -37,15 +35,15 @@ export const MapViewScreen: React.FC<any> = ({ navigation }) => {
   return (
     <SafeAreaView className="flex-1 bg-white" edges={['top', 'left', 'right']}>
       {/* Map Header */}
-      <View className="h-[60px] bg-white flex-row items-center justify-between px-5 border-b border-border">
+      <View className="h-[60px] bg-white flex-row items-center justify-between px-[20px] border-b border-[#E5E7EB]">
         <View className="justify-center">
-          <Text className="text-[18px] font-extrabold text-text">नक्शा दृश्य (Map View)</Text>
-          <Text className="text-[11px] text-textLight">
+          <Text className="text-[18px] font-extrabold text-[#111827]">नक्शा दृश्य (Map View)</Text>
+          <Text className="text-[11px] text-[#4B5563]">
             गुजरात में भूमि स्थानों का नक्शा
           </Text>
         </View>
         <TouchableOpacity
-          className="w-[38px] h-[38px] rounded-[19px] bg-topBarIconBg justify-center items-center"
+          className="w-[38px] h-[38px] rounded-[19px] bg-[#F3F4F6] justify-center items-center"
           onPress={() =>
             Alert.alert('फिल्टर', 'मानचित्र पर भूमि प्रकार या बजट अनुसार खोजें')
           }
@@ -67,19 +65,21 @@ export const MapViewScreen: React.FC<any> = ({ navigation }) => {
             return (
               <TouchableOpacity
                 key={pin.id}
+                style={{ top: pin.top as any, left: pin.left as any }}
                 className="absolute items-center"
-                style={{ top: pin.top, left: pin.left }}
                 activeOpacity={0.8}
                 onPress={() => setSelectedPin(pin.id)}
               >
                 <View
                   className={`px-[6px] py-[3px] rounded-[8px] border -mb-[4px] ${
-                    isSelected ? 'bg-primary border-primary' : 'bg-white border-border'
+                    isSelected
+                      ? 'bg-[#0B5E42] border-[#0B5E42]'
+                      : 'bg-white border-[#E5E7EB]'
                   }`}
                 >
                   <Text
                     className={`text-[10px] font-extrabold ${
-                      isSelected ? 'text-white' : 'text-text'
+                      isSelected ? 'text-white' : 'text-[#111827]'
                     }`}
                   >
                     {pin.title}
@@ -96,8 +96,8 @@ export const MapViewScreen: React.FC<any> = ({ navigation }) => {
         </ImageBackground>
 
         {/* Bottom Property Horizontal Scroll */}
-        <View className="absolute bottom-0 left-0 right-0 bg-white/92 rounded-t-[20px] pt-3 pb-5">
-          <Text className="text-[14px] font-extrabold text-text px-5 mb-[10px]">चुनी गई संपत्तियां</Text>
+        <View className="absolute bottom-0 left-0 right-0 bg-[rgba(255,255,255,0.92)] rounded-t-[20px] pt-[12px] pb-[20px]">
+          <Text className="text-[14px] font-extrabold text-[#111827] px-[20px] mb-[10px]">चुनी गई संपत्तियां</Text>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}

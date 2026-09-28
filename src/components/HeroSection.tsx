@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, ImageBackground, Platform } from 'react-native';
+import { View, Text, ImageBackground } from 'react-native';
+import { colors } from '../theme/colors';
 import { FeatureGridCard, FeatureCardData } from './FeatureGridCard';
 
 const FEATURE_ITEMS: FeatureCardData[] = [
@@ -32,24 +33,19 @@ export const HeroSection: React.FC = () => {
       className="w-full min-h-[450px]"
       resizeMode="cover"
     >
-      <View className="absolute inset-0 bg-overlayDark" />
+      <View className="absolute top-0 left-0 right-0 bottom-0 bg-[rgba(0,0,0,0.55)]" />
 
-      <View className="pt-[32px] pb-[70px] px-4 items-center">
+      <View className="pt-[32px] pb-[70px] px-[16px] items-center">
         {/* Main Title */}
-        <Text
-          className="text-[26px] font-black text-white text-center tracking-[0.5px] leading-[34px]"
-          style={{ fontFamily: Platform.OS === 'ios' ? 'System' : 'sans-serif-black' }}
-        >
+        <Text className="text-[26px] font-black text-white text-center tracking-[0.5px] leading-[34px]">
           JAHAN JAMIN, WAHAN JAMIN24
         </Text>
 
         {/* Subtitle with horizontal lines on both sides */}
-        <View className="flex-row items-center mt-[12px] px-2">
-          <View className="flex-1 h-[1px] bg-white/40" />
-          <Text className="text-white text-[11px] font-bold tracking-[1.2px] mx-[10px] text-center">
-            INDIA'S LEADING OPEN LAND PLATFORM
-          </Text>
-          <View className="flex-1 h-[1px] bg-white/40" />
+        <View className="flex-row items-center mt-[12px] px-[8px]">
+          <View className="flex-1 h-[1px] bg-[rgba(255,255,255,0.4)]" />
+          <Text className="text-white text-[11px] font-bold tracking-[1.2px] mx-[10px] text-center">INDIA'S LEADING OPEN LAND PLATFORM</Text>
+          <View className="flex-1 h-[1px] bg-[rgba(255,255,255,0.4)]" />
         </View>
 
         {/* Description text */}

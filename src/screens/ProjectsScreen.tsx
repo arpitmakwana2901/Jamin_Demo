@@ -33,13 +33,13 @@ export const ProjectsScreen: React.FC = () => {
   return (
     <SafeAreaView className="flex-1 bg-white" edges={['top', 'left', 'right']}>
       {/* Header */}
-      <View className="px-5 py-[14px] border-b border-border">
-        <Text className="text-[22px] font-extrabold text-text">प्रॉपर्टी प्रोजेक्ट्स</Text>
-        <Text className="text-[13px] text-textLight mt-[2px]">गुजरात में नई विकास परियोजनाएं</Text>
+      <View className="px-[20px] py-[14px] border-b border-[#E5E7EB]">
+        <Text className="text-[22px] font-extrabold text-[#111827]">प्रॉपर्टी प्रोजेक्ट्स</Text>
+        <Text className="text-[13px] text-[#4B5563] mt-[2px]">गुजरात में नई विकास परियोजनाएं</Text>
       </View>
 
       {/* Category Tabs */}
-      <View className="bg-background py-[10px]">
+      <View className="bg-[#F8FAFC] py-[10px]">
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -50,14 +50,16 @@ export const ProjectsScreen: React.FC = () => {
             return (
               <TouchableOpacity
                 key={cat}
-                className={`px-4 py-2 rounded-[20px] bg-white border ${
-                  isSelected ? 'bg-primary border-primary' : 'border-border'
+                className={`px-[16px] py-[8px] rounded-[20px] border ${
+                  isSelected
+                    ? 'bg-[#0B5E42] border-[#0B5E42]'
+                    : 'bg-white border-[#E5E7EB]'
                 }`}
                 onPress={() => setSelectedCategory(cat)}
               >
                 <Text
                   className={`text-[13px] ${
-                    isSelected ? 'text-white font-bold' : 'font-semibold text-text'
+                    isSelected ? 'text-white font-bold' : 'text-[#111827] font-semibold'
                   }`}
                 >
                   {cat}
@@ -70,7 +72,7 @@ export const ProjectsScreen: React.FC = () => {
 
       {/* 2-Column Grid */}
       <ScrollView
-        className="flex-1 bg-background"
+        className="flex-1 bg-[#F8FAFC]"
         contentContainerStyle={{ padding: 20, paddingBottom: 40 }}
         showsVerticalScrollIndicator={false}
       >
@@ -82,12 +84,12 @@ export const ProjectsScreen: React.FC = () => {
             onAction={() => setSelectedCategory('सभी')}
           />
         ) : (
-          <View className="flex-row flex-wrap gap-3">
+          <View className="flex-row flex-wrap gap-[12px]">
             {filteredProjects.map((project) => (
               <TouchableOpacity
                 key={project.id}
                 style={{ width: cardWidth }}
-                className="bg-card rounded-[16px] border border-border overflow-hidden"
+                className="bg-white rounded-[16px] border border-[#E5E7EB] overflow-hidden"
                 activeOpacity={0.85}
                 onPress={() =>
                   Alert.alert(
@@ -98,25 +100,25 @@ export const ProjectsScreen: React.FC = () => {
               >
                 <View className="h-[120px] w-full relative">
                   <Image source={{ uri: project.image }} className="w-full h-full" resizeMode="cover" />
-                  <View className="absolute top-2 right-2 bg-primary rounded-[8px] px-[6px] py-[3px]">
+                  <View className="absolute top-[8px] right-[8px] bg-[#0B5E42] rounded-[8px] px-[6px] py-[3px]">
                     <Text className="text-white text-[10px] font-bold">{project.unitsAvailable} इकाइयां</Text>
                   </View>
                 </View>
 
                 <View className="p-[10px]">
-                  <Text className="text-[14px] font-extrabold text-text mb-1" numberOfLines={1}>
+                  <Text className="text-[14px] font-extrabold text-[#111827] mb-[4px]" numberOfLines={1}>
                     {project.name}
                   </Text>
                   <View className="flex-row items-center mb-[6px]">
                     <Ionicons name="location-outline" size={12} color={colors.textLight} />
-                    <Text className="text-[11px] text-textLight ml-[2px]" numberOfLines={1}>
+                    <Text className="text-[11px] text-[#4B5563] ml-[2px]" numberOfLines={1}>
                       {project.location}
                     </Text>
                   </View>
-                  <Text className="text-[13px] font-extrabold text-primary mb-2">{project.priceRange}</Text>
+                  <Text className="text-[13px] font-extrabold text-[#0B5E42] mb-[8px]">{project.priceRange}</Text>
 
-                  <View className="bg-primaryLight py-[6px] rounded-[8px] items-center">
-                    <Text className="text-[11px] font-bold text-primary">विवरण देखें</Text>
+                  <View className="bg-[#E8F5E9] py-[6px] rounded-[8px] items-center">
+                    <Text className="text-[11px] font-bold text-[#0B5E42]">विवरण देखें</Text>
                   </View>
                 </View>
               </TouchableOpacity>

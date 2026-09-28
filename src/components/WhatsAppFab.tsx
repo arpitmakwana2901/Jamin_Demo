@@ -1,6 +1,8 @@
 import React from 'react';
 import { TouchableOpacity, Alert, ViewStyle } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { colors } from '../theme/colors';
+import { shadows } from '../theme/spacing';
 
 interface WhatsAppFabProps {
   onPress?: () => void;
@@ -18,8 +20,8 @@ export const WhatsAppFab: React.FC<WhatsAppFabProps> = ({ onPress, style }) => {
 
   return (
     <TouchableOpacity
-      style={style}
-      className="w-[52px] h-[52px] rounded-[26px] bg-whatsapp justify-center items-center shadow-lg shadow-whatsapp/35 elevation-8"
+      style={[shadows.fab, style]}
+      className="w-[52px] h-[52px] rounded-[26px] bg-[#25D366] justify-center items-center"
       activeOpacity={0.8}
       onPress={handlePress}
     >

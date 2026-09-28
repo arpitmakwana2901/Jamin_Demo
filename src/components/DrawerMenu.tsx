@@ -78,38 +78,49 @@ const LandscapeIllustration: React.FC<{ width: number }> = ({ width: svgWidth })
 
       {/* Group of stylized trees on the left */}
       <G opacity={0.85}>
+        {/* Tree 1 */}
         <Rect x="16" y="46" width="2" height="12" fill="#78AFA0" />
         <Circle cx="17" cy="40" r="8" fill="#91C7B8" />
 
+        {/* Tree 2 */}
         <Rect x="27" y="38" width="2.5" height="16" fill="#78AFA0" />
         <Circle cx="28" cy="30" r="12" fill="#82BDAE" />
 
+        {/* Tree 3 */}
         <Rect x="41" y="42" width="2" height="14" fill="#78AFA0" />
         <Circle cx="42" cy="35" r="9" fill="#99CEBF" />
 
+        {/* Accent Tree Bulbs */}
         <Circle cx="10" cy="45" r="6.5" fill="#A4D5C7" />
         <Circle cx="51" cy="41" r="6.5" fill="#A8D7CA" />
       </G>
 
       {/* Stylized tractor on the right field */}
       <G opacity={0.85}>
+        {/* Rear Wheel (Big) */}
         <Circle cx="230" cy="57" r="8" fill="#FFFFFF" stroke="#6FA695" strokeWidth="2.5" />
         <Circle cx="230" cy="57" r="3" fill="#6FA695" />
 
+        {/* Front Wheel (Small) */}
         <Circle cx="250" cy="61" r="4.5" fill="#FFFFFF" stroke="#6FA695" strokeWidth="2" />
         <Circle cx="250" cy="61" r="1.5" fill="#6FA695" />
 
+        {/* Tractor Body & Hood */}
         <Path
           d="M230 50 L238 50 L238 54 L250 54 L250 59 L230 59 Z"
           fill="#6FA695"
         />
 
+        {/* Tractor Mudguard / Seat */}
         <Path
           d="M225 51 Q227 44 233 45 L233 50 Z"
           fill="#7BB0A0"
         />
 
+        {/* Steering wheel */}
         <Line x1="238" y1="48" x2="235" y2="51" stroke="#6FA695" strokeWidth="1.4" />
+
+        {/* Exhaust pipe */}
         <Line x1="247" y1="54" x2="247" y2="47" stroke="#6FA695" strokeWidth="1.4" />
       </G>
     </Svg>
@@ -286,6 +297,8 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
     },
   ];
 
+  const headerPaddingTop = Platform.OS === 'android' ? (StatusBar.currentHeight || 24) + 14 : 50;
+
   return (
     <Modal
       visible={visible}
@@ -293,22 +306,19 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
       transparent={true}
       onRequestClose={onClose}
     >
-      <View className="flex-1 bg-black/45 flex-row">
+      <View className="flex-1 bg-[rgba(0,0,0,0.45)] flex-row">
         {/* Backdrop tap to dismiss */}
         <TouchableWithoutFeedback onPress={onClose}>
-          <View className="absolute inset-0" />
+          <View className="absolute top-0 left-0 right-0 bottom-0" />
         </TouchableWithoutFeedback>
 
         {/* Drawer Body */}
-        <View
-          style={{ width: DRAWER_WIDTH }}
-          className="h-full bg-white elevation-20 shadow-xl shadow-black/25"
-        >
+        <View style={{ width: DRAWER_WIDTH }} className="h-full bg-white elevation-20 shadow-xl">
           <View className="flex-1 bg-white">
             {/* Header: Dark Green with Logo, User Details & Watermark */}
             <TouchableOpacity
-              style={{ paddingTop: Platform.OS === 'android' ? (StatusBar.currentHeight || 24) + 14 : 50 }}
-              className="bg-headerDark pb-5 px-4 flex-row items-center relative overflow-hidden"
+              style={{ paddingTop: headerPaddingTop }}
+              className="bg-[#0A4D3C] pb-[20px] px-[16px] flex-row items-center relative overflow-hidden"
               activeOpacity={0.85}
               onPress={() => handleNavigate('Account')}
             >
@@ -321,7 +331,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
               />
 
               {/* White Circular Badge with Logo */}
-              <View className="w-[46px] h-[46px] rounded-[23px] bg-white justify-center items-center shadow-sm elevation-3">
+              <View className="w-[46px] h-[46px] rounded-[23px] bg-white justify-center items-center elevation-3">
                 <Image
                   source={require('../assets/images/drawer_logo.png')}
                   className="w-[38px] h-[38px]"
@@ -332,7 +342,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
               {/* User Title & Subtitle */}
               <View className="flex-1 ml-[10px]">
                 <Text className="text-[16px] font-bold text-white tracking-[0.2px]">Jamin Buddy</Text>
-                <Text className="text-[12px] font-normal text-subHeaderGreen mt-[2px]">Farmer / Land Seeker</Text>
+                <Text className="text-[12px] font-normal text-[#9ED8C9] mt-[2px]">Farmer / Land Seeker</Text>
               </View>
 
               {/* Right Chevron */}
@@ -385,7 +395,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
 
                     {/* Badge if present (Notifications) */}
                     {item.badge != null && (
-                      <View className="w-[18px] h-[18px] rounded-[9px] bg-badgeRed justify-center items-center mr-[6px]">
+                      <View className="w-[18px] h-[18px] rounded-[9px] bg-[#E03B3B] justify-center items-center mr-[6px]">
                         <Text className="text-white text-[10px] font-bold">{item.badge}</Text>
                       </View>
                     )}
@@ -406,11 +416,8 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
             {/* Bottom Section: Landscape Illustration & Footer */}
             <View className="mt-auto bg-white">
               <LandscapeIllustration width={DRAWER_WIDTH} />
-              <View
-                style={{ paddingBottom: Platform.OS === 'ios' ? 24 : 16 }}
-                className="flex-row items-center justify-center pt-2"
-              >
-                <Text className="text-[12px] font-extrabold text-headerDark">Jamin24</Text>
+              <View className={`flex-row items-center justify-center pt-[8px] ${Platform.OS === 'ios' ? 'pb-[24px]' : 'pb-[16px]'}`}>
+                <Text className="text-[12px] font-extrabold text-[#0A4D3C]">Jamin24</Text>
                 <Text className="text-[11px] text-[#CBD5E1] mx-[6px]">|</Text>
                 <Text className="text-[10px] font-medium text-[#64748B]">Connecting Land & Dreams</Text>
               </View>

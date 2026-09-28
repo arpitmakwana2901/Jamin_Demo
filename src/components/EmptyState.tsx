@@ -12,7 +12,7 @@ interface EmptyStateProps {
 }
 
 export const EmptyState: React.FC<EmptyStateProps> = ({
-  icon: _icon = 'search-outline',
+  icon = 'search-outline',
   title,
   description,
   actionText,
@@ -20,16 +20,16 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 }) => {
   return (
     <View className="p-[30px] items-center justify-center">
-      <View className="w-[72px] h-[72px] rounded-[36px] bg-primaryLight justify-center items-center mb-4">
+      <View className="w-[72px] h-[72px] rounded-[36px] bg-[#E8F5E9] justify-center items-center mb-[16px]">
         <Ionicons name={'duplicate'} size={36} color={colors.primary} />
       </View>
 
-      <Text className="text-[18px] font-extrabold text-text text-center mb-[6px]">{title}</Text>
-      <Text className="text-[13px] text-textLight text-center leading-[20px] mb-5">{description}</Text>
+      <Text className="text-[18px] font-extrabold text-[#111827] text-center mb-[6px]">{title}</Text>
+      <Text className="text-[13px] text-[#4B5563] text-center leading-[20px] mb-[20px]">{description}</Text>
 
       {actionText && onAction && (
         <TouchableOpacity
-          className="bg-primary px-5 py-3 rounded-[12px]"
+          className="bg-[#0B5E42] px-[20px] py-[12px] rounded-[12px]"
           activeOpacity={0.8}
           onPress={onAction}
         >

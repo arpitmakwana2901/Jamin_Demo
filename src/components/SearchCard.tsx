@@ -77,24 +77,24 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
   };
 
   return (
-    <View className="bg-card mx-4 -mt-[45px] rounded-[16px] p-[18px] shadow-lg shadow-black/10 elevation-8 z-10">
+    <View className="bg-white mx-[16px] -mt-[45px] rounded-[16px] p-[18px] z-10 elevation-8 shadow-lg">
       {/* Title */}
-      <Text className="text-[18px] font-extrabold text-text text-center mb-4">Find Your Dream Jamin</Text>
+      <Text className="text-[18px] font-extrabold text-[#111827] text-center mb-[16px]">Find Your Dream Jamin</Text>
 
       {/* Row 1: Location & Property ID */}
-      <View className="flex-row gap-3 mb-3">
+      <View className="flex-row gap-[12px] mb-[12px]">
         {/* Left: Location */}
         <View className="flex-1">
-          <Text className="text-[12px] font-bold text-text mb-[6px]">Location</Text>
+          <Text className="text-[12px] font-bold text-[#111827] mb-[6px]">Location</Text>
           <TouchableOpacity
-            className="flex-row items-center bg-chipBg border border-border rounded-[10px] px-[10px] h-[44px]"
+            className="flex-row items-center bg-[#F3F4F6] border border-[#E5E7EB] rounded-[10px] px-[10px] h-[44px]"
             activeOpacity={0.7}
             onPress={() => setActiveModal('location')}
           >
             <Ionicons name="location-outline" size={16} color={colors.primary} className="mr-[6px]" />
             <Text
-              className={`flex-1 text-[12px] ${
-                location === 'Select City / District' ? 'text-textMuted font-normal' : 'text-text font-semibold'
+              className={`flex-1 text-[12px] text-[#111827] ${
+                location === 'Select City / District' ? 'text-[#9CA3AF] font-normal' : 'font-semibold'
               }`}
               numberOfLines={1}
             >
@@ -106,11 +106,11 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
 
         {/* Right: Property ID */}
         <View className="flex-1">
-          <Text className="text-[12px] font-bold text-text mb-[6px]">Property ID (If you have)</Text>
-          <View className="flex-row items-center bg-chipBg border border-border rounded-[10px] px-[10px] h-[44px]">
+          <Text className="text-[12px] font-bold text-[#111827] mb-[6px]">Property ID (If you have)</Text>
+          <View className="flex-row items-center bg-[#F3F4F6] border border-[#E5E7EB] rounded-[10px] px-[10px] h-[44px]">
             <Ionicons name="barcode-outline" size={16} color={colors.primary} className="mr-[6px]" />
             <TextInput
-              className="flex-1 text-[12px] text-text p-0 font-medium"
+              className="flex-1 text-[12px] text-[#111827] p-0 font-medium"
               placeholder="e.g. GJ-01-382120-0001"
               placeholderTextColor={colors.textMuted}
               value={propertyId}
@@ -121,19 +121,19 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
       </View>
 
       {/* Row 2: Land Type & Budget */}
-      <View className="flex-row gap-3 mb-3">
+      <View className="flex-row gap-[12px] mb-[12px]">
         {/* Left: Land Type */}
         <View className="flex-1">
-          <Text className="text-[12px] font-bold text-text mb-[6px]">Land Type</Text>
+          <Text className="text-[12px] font-bold text-[#111827] mb-[6px]">Land Type</Text>
           <TouchableOpacity
-            className="flex-row items-center bg-chipBg border border-border rounded-[10px] px-[10px] h-[44px]"
+            className="flex-row items-center bg-[#F3F4F6] border border-[#E5E7EB] rounded-[10px] px-[10px] h-[44px]"
             activeOpacity={0.7}
             onPress={() => setActiveModal('landType')}
           >
             <Ionicons name="leaf-outline" size={16} color={colors.primary} className="mr-[6px]" />
             <Text
-              className={`flex-1 text-[12px] ${
-                landType === 'All Land Types' ? 'text-textMuted font-normal' : 'text-text font-semibold'
+              className={`flex-1 text-[12px] text-[#111827] ${
+                landType === 'All Land Types' ? 'text-[#9CA3AF] font-normal' : 'font-semibold'
               }`}
               numberOfLines={1}
             >
@@ -145,16 +145,16 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
 
         {/* Right: Budget */}
         <View className="flex-1">
-          <Text className="text-[12px] font-bold text-text mb-[6px]">Your Budget</Text>
+          <Text className="text-[12px] font-bold text-[#111827] mb-[6px]">Your Budget</Text>
           <TouchableOpacity
-            className="flex-row items-center bg-chipBg border border-border rounded-[10px] px-[10px] h-[44px]"
+            className="flex-row items-center bg-[#F3F4F6] border border-[#E5E7EB] rounded-[10px] px-[10px] h-[44px]"
             activeOpacity={0.7}
             onPress={() => setActiveModal('budget')}
           >
             <Ionicons name="cash-outline" size={16} color={colors.primary} className="mr-[6px]" />
             <Text
-              className={`flex-1 text-[12px] ${
-                budget === 'Max Budget (₹)' ? 'text-textMuted font-normal' : 'text-text font-semibold'
+              className={`flex-1 text-[12px] text-[#111827] ${
+                budget === 'Max Budget (₹)' ? 'text-[#9CA3AF] font-normal' : 'font-semibold'
               }`}
               numberOfLines={1}
             >
@@ -167,11 +167,11 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
 
       {/* Search Button */}
       <TouchableOpacity
-        className="bg-primary rounded-[10px] h-[48px] flex-row justify-center items-center mt-[6px] shadow-sm elevation-3"
+        className="bg-[#0B5E42] rounded-[10px] h-[48px] flex-row justify-center items-center mt-[6px] elevation-3"
         activeOpacity={0.85}
         onPress={handleSearch}
       >
-        <Ionicons name="search-outline" size={18} color={colors.white} className="mr-2" />
+        <Ionicons name="search-outline" size={18} color={colors.white} className="mr-[8px]" />
         <Text className="text-white text-[15px] font-bold">Search Jamin</Text>
       </TouchableOpacity>
 
@@ -186,10 +186,10 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
         onRequestClose={() => setActiveModal(null)}
       >
         <TouchableWithoutFeedback onPress={() => setActiveModal(null)}>
-          <View className="flex-1 bg-black/45 justify-center items-center p-5">
+          <View className="flex-1 bg-[rgba(0,0,0,0.45)] justify-center items-center p-[20px]">
             <TouchableWithoutFeedback>
               <View className="bg-white w-full max-h-[380px] rounded-[16px] p-[18px]">
-                <Text className="text-[16px] font-bold text-text mb-3 border-b border-border pb-[10px]">
+                <Text className="text-[16px] font-bold text-[#111827] mb-[12px] border-b border-[#E5E7EB] pb-[10px]">
                   {activeModal === 'location'
                     ? 'Select Location'
                     : activeModal === 'landType'
@@ -201,10 +201,10 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
                   keyExtractor={(item) => item}
                   renderItem={({ item }) => (
                     <TouchableOpacity
-                      className="flex-row justify-between items-center py-3 border-b border-divider"
+                      className="flex-row justify-between items-center py-[12px] border-b border-[#E5E7EB]"
                       onPress={() => handleSelect(item)}
                     >
-                      <Text className="text-[13px] text-text font-medium">{item}</Text>
+                      <Text className="text-[13px] text-[#111827] font-medium">{item}</Text>
                       <Ionicons name="chevron-forward-outline" size={16} color={colors.textMuted} />
                     </TouchableOpacity>
                   )}
@@ -217,4 +217,3 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
     </View>
   );
 };
-  

@@ -11,31 +11,13 @@ import { colors } from '../theme/colors';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
-const renderTabBarIcon = (routeName: string, focused: boolean, color: string) => {
-  let iconName: React.ComponentProps<typeof Ionicons>['name'] = 'home-outline';
-
-  if (routeName === 'Home') {
-    iconName = focused ? 'home' : 'home-outline';
-  } else if (routeName === 'Search') {
-    iconName = focused ? 'search' : 'search-outline';
-  } else if (routeName === 'MapView') {
-    iconName = focused ? 'map' : 'map-outline';
-  } else if (routeName === 'Projects') {
-    iconName = focused ? 'business' : 'business-outline';
-  } else if (routeName === 'Account') {
-    iconName = focused ? 'person' : 'person-outline';
-  }
-
-  return <Ionicons name={iconName} size={22} color={color} />;
-};
-
 export const TabNavigator: React.FC = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }: { route: { name: string } }) => ({
         headerShown: false,
-        tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: colors.textMuted,
+        tabBarActiveTintColor: colors.primary, // Deep Green #0B5E42
+        tabBarInactiveTintColor: colors.textMuted, // Grey #9CA3AF
         tabBarStyle: {
           height: 62,
           paddingBottom: 8,
@@ -53,7 +35,23 @@ export const TabNavigator: React.FC = () => {
           fontSize: 11,
           fontWeight: '700',
         },
-        tabBarIcon: ({ focused, color }) => renderTabBarIcon(route.name, focused, color),
+        tabBarIcon: ({ focused, color }: { focused: boolean; color: string; size: number }) => {
+          let iconName: React.ComponentProps<typeof Ionicons>['name'] = 'home-outline';
+
+          if (route.name === 'Home') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Search') {
+            iconName = focused ? 'search' : 'search-outline';
+          } else if (route.name === 'MapView') {
+            iconName = focused ? 'map' : 'map-outline';
+          } else if (route.name === 'Projects') {
+            iconName = focused ? 'business' : 'business-outline';
+          } else if (route.name === 'Account') {
+            iconName = focused ? 'person' : 'person-outline';
+          }
+
+          return <Ionicons name={iconName} size={22} color={color} />;
+        },
       })}
     >
       <Tab.Screen

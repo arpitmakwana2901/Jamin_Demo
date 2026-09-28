@@ -10,20 +10,21 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { colors } from '../theme/colors';
 import { PRICING_PLANS } from '../data/mockData';
+import { shadows } from '../theme/spacing';
 
 export const PricingPlansScreen: React.FC = () => {
   return (
     <SafeAreaView className="flex-1 bg-white" edges={['top', 'left', 'right']}>
       {/* Header */}
-      <View className="px-5 py-4 border-b border-border">
-        <Text className="text-[22px] font-extrabold text-text">सब्सक्रिप्शन प्लान्स (Pricing Plans)</Text>
-        <Text className="text-[13px] text-textLight mt-1 leading-[18px]">
+      <View className="px-[20px] py-[16px] border-b border-[#E5E7EB]">
+        <Text className="text-[22px] font-extrabold text-[#111827]">सब्सक्रिप्शन प्लान्स (Pricing Plans)</Text>
+        <Text className="text-[13px] text-[#4B5563] mt-[4px] leading-[18px]">
           अपनी आवश्यकता के अनुसार सही प्लान चुनें और बिक्री 10x बढ़ाएं
         </Text>
       </View>
 
       <ScrollView
-        className="flex-1 bg-background"
+        className="flex-1 bg-[#F8FAFC]"
         contentContainerStyle={{ padding: 20, paddingBottom: 40, gap: 20 }}
         showsVerticalScrollIndicator={false}
       >
@@ -32,37 +33,40 @@ export const PricingPlansScreen: React.FC = () => {
           return (
             <View
               key={plan.id}
-              className={`rounded-[20px] p-5 relative shadow-md shadow-black/10 elevation-6 ${
-                isPro ? 'border-primary border-2 bg-[#FAFDFB]' : 'bg-card border border-border'
+              style={shadows.card}
+              className={`rounded-[20px] p-[20px] relative ${
+                isPro
+                  ? 'border-2 border-[#0B5E42] bg-[#FAFDFB]'
+                  : 'border border-[#E5E7EB] bg-white'
               }`}
             >
               {/* Popular Badge */}
               {isPro && (
-                <View className="absolute -top-[12px] right-5 bg-primary px-3 py-[4px] rounded-[12px]">
+                <View className="absolute -top-[12px] right-[20px] bg-[#0B5E42] px-[12px] py-[4px] rounded-[12px]">
                   <Text className="text-white text-[11px] font-extrabold">{plan.badge || 'सर्वश्रेष्ठ पसंद'}</Text>
                 </View>
               )}
 
-              <Text className="text-[18px] font-extrabold text-text mb-2">{plan.name}</Text>
+              <Text className="text-[18px] font-extrabold text-[#111827] mb-[8px]">{plan.name}</Text>
 
-              <View className="flex-row items-baseline mb-4">
-                <Text className="text-[30px] font-black text-primary">{plan.price}</Text>
-                <Text className="text-[14px] text-textLight ml-1 font-semibold">{plan.period}</Text>
+              <View className="flex-row items-baseline mb-[16px]">
+                <Text className="text-[30px] font-black text-[#0B5E42]">{plan.price}</Text>
+                <Text className="text-[14px] text-[#4B5563] ml-[4px] font-semibold">{plan.period}</Text>
               </View>
 
-              <View className="h-[1px] bg-divider mb-4" />
+              <View className="h-[1px] bg-[#E5E7EB] mb-[16px]" />
 
               {/* Features List */}
-              <View className="gap-3 mb-5">
+              <View className="gap-[12px] mb-[20px]">
                 {plan.features.map((feature, idx) => (
                   <View key={idx} className="flex-row items-center">
                     <Ionicons
                       name="checkmark-circle"
                       size={18}
                       color={isPro ? colors.primary : '#10B981'}
-                      className="mr-2"
+                      className="mr-[8px]"
                     />
-                    <Text className="text-[13px] font-semibold text-text flex-1">{feature}</Text>
+                    <Text className="text-[13px] font-semibold text-[#111827] flex-1">{feature}</Text>
                   </View>
                 ))}
               </View>
@@ -70,7 +74,7 @@ export const PricingPlansScreen: React.FC = () => {
               {/* Subscribe Button */}
               <TouchableOpacity
                 className={`rounded-[12px] py-[14px] items-center ${
-                  isPro ? 'bg-primary' : 'bg-chipBg'
+                  isPro ? 'bg-[#0B5E42]' : 'bg-[#F3F4F6]'
                 }`}
                 activeOpacity={0.85}
                 onPress={() =>
@@ -80,7 +84,11 @@ export const PricingPlansScreen: React.FC = () => {
                   )
                 }
               >
-                <Text className={`text-[15px] font-bold ${isPro ? 'text-white' : 'text-text'}`}>
+                <Text
+                  className={`text-[15px] font-bold ${
+                    isPro ? 'text-white' : 'text-[#111827]'
+                  }`}
+                >
                   अभी सदस्यता लें
                 </Text>
               </TouchableOpacity>
