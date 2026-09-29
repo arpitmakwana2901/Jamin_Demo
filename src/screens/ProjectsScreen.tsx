@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
+  StyleSheet,
   ScrollView,
   TouchableOpacity,
   Image,
@@ -12,6 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { colors } from '../theme/colors';
 import { PROJECTS } from '../data/mockData';
+import { Project } from '../types';
 import { EmptyState } from '../components/EmptyState';
 
 const { width } = Dimensions.get('window');
@@ -31,37 +33,29 @@ export const ProjectsScreen: React.FC = () => {
   });
 
   return (
-    <SafeAreaView className="flex-1 bg-white" edges={['top', 'left', 'right']}>
+    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       {/* Header */}
-      <View className="px-[20px] py-[14px] border-b border-[#E5E7EB]">
-        <Text className="text-[22px] font-extrabold text-[#111827]">प्रॉपर्टी प्रोजेक्ट्स</Text>
-        <Text className="text-[13px] text-[#4B5563] mt-[2px]">गुजरात में नई विकास परियोजनाएं</Text>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>प्रॉपर्टी प्रोजेक्ट्स</Text>
+        <Text style={styles.headerSubtitle}>गुजरात में नई विकास परियोजनाएं</Text>
       </View>
 
       {/* Category Tabs */}
-      <View className="bg-[#F8FAFC] py-[10px]">
+      <View style={styles.tabContainer}>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 20, gap: 8 }}
+          contentContainerStyle={styles.tabScroll}
         >
           {CATEGORIES.map((cat) => {
             const isSelected = selectedCategory === cat;
             return (
               <TouchableOpacity
                 key={cat}
-                className={`px-[16px] py-[8px] rounded-[20px] border ${
-                  isSelected
-                    ? 'bg-[#0B5E42] border-[#0B5E42]'
-                    : 'bg-white border-[#E5E7EB]'
-                }`}
+                style={[styles.tabChip, isSelected && styles.tabChipSelected]}
                 onPress={() => setSelectedCategory(cat)}
               >
-                <Text
-                  className={`text-[13px] ${
-                    isSelected ? 'text-white font-bold' : 'text-[#111827] font-semibold'
-                  }`}
-                >
+                <Text style={[styles.tabText, isSelected && styles.tabTextSelected]}>
                   {cat}
                 </Text>
               </TouchableOpacity>
@@ -72,8 +66,8 @@ export const ProjectsScreen: React.FC = () => {
 
       {/* 2-Column Grid */}
       <ScrollView
-        className="flex-1 bg-[#F8FAFC]"
-        contentContainerStyle={{ padding: 20, paddingBottom: 40 }}
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
         {filteredProjects.length === 0 ? (
@@ -84,12 +78,11 @@ export const ProjectsScreen: React.FC = () => {
             onAction={() => setSelectedCategory('सभी')}
           />
         ) : (
-          <View className="flex-row flex-wrap gap-[12px]">
+          <View style={styles.grid}>
             {filteredProjects.map((project) => (
               <TouchableOpacity
                 key={project.id}
-                style={{ width: cardWidth }}
-                className="bg-white rounded-[16px] border border-[#E5E7EB] overflow-hidden"
+                style={styles.projectCard}
                 activeOpacity={0.85}
                 onPress={() =>
                   Alert.alert(
@@ -98,27 +91,27 @@ export const ProjectsScreen: React.FC = () => {
                   )
                 }
               >
-                <View className="h-[120px] w-full relative">
-                  <Image source={{ uri: project.image }} className="w-full h-full" resizeMode="cover" />
-                  <View className="absolute top-[8px] right-[8px] bg-[#0B5E42] rounded-[8px] px-[6px] py-[3px]">
-                    <Text className="text-white text-[10px] font-bold">{project.unitsAvailable} इकाइयां</Text>
+                <View style={styles.imageContainer}>
+                  <Image source={{ uri: project.image }} style={styles.image} resizeMode="cover" />
+                  <View style={styles.unitsBadge}>
+                    <Text style={styles.unitsBadgeText}>{project.unitsAvailable} इकाइयां</Text>
                   </View>
                 </View>
 
-                <View className="p-[10px]">
-                  <Text className="text-[14px] font-extrabold text-[#111827] mb-[4px]" numberOfLines={1}>
+                <View style={styles.cardContent}>
+                  <Text style={styles.projectName} numberOfLines={1}>
                     {project.name}
                   </Text>
-                  <View className="flex-row items-center mb-[6px]">
+                  <View style={styles.locationRow}>
                     <Ionicons name="location-outline" size={12} color={colors.textLight} />
-                    <Text className="text-[11px] text-[#4B5563] ml-[2px]" numberOfLines={1}>
+                    <Text style={styles.locationText} numberOfLines={1}>
                       {project.location}
                     </Text>
                   </View>
-                  <Text className="text-[13px] font-extrabold text-[#0B5E42] mb-[8px]">{project.priceRange}</Text>
+                  <Text style={styles.priceRange}>{project.priceRange}</Text>
 
-                  <View className="bg-[#E8F5E9] py-[6px] rounded-[8px] items-center">
-                    <Text className="text-[11px] font-bold text-[#0B5E42]">विवरण देखें</Text>
+                  <View style={styles.enquireButton}>
+                    <Text style={styles.enquireText}>विवरण देखें</Text>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -129,3 +122,135 @@ export const ProjectsScreen: React.FC = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.white,
+  },
+  header: {
+    paddingHorizontal: 20,
+    paddingVertical: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+  },
+  headerTitle: {
+    fontSize: 22,
+    fontWeight: '800',
+    color: colors.text,
+  },
+  headerSubtitle: {
+    fontSize: 13,
+    color: colors.textLight,
+    marginTop: 2,
+  },
+  tabContainer: {
+    backgroundColor: colors.background,
+    paddingVertical: 10,
+  },
+  tabScroll: {
+    paddingHorizontal: 20,
+    gap: 8,
+  },
+  tabChip: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+    backgroundColor: colors.white,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  tabChipSelected: {
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
+  },
+  tabText: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: colors.text,
+  },
+  tabTextSelected: {
+    color: colors.white,
+    fontWeight: '700',
+  },
+  scrollView: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+  scrollContent: {
+    padding: 20,
+    paddingBottom: 40,
+  },
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+  },
+  projectCard: {
+    width: cardWidth,
+    backgroundColor: colors.card,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.border,
+    overflow: 'hidden',
+  },
+  imageContainer: {
+    height: 120,
+    width: '100%',
+    position: 'relative',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+  },
+  unitsBadge: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    backgroundColor: colors.primary,
+    borderRadius: 8,
+    paddingHorizontal: 6,
+    paddingVertical: 3,
+  },
+  unitsBadgeText: {
+    color: colors.white,
+    fontSize: 10,
+    fontWeight: '700',
+  },
+  cardContent: {
+    padding: 10,
+  },
+  projectName: {
+    fontSize: 14,
+    fontWeight: '800',
+    color: colors.text,
+    marginBottom: 4,
+  },
+  locationRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  locationText: {
+    fontSize: 11,
+    color: colors.textLight,
+    marginLeft: 2,
+  },
+  priceRange: {
+    fontSize: 13,
+    fontWeight: '800',
+    color: colors.primary,
+    marginBottom: 8,
+  },
+  enquireButton: {
+    backgroundColor: colors.primaryLight,
+    paddingVertical: 6,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  enquireText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: colors.primary,
+  },
+});

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
+  StyleSheet,
   Modal,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -297,8 +298,6 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
     },
   ];
 
-  const headerPaddingTop = Platform.OS === 'android' ? (StatusBar.currentHeight || 24) + 14 : 50;
-
   return (
     <Modal
       visible={visible}
@@ -306,43 +305,41 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
       transparent={true}
       onRequestClose={onClose}
     >
-      <View className="flex-1 bg-[rgba(0,0,0,0.45)] flex-row">
+      <View style={styles.overlay}>
         {/* Backdrop tap to dismiss */}
         <TouchableWithoutFeedback onPress={onClose}>
-          <View className="absolute top-0 left-0 right-0 bottom-0" />
+          <View style={styles.backdrop} />
         </TouchableWithoutFeedback>
 
         {/* Drawer Body */}
-        <View style={{ width: DRAWER_WIDTH }} className="h-full bg-white elevation-20 shadow-xl">
-          <View className="flex-1 bg-white">
+        <View style={styles.drawerContainer}>
+          <View style={styles.drawerContent}>
             {/* Header: Dark Green with Logo, User Details & Watermark */}
             <TouchableOpacity
-              style={{ paddingTop: headerPaddingTop }}
-              className="bg-[#0A4D3C] pb-[20px] px-[16px] flex-row items-center relative overflow-hidden"
+              style={styles.drawerHeader}
               activeOpacity={0.85}
               onPress={() => handleNavigate('Account')}
             >
               {/* Subtle watermark logo in top-right corner */}
               <Image
                 source={require('../assets/images/drawer_logo.png')}
-                className="absolute -right-[25px] -top-[20px] w-[140px] h-[140px] opacity-[0.12]"
-                style={{ tintColor: '#FFFFFF' }}
+                style={styles.headerWatermark}
                 resizeMode="contain"
               />
 
               {/* White Circular Badge with Logo */}
-              <View className="w-[46px] h-[46px] rounded-[23px] bg-white justify-center items-center elevation-3">
+              <View style={styles.headerLogoCircle}>
                 <Image
                   source={require('../assets/images/drawer_logo.png')}
-                  className="w-[38px] h-[38px]"
+                  style={styles.headerLogoImage}
                   resizeMode="contain"
                 />
               </View>
 
               {/* User Title & Subtitle */}
-              <View className="flex-1 ml-[10px]">
-                <Text className="text-[16px] font-bold text-white tracking-[0.2px]">Jamin Buddy</Text>
-                <Text className="text-[12px] font-normal text-[#9ED8C9] mt-[2px]">Farmer / Land Seeker</Text>
+              <View style={styles.headerInfo}>
+                <Text style={styles.headerTitle}>Jamin Buddy</Text>
+                <Text style={styles.headerSubtitle}>Farmer / Land Seeker</Text>
               </View>
 
               {/* Right Chevron */}
@@ -351,8 +348,8 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
 
             {/* Menu Items List */}
             <ScrollView
-              className="flex-1"
-              contentContainerStyle={{ paddingVertical: 10 }}
+              style={styles.menuScroll}
+              contentContainerStyle={styles.scrollContent}
               showsVerticalScrollIndicator={false}
               bounces={false}
             >
@@ -361,9 +358,10 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
                 return (
                   <TouchableOpacity
                     key={item.id}
-                    className={`flex-row items-center py-[10px] px-[12px] mx-[6px] my-[1.5px] rounded-[8px] relative ${
-                      isActive ? 'bg-[#EEF6F2]' : ''
-                    }`}
+                    style={[
+                      styles.menuItem,
+                      isActive && styles.menuItemActive,
+                    ]}
                     activeOpacity={0.7}
                     onPress={() => {
                       setActiveId(item.id);
@@ -371,12 +369,10 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
                     }}
                   >
                     {/* Active left green indicator */}
-                    {isActive && (
-                      <View className="absolute left-0 top-[4px] bottom-[4px] w-[3.5px] bg-[#00A86B] rounded-r-[3px] rounded-l-[2px]" />
-                    )}
+                    {isActive && <View style={styles.activeIndicator} />}
 
                     {/* Icon */}
-                    <View className="w-[24px] items-start justify-center">
+                    <View style={styles.menuIconContainer}>
                       <Ionicons
                         name={item.iconName}
                         size={21}
@@ -386,17 +382,18 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
 
                     {/* Title */}
                     <Text
-                      className={`flex-1 text-[13.5px] ml-[6px] ${
-                        isActive ? 'font-bold text-[#111827]' : 'font-semibold text-[#1E293B]'
-                      }`}
+                      style={[
+                        styles.menuTitle,
+                        isActive && styles.menuTitleActive,
+                      ]}
                     >
                       {item.title}
                     </Text>
 
                     {/* Badge if present (Notifications) */}
                     {item.badge != null && (
-                      <View className="w-[18px] h-[18px] rounded-[9px] bg-[#E03B3B] justify-center items-center mr-[6px]">
-                        <Text className="text-white text-[10px] font-bold">{item.badge}</Text>
+                      <View style={styles.badgeContainer}>
+                        <Text style={styles.badgeText}>{item.badge}</Text>
                       </View>
                     )}
 
@@ -414,12 +411,12 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
             </ScrollView>
 
             {/* Bottom Section: Landscape Illustration & Footer */}
-            <View className="mt-auto bg-white">
+            <View style={styles.bottomSection}>
               <LandscapeIllustration width={DRAWER_WIDTH} />
-              <View className={`flex-row items-center justify-center pt-[8px] ${Platform.OS === 'ios' ? 'pb-[24px]' : 'pb-[16px]'}`}>
-                <Text className="text-[12px] font-extrabold text-[#0A4D3C]">Jamin24</Text>
-                <Text className="text-[11px] text-[#CBD5E1] mx-[6px]">|</Text>
-                <Text className="text-[10px] font-medium text-[#64748B]">Connecting Land & Dreams</Text>
+              <View style={styles.footerContainer}>
+                <Text style={styles.footerBrand}>Jamin24</Text>
+                <Text style={styles.footerDivider}>|</Text>
+                <Text style={styles.footerTagline}>Connecting Land & Dreams</Text>
               </View>
             </View>
           </View>
@@ -428,3 +425,167 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
     </Modal>
   );
 };
+
+const styles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.45)',
+    flexDirection: 'row',
+  },
+  backdrop: {
+    ...StyleSheet.absoluteFill,
+  },
+  drawerContainer: {
+    width: DRAWER_WIDTH,
+    height: '100%',
+    backgroundColor: '#FFFFFF',
+    elevation: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 4, height: 0 },
+    shadowOpacity: 0.25,
+    shadowRadius: 12,
+  },
+  drawerContent: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  drawerHeader: {
+    backgroundColor: '#0A4D3C',
+    paddingTop: Platform.OS === 'android' ? (StatusBar.currentHeight || 24) + 14 : 50,
+    paddingBottom: 20,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  headerWatermark: {
+    position: 'absolute',
+    right: -25,
+    top: -20,
+    width: 140,
+    height: 140,
+    opacity: 0.12,
+    tintColor: '#FFFFFF',
+  },
+  headerLogoCircle: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    backgroundColor: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  headerLogoImage: {
+    width: 38,
+    height: 38,
+  },
+  headerInfo: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  headerTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    letterSpacing: 0.2,
+  },
+  headerSubtitle: {
+    fontSize: 12,
+    fontWeight: '400',
+    color: '#9ED8C9',
+    marginTop: 2,
+  },
+  menuScroll: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingVertical: 10,
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    marginHorizontal: 6,
+    marginVertical: 1.5,
+    borderRadius: 8,
+    position: 'relative',
+  },
+  menuItemActive: {
+    backgroundColor: '#EEF6F2',
+  },
+  activeIndicator: {
+    position: 'absolute',
+    left: 0,
+    top: 4,
+    bottom: 4,
+    width: 3.5,
+    backgroundColor: '#00A86B',
+    borderTopRightRadius: 3,
+    borderBottomRightRadius: 3,
+    borderTopLeftRadius: 2,
+    borderBottomLeftRadius: 2,
+  },
+  menuIconContainer: {
+    width: 24,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  menuTitle: {
+    flex: 1,
+    fontSize: 13.5,
+    fontWeight: '600',
+    color: '#1E293B',
+    marginLeft: 6,
+  },
+  menuTitleActive: {
+    fontWeight: '700',
+    color: '#111827',
+  },
+  badgeContainer: {
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    backgroundColor: '#E03B3B',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 6,
+  },
+  badgeText: {
+    color: '#FFFFFF',
+    fontSize: 10,
+    fontWeight: '700',
+  },
+  bottomSection: {
+    marginTop: 'auto',
+    backgroundColor: '#FFFFFF',
+  },
+  footerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 8,
+    paddingBottom: Platform.OS === 'ios' ? 24 : 16,
+  },
+  footerBrand: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: '#0A4D3C',
+  },
+  footerDivider: {
+    fontSize: 11,
+    color: '#CBD5E1',
+    marginHorizontal: 6,
+  },
+  footerTagline: {
+    fontSize: 10,
+    fontWeight: '500',
+    color: '#64748B',
+  },
+});

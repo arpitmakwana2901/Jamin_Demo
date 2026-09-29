@@ -2,6 +2,7 @@ import React from 'react';
 import {
   View,
   Text,
+  StyleSheet,
   ScrollView,
   TouchableOpacity,
   Alert,
@@ -14,18 +15,18 @@ import { shadows } from '../theme/spacing';
 
 export const PricingPlansScreen: React.FC = () => {
   return (
-    <SafeAreaView className="flex-1 bg-white" edges={['top', 'left', 'right']}>
+    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       {/* Header */}
-      <View className="px-[20px] py-[16px] border-b border-[#E5E7EB]">
-        <Text className="text-[22px] font-extrabold text-[#111827]">सब्सक्रिप्शन प्लान्स (Pricing Plans)</Text>
-        <Text className="text-[13px] text-[#4B5563] mt-[4px] leading-[18px]">
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>सब्सक्रिप्शन प्लान्स (Pricing Plans)</Text>
+        <Text style={styles.headerSubtitle}>
           अपनी आवश्यकता के अनुसार सही प्लान चुनें और बिक्री 10x बढ़ाएं
         </Text>
       </View>
 
       <ScrollView
-        className="flex-1 bg-[#F8FAFC]"
-        contentContainerStyle={{ padding: 20, paddingBottom: 40, gap: 20 }}
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
         {PRICING_PLANS.map((plan) => {
@@ -33,49 +34,48 @@ export const PricingPlansScreen: React.FC = () => {
           return (
             <View
               key={plan.id}
-              style={shadows.card}
-              className={`rounded-[20px] p-[20px] relative ${
-                isPro
-                  ? 'border-2 border-[#0B5E42] bg-[#FAFDFB]'
-                  : 'border border-[#E5E7EB] bg-white'
-              }`}
+              style={[
+                styles.planCard,
+                isPro && styles.proPlanCard,
+              ]}
             >
               {/* Popular Badge */}
               {isPro && (
-                <View className="absolute -top-[12px] right-[20px] bg-[#0B5E42] px-[12px] py-[4px] rounded-[12px]">
-                  <Text className="text-white text-[11px] font-extrabold">{plan.badge || 'सर्वश्रेष्ठ पसंद'}</Text>
+                <View style={styles.popularBadge}>
+                  <Text style={styles.popularBadgeText}>{plan.badge || 'सर्वश्रेष्ठ पसंद'}</Text>
                 </View>
               )}
 
-              <Text className="text-[18px] font-extrabold text-[#111827] mb-[8px]">{plan.name}</Text>
+              <Text style={styles.planName}>{plan.name}</Text>
 
-              <View className="flex-row items-baseline mb-[16px]">
-                <Text className="text-[30px] font-black text-[#0B5E42]">{plan.price}</Text>
-                <Text className="text-[14px] text-[#4B5563] ml-[4px] font-semibold">{plan.period}</Text>
+              <View style={styles.priceRow}>
+                <Text style={styles.priceText}>{plan.price}</Text>
+                <Text style={styles.periodText}>{plan.period}</Text>
               </View>
 
-              <View className="h-[1px] bg-[#E5E7EB] mb-[16px]" />
+              <View style={styles.divider} />
 
               {/* Features List */}
-              <View className="gap-[12px] mb-[20px]">
+              <View style={styles.featureList}>
                 {plan.features.map((feature, idx) => (
-                  <View key={idx} className="flex-row items-center">
+                  <View key={idx} style={styles.featureRow}>
                     <Ionicons
                       name="checkmark-circle"
                       size={18}
                       color={isPro ? colors.primary : '#10B981'}
-                      className="mr-[8px]"
+                      style={{ marginRight: 8 }}
                     />
-                    <Text className="text-[13px] font-semibold text-[#111827] flex-1">{feature}</Text>
+                    <Text style={styles.featureText}>{feature}</Text>
                   </View>
                 ))}
               </View>
 
               {/* Subscribe Button */}
               <TouchableOpacity
-                className={`rounded-[12px] py-[14px] items-center ${
-                  isPro ? 'bg-[#0B5E42]' : 'bg-[#F3F4F6]'
-                }`}
+                style={[
+                  styles.subscribeButton,
+                  isPro && styles.proSubscribeButton,
+                ]}
                 activeOpacity={0.85}
                 onPress={() =>
                   Alert.alert(
@@ -85,9 +85,10 @@ export const PricingPlansScreen: React.FC = () => {
                 }
               >
                 <Text
-                  className={`text-[15px] font-bold ${
-                    isPro ? 'text-white' : 'text-[#111827]'
-                  }`}
+                  style={[
+                    styles.subscribeButtonText,
+                    isPro && styles.proSubscribeText,
+                  ]}
                 >
                   अभी सदस्यता लें
                 </Text>
@@ -99,3 +100,122 @@ export const PricingPlansScreen: React.FC = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.white,
+  },
+  header: {
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+  },
+  headerTitle: {
+    fontSize: 22,
+    fontWeight: '800',
+    color: colors.text,
+  },
+  headerSubtitle: {
+    fontSize: 13,
+    color: colors.textLight,
+    marginTop: 4,
+    lineHeight: 18,
+  },
+  scrollView: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+  scrollContent: {
+    padding: 20,
+    paddingBottom: 40,
+    gap: 20,
+  },
+  planCard: {
+    backgroundColor: colors.card,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: 20,
+    position: 'relative',
+    ...shadows.card,
+  },
+  proPlanCard: {
+    borderColor: colors.primary,
+    borderWidth: 2,
+    backgroundColor: '#FAFDFB',
+  },
+  popularBadge: {
+    position: 'absolute',
+    top: -12,
+    right: 20,
+    backgroundColor: colors.primary,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  popularBadgeText: {
+    color: colors.white,
+    fontSize: 11,
+    fontWeight: '800',
+  },
+  planName: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: colors.text,
+    marginBottom: 8,
+  },
+  priceRow: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    marginBottom: 16,
+  },
+  priceText: {
+    fontSize: 30,
+    fontWeight: '900',
+    color: colors.primary,
+  },
+  periodText: {
+    fontSize: 14,
+    color: colors.textLight,
+    marginLeft: 4,
+    fontWeight: '600',
+  },
+  divider: {
+    height: 1,
+    backgroundColor: colors.divider,
+    marginBottom: 16,
+  },
+  featureList: {
+    gap: 12,
+    marginBottom: 20,
+  },
+  featureRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  featureText: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: colors.text,
+    flex: 1,
+  },
+  subscribeButton: {
+    backgroundColor: colors.chipBg,
+    borderRadius: 12,
+    paddingVertical: 14,
+    alignItems: 'center',
+  },
+  proSubscribeButton: {
+    backgroundColor: colors.primary,
+  },
+  subscribeButtonText: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: colors.text,
+  },
+  proSubscribeText: {
+    color: colors.white,
+  },
+});

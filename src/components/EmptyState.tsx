@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { colors } from '../theme/colors';
 
@@ -19,23 +19,65 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   onAction,
 }) => {
   return (
-    <View className="p-[30px] items-center justify-center">
-      <View className="w-[72px] h-[72px] rounded-[36px] bg-[#E8F5E9] justify-center items-center mb-[16px]">
+    <View style={styles.container}>
+      <View style={styles.iconCircle}>
         <Ionicons name={'duplicate'} size={36} color={colors.primary} />
       </View>
 
-      <Text className="text-[18px] font-extrabold text-[#111827] text-center mb-[6px]">{title}</Text>
-      <Text className="text-[13px] text-[#4B5563] text-center leading-[20px] mb-[20px]">{description}</Text>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.description}>{description}</Text>
 
       {actionText && onAction && (
         <TouchableOpacity
-          className="bg-[#0B5E42] px-[20px] py-[12px] rounded-[12px]"
+          style={styles.button}
           activeOpacity={0.8}
           onPress={onAction}
         >
-          <Text className="text-white text-[14px] font-bold">{actionText}</Text>
+          <Text style={styles.buttonText}>{actionText}</Text>
         </TouchableOpacity>
       )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconCircle: {
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+    backgroundColor: colors.primaryLight,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: colors.text,
+    textAlign: 'center',
+    marginBottom: 6,
+  },
+  description: {
+    fontSize: 13,
+    color: colors.textLight,
+    textAlign: 'center',
+    lineHeight: 20,
+    marginBottom: 20,
+  },
+  button: {
+    backgroundColor: colors.primary,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 12,
+  },
+  buttonText: {
+    color: colors.white,
+    fontSize: 14,
+    fontWeight: '700',
+  },
+});
