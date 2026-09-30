@@ -1,24 +1,20 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { BrowseStackParamList } from '../types';
-import { HomeScreen } from '../screens/HomeScreen';
+import { SearchStackParamList } from '../types';
+import { BrowseJaminScreen } from '../screens/BrowseJaminScreen';
 import { PropertyDetailScreen } from '../screens/PropertyDetailScreen';
 import { SearchResultsScreen } from '../screens/SearchResultsScreen';
-import { LanguageSettingScreen } from '../screens/LanguageSettingScreen';
-import { PricingPlansScreen } from '../screens/PricingPlansScreen';
 import { AboutUsScreen } from '../screens/AboutUsScreen';
 import { ContactUsScreen } from '../screens/ContactUsScreen';
 
-const Stack = createNativeStackNavigator<BrowseStackParamList>();
+const Stack = createNativeStackNavigator<SearchStackParamList>();
 
-export const BrowseStack: React.FC = () => {
+export const SearchStack: React.FC = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="BrowseHome" component={HomeScreen} />
+      <Stack.Screen name="BrowseJamin" component={BrowseJaminScreen} />
       <Stack.Screen name="PropertyDetail" component={PropertyDetailScreen} />
       <Stack.Screen name="SearchResults" component={SearchResultsScreen} />
-      <Stack.Screen name="LanguageSetting" component={LanguageSettingScreen} />
-      <Stack.Screen name="PricingPlans" component={PricingPlansScreen} />
       <Stack.Screen name="AboutUs" component={AboutUsScreen} />
       <Stack.Screen name="ContactUs" component={ContactUsScreen} />
     </Stack.Navigator>

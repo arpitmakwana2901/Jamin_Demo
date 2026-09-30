@@ -10,6 +10,21 @@ export interface Property {
   image: string;
   description?: string;
   features?: string[];
+
+  // Extended fields for Browse & Map View Jamin
+  jaminId?: string;
+  taluka?: string;
+  district?: string;
+  state?: string;
+  village?: string;
+  pricePerVigha?: string;
+  isNewlyAdded?: boolean;
+  isUrgent?: boolean;
+  isPremium?: boolean;
+  mapOverlayText?: string;
+  mapPositionIndicator?: string;
+  pinTop?: string;
+  pinLeft?: string;
 }
 
 export interface Trader {
@@ -40,6 +55,13 @@ export interface Project {
   type: 'Agricultural' | 'Commercial' | 'Residential';
   image: string;
   tagline?: string;
+
+  // Extended fields for Builder Portal / Projects
+  status?: 'Active' | 'Coming Soon';
+  plotsAvailable?: number;
+  builder?: string;
+  city?: string;
+  bannerType?: 'abloom' | 'prarambh' | 'default';
 }
 
 export interface PricingPlan {
@@ -63,12 +85,33 @@ export type BrowseStackParamList = {
   PropertyDetail: { property: Property };
   SearchResults: { location?: string; landType?: string; budget?: string; propertyId?: string };
   LanguageSetting: undefined;
+  PricingPlans: undefined;
+  AboutUs: undefined;
+  ContactUs: undefined;
+};
+
+export type SearchStackParamList = {
+  BrowseJamin: undefined;
+  PropertyDetail: { property: Property };
+  SearchResults: { location?: string; landType?: string; budget?: string; propertyId?: string };
+  PricingPlans: undefined;
+  AboutUs: undefined;
+  ContactUs: undefined;
+};
+
+export type MapViewStackParamList = {
+  MapHome: undefined;
+  PropertyDetail: { property: Property };
+  AboutUs: undefined;
+  ContactUs: undefined;
 };
 
 export type TabParamList = {
   Home: undefined;
-  Search: { location?: string; landType?: string; budget?: string } | undefined;
+  Search: undefined;
   MapView: undefined;
   Projects: undefined;
   Account: undefined;
 };
+
+

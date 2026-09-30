@@ -3,8 +3,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { TabParamList } from '../types';
 import { BrowseStack } from './BrowseStack';
-import { SearchResultsScreen } from '../screens/SearchResultsScreen';
-import { MapViewScreen } from '../screens/MapViewScreen';
+import { SearchStack } from './SearchStack';
+import { MapViewStack } from './MapViewStack';
 import { ProjectsScreen } from '../screens/ProjectsScreen';
 import { AccountScreen } from '../screens/AccountScreen';
 import { colors } from '../theme/colors';
@@ -61,12 +61,12 @@ export const TabNavigator: React.FC = () => {
       />
       <Tab.Screen
         name="Search"
-        component={SearchResultsScreen}
+        component={SearchStack}
         options={{ tabBarLabel: 'Search' }}
       />
       <Tab.Screen
         name="MapView"
-        component={MapViewScreen}
+        component={MapViewStack}
         options={{ tabBarLabel: 'Map View' }}
       />
       <Tab.Screen

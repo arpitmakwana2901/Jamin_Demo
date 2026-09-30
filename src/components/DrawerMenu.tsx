@@ -185,6 +185,13 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
       onPress: () => handleNavigate('Projects'),
     },
     {
+      id: 'pricing',
+      title: 'Pricing Plans',
+      iconName: 'pricetag-outline',
+      showChevron: true,
+      onPress: () => handleNavigate('PricingPlans'),
+    },
+    {
       id: 'saved',
       title: 'Saved / Shortlisted',
       iconName: 'heart-outline',
@@ -220,18 +227,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
       title: 'Contact Us',
       iconName: 'call',
       showChevron: true,
-      onPress: () => {
-        onClose();
-        Alert.alert(
-          'Contact Us',
-          'Jamin24 Customer Support:\n\n📞 Phone: +91 98765 43210\n💬 WhatsApp: +91 98765 43210\n✉️ Email: support@jamin24.com',
-          [
-            { text: 'Call Now', onPress: handleCallSupport },
-            { text: 'WhatsApp', onPress: handleWhatsAppSupport },
-            { text: 'Close', style: 'cancel' },
-          ]
-        );
-      },
+      onPress: () => handleNavigate('ContactUs'),
     },
     {
       id: 'help',
@@ -251,13 +247,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
       title: 'About Us',
       iconName: 'information-circle-outline',
       showChevron: true,
-      onPress: () => {
-        onClose();
-        Alert.alert(
-          'About Us',
-          'Jamin24 • Saraswati Group\n\nIndia\'s leading open land platform connecting buyers and sellers with 100% verified listings, 360° virtual tours, and transparent deals.'
-        );
-      },
+      onPress: () => handleNavigate('AboutUs'),
     },
     {
       id: 'language',

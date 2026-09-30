@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { colors } from '../theme/colors';
 
-export const AccountScreen: React.FC = () => {
+export const AccountScreen: React.FC<any> = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
       <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
@@ -60,7 +60,7 @@ export const AccountScreen: React.FC = () => {
             <Ionicons name="chevron-forward-outline" size={18} color={colors.textMuted} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.menuItem} onPress={() => Alert.alert('About Jamin24', 'Jamin24 v1.0.0 - Sarshakhi Group')}>
+          <TouchableOpacity style={styles.menuItem} onPress={() => navigation?.navigate('AboutUs')}>
             <Ionicons name="information-circle-outline" size={20} color={colors.primary} style={styles.menuIcon} />
             <Text style={styles.menuText}>About Jamin24</Text>
             <Ionicons name="chevron-forward-outline" size={18} color={colors.textMuted} />
