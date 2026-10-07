@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useTranslation } from 'react-i18next';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BrowseStackParamList, Property } from '../types';
 import { colors } from '../theme/colors';
@@ -20,6 +21,7 @@ import { shadows } from '../theme/spacing';
 type Props = NativeStackScreenProps<BrowseStackParamList, 'PropertyDetail'>;
 
 export const PropertyDetailScreen: React.FC<Props> = ({ route, navigation }) => {
+  const { t } = useTranslation();
   const { property } = route.params;
   const [activeTab, setActiveTab] = useState<'desc' | 'features' | 'location'>('desc');
 
@@ -39,7 +41,7 @@ export const PropertyDetailScreen: React.FC<Props> = ({ route, navigation }) => 
         <Text style={styles.headerTitle} numberOfLines={1}>
           {property.title}
         </Text>
-        <TouchableOpacity style={styles.shareIcon} onPress={() => Alert.alert('शेयर करें', 'प्रॉपर्टी लिंक कॉपी हो गया है!')}>
+        <TouchableOpacity style={styles.shareIcon} onPress={() => Alert.alert(t('common.share'), t('propertyDetail.shareMsg'))}>
           <Ionicons name="share-social-outline" size={22} color={colors.text} />
         </TouchableOpacity>
       </View>
@@ -54,14 +56,14 @@ export const PropertyDetailScreen: React.FC<Props> = ({ route, navigation }) => 
             {property.verified && (
               <View style={styles.verifiedBadge}>
                 <Ionicons name="checkmark-circle" size={14} color="#FFFFFF" style={{ marginRight: 4 }} />
-                <Text style={styles.badgeText}>सत्यापित संपत्ति</Text>
+                <Text style={styles.badgeText}>{t('propertyDetail.verifiedProperty')}</Text>
               </View>
             )}
 
             {property.has360 && (
               <View style={styles.tourBadge}>
                 <Ionicons name="reload-circle" size={14} color="#1A1A1A" style={{ marginRight: 4 }} />
-                <Text style={styles.tourBadgeText}>360° टूर उपलब्ध</Text>
+                <Text style={styles.tourBadgeText}>{t('propertyDetail.tour360Available')}</Text>
               </View>
             )}
           </View>
@@ -90,12 +92,12 @@ export const PropertyDetailScreen: React.FC<Props> = ({ route, navigation }) => 
 
           <View style={styles.priceContainer}>
             <View>
-              <Text style={styles.priceLabel}>मांगी गई कीमत</Text>
+              <Text style={styles.priceLabel}>{t('propertyDetail.askedPrice')}</Text>
               <Text style={styles.priceValue}>{property.price}</Text>
             </View>
 
             <View style={styles.areaBox}>
-              <Text style={styles.areaLabel}>कुल क्षेत्रफल</Text>
+              <Text style={styles.areaLabel}>{t('propertyDetail.totalArea')}</Text>
               <Text style={styles.areaValue}>{property.area}</Text>
             </View>
           </View>
@@ -107,44 +109,44 @@ export const PropertyDetailScreen: React.FC<Props> = ({ route, navigation }) => 
             <TouchableOpacity
               style={styles.tour360Btn}
               activeOpacity={0.85}
-              onPress={() => Alert.alert('360° वर्चुअल टूर', '360° वर्चुअल व्यूअर लोड हो रहा है...')}
+              onPress={() => Alert.alert(t('propertyDetail.watch360Tour'), '360° Virtual Viewer...')}
             >
               <Ionicons name="compass-outline" size={20} color="#1A1A1A" style={{ marginRight: 6 }} />
-              <Text style={styles.tour360BtnText}>360° वर्चुअल टूर देखें</Text>
+              <Text style={styles.tour360BtnText}>{t('propertyDetail.watch360Tour')}</Text>
             </TouchableOpacity>
           )}
 
           <TouchableOpacity
             style={styles.contactBtn}
             activeOpacity={0.85}
-            onPress={() => Alert.alert('संपर्क करें', 'मालिक/दलाल का फ़ोन नंबर: +91 98765 43210')}
+            onPress={() => Alert.alert(t('common.contactUs'), '+91 98765 43210')}
           >
             <Ionicons name="logo-whatsapp" size={18} color="#FFFFFF" style={{ marginRight: 6 }} />
-            <Text style={styles.contactBtnText}>मालिक से संपर्क करें</Text>
+            <Text style={styles.contactBtnText}>{t('propertyDetail.contactOwner')}</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Tab Navigation (विवरण | सुविधाएं | स्थान) */}
+        {/* Tab Navigation */}
         <View style={styles.tabBar}>
           <TouchableOpacity
             style={[styles.tabItem, activeTab === 'desc' && styles.tabItemActive]}
             onPress={() => setActiveTab('desc')}
           >
-            <Text style={[styles.tabText, activeTab === 'desc' && styles.tabTextActive]}>विवरण</Text>
+            <Text style={[styles.tabText, activeTab === 'desc' && styles.tabTextActive]}>{t('propertyDetail.descTab')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[styles.tabItem, activeTab === 'features' && styles.tabItemActive]}
             onPress={() => setActiveTab('features')}
           >
-            <Text style={[styles.tabText, activeTab === 'features' && styles.tabTextActive]}>सुविधाएं</Text>
+            <Text style={[styles.tabText, activeTab === 'features' && styles.tabTextActive]}>{t('propertyDetail.featuresTab')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[styles.tabItem, activeTab === 'location' && styles.tabItemActive]}
             onPress={() => setActiveTab('location')}
           >
-            <Text style={[styles.tabText, activeTab === 'location' && styles.tabTextActive]}>स्थान</Text>
+            <Text style={[styles.tabText, activeTab === 'location' && styles.tabTextActive]}>{t('propertyDetail.locationTab')}</Text>
           </TouchableOpacity>
         </View>
 
@@ -152,14 +154,13 @@ export const PropertyDetailScreen: React.FC<Props> = ({ route, navigation }) => 
         <View style={styles.tabContentContainer}>
           {activeTab === 'desc' && (
             <Text style={styles.descriptionText}>
-              {property.description ||
-                'यह गुजरात में स्थित एक प्रीमियम खुली जमीन की संपत्ति है। सभी कानूनी दस्तावेज और टाइटल डिड जांचे और सत्यापित किए गए हैं। उपजाऊ मिट्टी और उत्कृष्ट कनेक्टिविटी इसे निवेश के लिए आदर्श बनाती है।'}
+              {property.description || t('propertyDetail.defaultDescription')}
             </Text>
           )}
 
           {activeTab === 'features' && (
             <View style={styles.featuresGrid}>
-              {(property.features || ['पानी की आपूर्ति', 'बाउंड्री वॉल', '4-लेन रोड', 'सरकारी दस्तावेज', 'बिजली']).map(
+              {(property.features || ['Water supply', 'Boundary wall', '4-Lane road', 'Legal docs', 'Electricity']).map(
                 (feat: string, idx: number) => (
                   <View key={idx} style={styles.featureItem}>
                     <Ionicons name="checkmark-circle" size={16} color={colors.primary} style={{ marginRight: 6 }} />
@@ -172,15 +173,15 @@ export const PropertyDetailScreen: React.FC<Props> = ({ route, navigation }) => 
 
           {activeTab === 'location' && (
             <View style={styles.locationTabContent}>
-              <Text style={styles.locationDetailText}>स्थान: {property.location}</Text>
-              <Text style={styles.locationSubDetail}>निकटतम राजमार्ग: 2.5 किमी | शहर केंद्र: 10 किमी</Text>
+              <Text style={styles.locationDetailText}>{t('common.location')}: {property.location}</Text>
+              <Text style={styles.locationSubDetail}>{t('propertyDetail.nearestHighway')}</Text>
             </View>
           )}
         </View>
 
         {/* Similar Properties Section */}
         <View style={styles.similarSection}>
-          <Text style={styles.similarTitle}>समान संपत्तियां (Similar Properties)</Text>
+          <Text style={styles.similarTitle}>{t('propertyDetail.similarProperties')}</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.similarScroll}>
             {PROPERTIES.filter((p) => p.id !== property.id).map((sim) => (
               <View key={sim.id} style={styles.similarCardWrapper}>

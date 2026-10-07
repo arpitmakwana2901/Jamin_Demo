@@ -11,6 +11,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useTranslation } from 'react-i18next';
 import { SearchStackParamList, Property } from '../types';
 import { TopBar } from '../components/TopBar';
 import { BrowseFilterCard, FilterState } from '../components/browse/BrowseFilterCard';
@@ -36,6 +37,7 @@ const initialFilters: FilterState = {
 };
 
 export const BrowseJaminScreen: React.FC<Props> = ({ navigation }) => {
+  const { t } = useTranslation();
   const [filters, setFilters] = useState<FilterState>(initialFilters);
   const [activeSectionFilter, setActiveSectionFilter] = useState<string | null>(null);
 
@@ -166,13 +168,13 @@ export const BrowseJaminScreen: React.FC<Props> = ({ navigation }) => {
         {activeSectionFilter && (
           <View style={styles.activeFilterBanner}>
             <Text style={styles.activeFilterBannerText}>
-              Showing{' '}
+              {t('browse.showingPrefix')}{' '}
               {activeSectionFilter === 'newly'
-                ? 'Newly Added'
+                ? t('browse.newlyAddedJamin')
                 : activeSectionFilter === 'urgent'
-                ? 'Urgent Selling'
-                : 'Premium'}{' '}
-              Properties
+                ? t('browse.urgentSellingJamin')
+                : t('browse.premiumJamin')}{' '}
+              {t('browse.propertiesSuffix')}
             </Text>
             <TouchableOpacity onPress={() => setActiveSectionFilter(null)}>
               <Ionicons name="close-circle" size={20} color="#1E293B" />
@@ -185,23 +187,23 @@ export const BrowseJaminScreen: React.FC<Props> = ({ navigation }) => {
           <View style={styles.filteredResultsSection}>
             <View style={styles.filteredHeaderRow}>
               <Text style={styles.resultCountText}>
-                Showing <Text style={styles.resultCountHighlight}>{filteredProperties.length}</Text>{' '}
-                Properties
+                {t('browse.showingPrefix')} <Text style={styles.resultCountHighlight}>{filteredProperties.length}</Text>{' '}
+                {t('browse.propertiesSuffix')}
               </Text>
               <TouchableOpacity style={styles.clearAllLink} onPress={handleResetFilters}>
-                <Text style={styles.clearAllLinkText}>Clear Filters</Text>
+                <Text style={styles.clearAllLinkText}>{t('common.clearFilters')}</Text>
               </TouchableOpacity>
             </View>
 
             {filteredProperties.length === 0 ? (
               <View style={styles.emptyContainer}>
                 <Ionicons name="search-outline" size={48} color="#94A3B8" />
-                <Text style={styles.emptyTitle}>No Jamin Found</Text>
+                <Text style={styles.emptyTitle}>{t('browse.noJaminFound')}</Text>
                 <Text style={styles.emptySubtitle}>
-                  No properties matched your search criteria. Try clearing or adjusting filters.
+                  {t('browse.noJaminDesc')}
                 </Text>
                 <TouchableOpacity style={styles.resetBtnAction} onPress={handleResetFilters}>
-                  <Text style={styles.resetBtnActionText}>Reset All Filters</Text>
+                  <Text style={styles.resetBtnActionText}>{t('browse.resetAllFilters')}</Text>
                 </TouchableOpacity>
               </View>
             ) : (
@@ -221,7 +223,7 @@ export const BrowseJaminScreen: React.FC<Props> = ({ navigation }) => {
             {/* SECTION 1: NEWLY ADDED JAMIN */}
             <View style={styles.sectionContainer}>
               <BrowseSectionHeader
-                title="Newly Added Jamin"
+                title={t('browse.newlyAddedJamin')}
                 onViewAll={() => setActiveSectionFilter('newly')}
                 onPrev={() => scrollSection(newlyAddedRef, newlyAddedIndex, 'prev', newlyAddedList.length)}
                 onNext={() => scrollSection(newlyAddedRef, newlyAddedIndex, 'next', newlyAddedList.length)}
@@ -248,7 +250,7 @@ export const BrowseJaminScreen: React.FC<Props> = ({ navigation }) => {
             {/* SECTION 2: URGENT SELLING JAMIN */}
             <View style={styles.sectionContainer}>
               <BrowseSectionHeader
-                title="Urgent Selling Jamin"
+                title={t('browse.urgentSellingJamin')}
                 onViewAll={() => setActiveSectionFilter('urgent')}
                 onPrev={() => scrollSection(urgentRef, urgentIndex, 'prev', urgentList.length)}
                 onNext={() => scrollSection(urgentRef, urgentIndex, 'next', urgentList.length)}
@@ -275,7 +277,7 @@ export const BrowseJaminScreen: React.FC<Props> = ({ navigation }) => {
             {/* SECTION 3: PREMIUM JAMIN */}
             <View style={styles.sectionContainer}>
               <BrowseSectionHeader
-                title="Premium Jamin"
+                title={t('browse.premiumJamin')}
                 onViewAll={() => setActiveSectionFilter('premium')}
                 onPrev={() => scrollSection(premiumRef, premiumIndex, 'prev', premiumList.length)}
                 onNext={() => scrollSection(premiumRef, premiumIndex, 'next', premiumList.length)}
@@ -304,6 +306,7 @@ export const BrowseJaminScreen: React.FC<Props> = ({ navigation }) => {
     </SafeAreaView>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

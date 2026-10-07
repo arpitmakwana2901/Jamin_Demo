@@ -9,6 +9,7 @@ import {
   Linking,
 } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useTranslation } from 'react-i18next';
 import { Property } from '../../types';
 import { colors } from '../../theme/colors';
 
@@ -23,6 +24,8 @@ export const BrowsePropertyCard: React.FC<BrowsePropertyCardProps> = ({
   onPress,
   width,
 }) => {
+  const { t } = useTranslation();
+
   const handleShare = async () => {
     try {
       await Share.share({
@@ -68,20 +71,20 @@ export const BrowsePropertyCard: React.FC<BrowsePropertyCardProps> = ({
           {property.isUrgent && (
             <View style={styles.urgentBadge}>
               <Ionicons name="flame" size={12} color="#FFFFFF" style={{ marginRight: 3 }} />
-              <Text style={styles.urgentBadgeText}>Urgent Selling</Text>
+              <Text style={styles.urgentBadgeText}>{t('browse.urgentSelling')}</Text>
             </View>
           )}
 
           {property.has360 && (
             <View style={styles.badge360}>
               <Ionicons name="compass" size={12} color="#FFFFFF" style={{ marginRight: 2 }} />
-              <Text style={styles.badge360Text}>360</Text>
+              <Text style={styles.badge360Text}>{t('browse.tour360')}</Text>
             </View>
           )}
 
           {property.isPremium && (
             <View style={styles.premiumBadge}>
-              <Text style={styles.premiumBadgeText}>Premium Listing</Text>
+              <Text style={styles.premiumBadgeText}>{t('browse.premiumListing')}</Text>
             </View>
           )}
         </View>
@@ -92,8 +95,8 @@ export const BrowsePropertyCard: React.FC<BrowsePropertyCardProps> = ({
             <Ionicons name="compass-outline" size={16} color={colors.primary} />
           </View>
           <Text style={styles.overlayVillageText}>{villageName}</Text>
-          <Text style={styles.overlaySubText}>Taluka - {talukaName}</Text>
-          <Text style={styles.overlaySubText}>District - {districtName}</Text>
+          <Text style={styles.overlaySubText}>{t('browse.talukaPrefix')} {talukaName}</Text>
+          <Text style={styles.overlaySubText}>{t('browse.districtPrefix')} {districtName}</Text>
 
           <View style={styles.overlayAreaPill}>
             <Text style={styles.overlayAreaPillText}>{property.area.toUpperCase()}</Text>
@@ -120,7 +123,7 @@ export const BrowsePropertyCard: React.FC<BrowsePropertyCardProps> = ({
         </View>
 
         <Text style={styles.jaminIdText}>
-          Jamin ID: {property.jaminId || `02-${property.id.padStart(8, '0')}`}
+          {t('common.jaminId')}: {property.jaminId || `02-${property.id.padStart(8, '0')}`}
         </Text>
 
         {/* METRICS ROW */}
@@ -136,7 +139,7 @@ export const BrowsePropertyCard: React.FC<BrowsePropertyCardProps> = ({
             onPress={() => onPress(property)}
             activeOpacity={0.8}
           >
-            <Text style={styles.viewDetailsText}>View Details</Text>
+            <Text style={styles.viewDetailsText}>{t('common.viewDetails')}</Text>
             <Ionicons name="open-outline" size={13} color="#1E293B" style={{ marginLeft: 3 }} />
           </TouchableOpacity>
 
@@ -146,7 +149,7 @@ export const BrowsePropertyCard: React.FC<BrowsePropertyCardProps> = ({
             activeOpacity={0.8}
           >
             <Ionicons name="chatbubble-outline" size={14} color="#1E293B" style={{ marginRight: 4 }} />
-            <Text style={styles.chatBtnText}>Chat</Text>
+            <Text style={styles.chatBtnText}>{t('common.chat')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -161,6 +164,7 @@ export const BrowsePropertyCard: React.FC<BrowsePropertyCardProps> = ({
     </TouchableOpacity>
   );
 };
+
 
 const styles = StyleSheet.create({
   card: {

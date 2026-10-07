@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ViewStyle } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useTranslation } from 'react-i18next';
 import { Property } from '../types';
 import { colors } from '../theme/colors';
 import { shadows } from '../theme/spacing';
@@ -12,6 +13,8 @@ interface PropertyCardProps {
 }
 
 export const PropertyCard: React.FC<PropertyCardProps> = ({ property, onPress, style }) => {
+  const { t } = useTranslation();
+
   return (
     <TouchableOpacity
       style={[styles.card, style]}
@@ -27,14 +30,14 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, onPress, s
           {property.verified && (
             <View style={styles.verifiedBadge}>
               <Ionicons name="checkmark-circle" size={13} color="#FFFFFF" style={{ marginRight: 3 }} />
-              <Text style={styles.verifiedBadgeText}>सत्यापित</Text>
+              <Text style={styles.verifiedBadgeText}>{t('common.verified')}</Text>
             </View>
           )}
 
           {property.has360 && (
             <View style={styles.tourBadge}>
               <Ionicons name="reload-circle" size={13} color="#1A1A1A" style={{ marginRight: 3 }} />
-              <Text style={styles.tourBadgeText}>360° टूर</Text>
+              <Text style={styles.tourBadgeText}>{t('browse.tour360')}</Text>
             </View>
           )}
         </View>
@@ -60,7 +63,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, onPress, s
 
         <View style={styles.footerRow}>
           <View>
-            <Text style={styles.priceLabel}>मूल्य</Text>
+            <Text style={styles.priceLabel}>{t('common.price')}</Text>
             <Text style={styles.priceText}>{property.price}</Text>
           </View>
 

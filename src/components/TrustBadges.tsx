@@ -1,16 +1,19 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useTranslation } from 'react-i18next';
 import { colors } from '../theme/colors';
 
 export const TrustBadges: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
       {/* Badge 1 */}
       <View style={styles.badgeColumn}>
         <Ionicons name="shield-checkmark-outline" size={20} color={colors.primary} style={styles.badgeIcon} />
-        <Text style={styles.badgeTitle}>100% Secure</Text>
-        <Text style={styles.badgeSubtext}>Safe & Transparent Deals</Text>
+        <Text style={styles.badgeTitle}>{t('home.secure100')}</Text>
+        <Text style={styles.badgeSubtext}>{t('home.safeTransparent')}</Text>
       </View>
 
       {/* Divider */}
@@ -19,8 +22,8 @@ export const TrustBadges: React.FC = () => {
       {/* Badge 2 */}
       <View style={styles.badgeColumn}>
         <Ionicons name="document-text-outline" size={20} color={colors.primary} style={styles.badgeIcon} />
-        <Text style={styles.badgeTitle}>Legal Verified</Text>
-        <Text style={styles.badgeSubtext}>All Documents Checked</Text>
+        <Text style={styles.badgeTitle}>{t('home.legalVerified')}</Text>
+        <Text style={styles.badgeSubtext}>{t('home.allDocsChecked')}</Text>
       </View>
 
       {/* Divider */}
@@ -29,8 +32,8 @@ export const TrustBadges: React.FC = () => {
       {/* Badge 3 */}
       <View style={styles.badgeColumn}>
         <Ionicons name="headset-outline" size={20} color={colors.primary} style={styles.badgeIcon} />
-        <Text style={styles.badgeTitle}>24/7 Support</Text>
-        <Text style={styles.badgeSubtext}>We're Here to Help</Text>
+        <Text style={styles.badgeTitle}>{t('home.support247')}</Text>
+        <Text style={styles.badgeSubtext}>{t('home.hereToHelp')}</Text>
       </View>
     </View>
   );

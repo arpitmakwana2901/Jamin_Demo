@@ -1,14 +1,17 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useTranslation } from 'react-i18next';
 import { TRUSTED_TRADERS, TRUSTED_BROKERS, TrustedPerson } from '../../data/homeData';
 
 export const TrustedNetworkSection: React.FC = () => {
+  const { t } = useTranslation();
+
   const renderPersonList = (list: TrustedPerson[], categoryTitle: string) => (
     <View className="bg-white rounded-2xl p-4.5 border border-slate-200 shadow-sm">
       <View className="flex-row items-center mb-3.5 pb-3 border-b border-slate-100">
         <View className="bg-[#0B5E42] px-2.5 py-1 rounded-xl mr-2.5">
-          <Text className="text-white text-xs font-extrabold">Top 5</Text>
+          <Text className="text-white text-xs font-extrabold">{t('home.top5')}</Text>
         </View>
         <Text className="text-lg font-extrabold text-slate-900">{categoryTitle}</Text>
       </View>
@@ -39,24 +42,25 @@ export const TrustedNetworkSection: React.FC = () => {
       <View className="mb-4">
         <View className="self-start bg-[#E8F5E9] border border-[#A7F3D0] px-2.5 py-1 rounded-full mb-2">
           <Text className="text-[10.5px] font-extrabold text-[#0B5E42] tracking-wider">
-            VERIFIED NETWORK
+            {t('home.verifiedNetworkBadge')}
           </Text>
         </View>
 
         <Text className="text-2xl font-extrabold text-slate-900 leading-7">
-          Trusted Traders & Brokers
+          {t('home.tradersBrokersTitle')}
         </Text>
 
         <Text className="text-[13px] text-slate-600 mt-1.5 leading-5">
-          Meet the verified traders and brokers trusted by our community.
+          {t('home.tradersBrokersDesc')}
         </Text>
       </View>
 
       {/* Two cards stacked vertically on mobile */}
       <View className="gap-4">
-        {renderPersonList(TRUSTED_TRADERS, 'Trusted Traders')}
-        {renderPersonList(TRUSTED_BROKERS, 'Trusted Brokers')}
+        {renderPersonList(TRUSTED_TRADERS, t('home.trustedTraders'))}
+        {renderPersonList(TRUSTED_BROKERS, t('home.trustedBrokers'))}
       </View>
     </View>
   );
 };
+

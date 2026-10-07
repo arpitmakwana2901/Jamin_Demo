@@ -1,15 +1,52 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
-import { SOCIAL_CARDS } from '../../data/homeData';
+import { useTranslation } from 'react-i18next';
 
 export const SocialMediaSection: React.FC = () => {
+  const { t } = useTranslation();
+
+  const socialCards = [
+    {
+      id: 'insta',
+      platform: 'Instagram',
+      label: t('home.instagramLabel'),
+      iconName: 'logo-instagram',
+      color: '#E1306C',
+      bgColor: '#FDF2F8',
+    },
+    {
+      id: 'fb',
+      platform: 'Facebook',
+      label: t('home.facebookLabel'),
+      iconName: 'logo-facebook',
+      color: '#1877F2',
+      bgColor: '#EFF6FF',
+    },
+    {
+      id: 'wa',
+      platform: 'WhatsApp',
+      label: t('home.whatsappLabel'),
+      iconName: 'logo-whatsapp',
+      color: '#25D366',
+      bgColor: '#F0FDF4',
+    },
+    {
+      id: 'yt',
+      platform: 'YouTube',
+      label: t('home.youtubeLabel'),
+      iconName: 'logo-youtube',
+      color: '#FF0000',
+      bgColor: '#FEF2F2',
+    },
+  ];
+
   return (
     <View className="mt-8 px-4">
-      <Text className="text-base font-extrabold text-slate-900 mb-3.5">Join Our Community</Text>
+      <Text className="text-base font-extrabold text-slate-900 mb-3.5">{t('home.joinCommunity')}</Text>
 
       <View className="flex-row flex-wrap justify-between gap-2.5">
-        {SOCIAL_CARDS.map((item) => (
+        {socialCards.map((item) => (
           <TouchableOpacity
             key={item.id}
             className="w-[48%] rounded-xl p-3 flex-row items-center border border-black/5"
@@ -36,3 +73,4 @@ export const SocialMediaSection: React.FC = () => {
     </View>
   );
 };
+

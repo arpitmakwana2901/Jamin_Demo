@@ -1,9 +1,12 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useTranslation } from 'react-i18next';
 import { BUYER_REQUESTS_LIST } from '../../data/homeData';
 
 export const BuyerDemandSection: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <View className="mt-8 px-4">
       {/* Soft rounded background container */}
@@ -12,16 +15,16 @@ export const BuyerDemandSection: React.FC = () => {
         <View className="mb-4">
           <View className="self-start bg-[#DCFCE7] border border-[#86EFAC] px-2.5 py-1 rounded-full mb-2.5">
             <Text className="text-[10px] font-extrabold text-[#0B5E42] tracking-wider">
-              BUYER DEMAND. RIGHT NOW
+              {t('home.buyerDemandBadge')}
             </Text>
           </View>
 
           <Text className="text-2xl font-extrabold text-[#074430] leading-7">
-            Someone is looking for your Jamin.
+            {t('home.buyerDemandTitle')}
           </Text>
 
           <Text className="text-[13px] text-slate-600 mt-1.5 leading-5">
-            See fresh, verified buyer requirements and respond when your property is a match.
+            {t('home.buyerDemandDesc')}
           </Text>
 
           <TouchableOpacity
@@ -29,7 +32,7 @@ export const BuyerDemandSection: React.FC = () => {
             activeOpacity={0.85}
             onPress={() => Alert.alert('Post Jamin', 'Post your Jamin free workflow.')}
           >
-            <Text className="text-white text-sm font-extrabold">Post your Jamin free</Text>
+            <Text className="text-white text-sm font-extrabold">{t('home.postJaminFree')}</Text>
             <Ionicons name="arrow-forward-outline" size={16} color="#FFFFFF" className="ml-1.5" />
           </TouchableOpacity>
         </View>
@@ -40,9 +43,9 @@ export const BuyerDemandSection: React.FC = () => {
         {/* Latest Buyer Requests section */}
         <View className="flex-row justify-between items-start mb-3.5">
           <View className="flex-1">
-            <Text className="text-[17px] font-extrabold text-slate-900">Latest buyer requests</Text>
+            <Text className="text-[17px] font-extrabold text-slate-900">{t('home.latestBuyerRequests')}</Text>
             <Text className="text-[11.5px] text-slate-600 mt-0.5">
-              Verified buyer matches updated in real time.
+              {t('home.latestBuyerRequestsSub')}
             </Text>
           </View>
 
@@ -50,7 +53,7 @@ export const BuyerDemandSection: React.FC = () => {
             className="py-1 px-2"
             onPress={() => Alert.alert('Buyer Requests', 'Viewing all buyer requests')}
           >
-            <Text className="text-[13px] font-extrabold text-[#0B5E42]">View All →</Text>
+            <Text className="text-[13px] font-extrabold text-[#0B5E42]">{t('common.viewAll')} →</Text>
           </TouchableOpacity>
         </View>
 
@@ -70,7 +73,7 @@ export const BuyerDemandSection: React.FC = () => {
 
                 <Text className="text-[11.5px] text-slate-600 mt-0.5">{req.location}</Text>
 
-                <Text className="text-xs font-bold text-[#0B5E42] mt-0.5">Budget: {req.budget}</Text>
+                <Text className="text-xs font-bold text-[#0B5E42] mt-0.5">{t('home.budgetPrefix')} {req.budget}</Text>
               </View>
             </View>
           ))}
@@ -79,3 +82,4 @@ export const BuyerDemandSection: React.FC = () => {
     </View>
   );
 };
+

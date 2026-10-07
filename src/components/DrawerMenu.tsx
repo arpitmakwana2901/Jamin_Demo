@@ -17,6 +17,7 @@ import {
 import Ionicons from '@react-native-vector-icons/ionicons';
 import Svg, { Path, Circle, Rect, G, Line } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 const { width } = Dimensions.get('window');
 const DRAWER_WIDTH = Math.round(width * 0.56);
@@ -130,6 +131,7 @@ const LandscapeIllustration: React.FC<{ width: number }> = ({ width: svgWidth })
 
 export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
   const navigation = useNavigation<any>();
+  const { t } = useTranslation();
   const [activeId, setActiveId] = useState<string>('home');
 
   const handleNavigate = (screenName: string, params?: object) => {
@@ -158,130 +160,130 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
   const menuItems: MenuItemConfig[] = [
     {
       id: 'home',
-      title: 'Home',
+      title: t('common.home'),
       iconName: 'home',
       showChevron: true,
       onPress: () => handleNavigate('Home'),
     },
     {
       id: 'search',
-      title: 'Search Lands',
+      title: t('drawer.searchLands'),
       iconName: 'search-outline',
       showChevron: true,
       onPress: () => handleNavigate('Search'),
     },
     {
       id: 'map',
-      title: 'Map View',
+      title: t('common.mapView'),
       iconName: 'map-outline',
       showChevron: true,
       onPress: () => handleNavigate('MapView'),
     },
     {
       id: 'projects',
-      title: 'My Projects',
+      title: t('drawer.myProjects'),
       iconName: 'document-text-outline',
       showChevron: true,
       onPress: () => handleNavigate('Projects'),
     },
     {
       id: 'pricing',
-      title: 'Pricing Plans',
+      title: t('drawer.pricingPlans'),
       iconName: 'pricetag-outline',
       showChevron: true,
       onPress: () => handleNavigate('PricingPlans'),
     },
     {
       id: 'saved',
-      title: 'Saved / Shortlisted',
+      title: t('drawer.savedShortlisted'),
       iconName: 'heart-outline',
       showChevron: true,
       onPress: () => {
         onClose();
         Alert.alert(
-          'Saved / Shortlisted',
-          'Your shortlisted properties will appear here.',
+          t('drawer.savedTitle'),
+          t('drawer.savedMsg'),
           [
-            { text: 'View Account', onPress: () => navigation.navigate('Account') },
-            { text: 'OK', style: 'cancel' },
+            { text: t('common.viewDetails'), onPress: () => navigation.navigate('Account') },
+            { text: t('common.ok'), style: 'cancel' },
           ]
         );
       },
     },
     {
       id: 'notifications',
-      title: 'Notifications',
+      title: t('common.notifications'),
       iconName: 'notifications-outline',
       badge: 3,
       showChevron: true,
       onPress: () => {
         onClose();
         Alert.alert(
-          'Notifications',
-          'You have 3 new notifications:\n\n• New verified agricultural land in your area\n• Price updated on shortlisted property\n• Jamin Buddy matching update'
+          t('drawer.notifTitle'),
+          t('drawer.notifMsg')
         );
       },
     },
     {
       id: 'contact',
-      title: 'Contact Us',
+      title: t('drawer.contactUs'),
       iconName: 'call',
       showChevron: true,
       onPress: () => handleNavigate('ContactUs'),
     },
     {
       id: 'help',
-      title: 'Help & Support',
+      title: t('drawer.helpSupport'),
       iconName: 'help-circle-outline',
       showChevron: true,
       onPress: () => {
         onClose();
         Alert.alert(
-          'Help & Support',
-          'Jamin24 Help Desk:\n\n• 24/7 Helpline assistance\n• Land verification process guide\n• Legal document assistance\n• 360° virtual tour guidance\n\nHelpline: +91 98765 43210'
+          t('drawer.helpTitle'),
+          t('drawer.helpMsg')
         );
       },
     },
     {
       id: 'about',
-      title: 'About Us',
+      title: t('drawer.aboutUs'),
       iconName: 'information-circle-outline',
       showChevron: true,
       onPress: () => handleNavigate('AboutUs'),
     },
     {
       id: 'language',
-      title: 'Language Setting',
+      title: t('drawer.languageSetting'),
       iconName: 'language-outline',
       showChevron: true,
       onPress: () => handleNavigate('LanguageSetting'),
     },
     {
       id: 'settings',
-      title: 'Settings',
+      title: t('drawer.settings'),
       iconName: 'settings-outline',
       showChevron: true,
       onPress: () => {
         onClose();
         Alert.alert(
-          'Settings',
-          'App Preferences:\n\n• Language: English (EN)\n• Notifications: Enabled\n• Version: 1.0.0'
+          t('drawer.settingsTitle'),
+          t('drawer.settingsMsg')
         );
       },
     },
     {
       id: 'logout',
-      title: 'Logout',
+      title: t('drawer.logout'),
       iconName: 'log-out-outline',
       showChevron: false,
       onPress: () => {
         onClose();
         Alert.alert(
-          'Logout',
-          'Are you sure you want to log out from Jamin24?',
+          t('drawer.logoutTitle'),
+          t('drawer.logoutMsg'),
           [
-            { text: 'Cancel', style: 'cancel' },
-            { text: 'Logout', style: 'destructive', onPress: () => {} },
+            { text: t('common.cancel'), style: 'cancel' },
+            { text: t('drawer.logout'), style: 'destructive', onPress: () => {} },
           ]
         );
       },
@@ -293,8 +295,16 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
       visible={visible}
       animationType="fade"
       transparent={true}
+      statusBarTranslucent={true}
       onRequestClose={onClose}
     >
+      {visible && (
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor="transparent"
+          translucent={true}
+        />
+      )}
       <View style={styles.overlay}>
         {/* Backdrop tap to dismiss */}
         <TouchableWithoutFeedback onPress={onClose}>
@@ -328,8 +338,8 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
 
               {/* User Title & Subtitle */}
               <View style={styles.headerInfo}>
-                <Text style={styles.headerTitle}>Jamin Buddy</Text>
-                <Text style={styles.headerSubtitle}>Farmer / Land Seeker</Text>
+                <Text style={styles.headerTitle}>{t('drawer.title')}</Text>
+                <Text style={styles.headerSubtitle}>{t('drawer.userRole')}</Text>
               </View>
 
               {/* Right Chevron */}
@@ -389,7 +399,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
 
                     {/* Trailing Chevron (except Logout) */}
                     {item.showChevron !== false && (
-                      <Ionicons
+                      <Ionicons 
                         name="chevron-forward"
                         size={16}
                         color="#0B5E42"
@@ -406,7 +416,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
               <View style={styles.footerContainer}>
                 <Text style={styles.footerBrand}>Jamin24</Text>
                 <Text style={styles.footerDivider}>|</Text>
-                <Text style={styles.footerTagline}>Connecting Land & Dreams</Text>
+                <Text style={styles.footerTagline}>{t('drawer.brandTagline')}</Text>
               </View>
             </View>
           </View>
@@ -415,6 +425,7 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
     </Modal>
   );
 };
+
 
 const styles = StyleSheet.create({
   overlay: {
@@ -440,14 +451,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   drawerHeader: {
-    backgroundColor: '#0A4D3C',
-    paddingTop: Platform.OS === 'android' ? (StatusBar.currentHeight || 24) + 14 : 50,
-    paddingBottom: 20,
+    backgroundColor: '#074430',
+    paddingTop: Platform.OS === 'android' ? (StatusBar.currentHeight || 24) + 16 : 54,
+    paddingBottom: 22,
     paddingHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'center',
     position: 'relative',
     overflow: 'hidden',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255, 255, 255, 0.15)',
   },
   headerWatermark: {
     position: 'absolute',

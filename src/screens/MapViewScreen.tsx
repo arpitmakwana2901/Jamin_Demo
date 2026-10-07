@@ -12,6 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useTranslation } from 'react-i18next';
 import { MapViewStackParamList, Property } from '../types';
 import { TopBar } from '../components/TopBar';
 import { BrowseFilterCard, FilterState } from '../components/browse/BrowseFilterCard';
@@ -37,6 +38,7 @@ const initialFilters: FilterState = {
 };
 
 export const MapViewScreen: React.FC<Props> = ({ navigation }) => {
+  const { t } = useTranslation();
   const [filters, setFilters] = useState<FilterState>(initialFilters);
   const [selectedPropertyId, setSelectedPropertyId] = useState<string>('m1');
   const [isFullScreenMap, setIsFullScreenMap] = useState<boolean>(false);
@@ -182,7 +184,7 @@ export const MapViewScreen: React.FC<Props> = ({ navigation }) => {
                   style={{ marginRight: 4 }}
                 />
                 <Text style={styles.fullScreenBtnText}>
-                  {isFullScreenMap ? 'Exit Full Screen' : 'Full Screen'}
+                  {isFullScreenMap ? t('mapView.exitFullScreen') : t('mapView.fullScreen')}
                 </Text>
               </TouchableOpacity>
 
@@ -236,7 +238,7 @@ export const MapViewScreen: React.FC<Props> = ({ navigation }) => {
                 onPress={() => setShowIndicators(!showIndicators)}
                 activeOpacity={0.8}
               >
-                <Text style={styles.indicatorsTitle}>LAND POSITION INDICATORS:</Text>
+                <Text style={styles.indicatorsTitle}>{t('mapView.landPositionIndicators')}</Text>
                 <Ionicons
                   name={showIndicators ? 'chevron-down' : 'chevron-up'}
                   size={16}
@@ -262,14 +264,14 @@ export const MapViewScreen: React.FC<Props> = ({ navigation }) => {
           {/* PROPERTY CARDS LIST PANEL */}
           <View style={styles.cardsListContainer}>
             <Text style={styles.cardsListHeaderTitle}>
-              Properties on Map ({filteredProperties.length})
+              {t('mapView.propertiesOnMap')} ({filteredProperties.length})
             </Text>
             {filteredProperties.length === 0 ? (
               <View style={styles.emptyContainer}>
                 <Ionicons name="map-outline" size={40} color="#94A3B8" />
-                <Text style={styles.emptyTitle}>No Jamin Found on Map</Text>
+                <Text style={styles.emptyTitle}>{t('mapView.noJaminOnMap')}</Text>
                 <Text style={styles.emptySubtitle}>
-                  Try clearing or resetting filters to see plot locations.
+                  {t('mapView.noJaminOnMapDesc')}
                 </Text>
               </View>
             ) : (
@@ -293,6 +295,7 @@ export const MapViewScreen: React.FC<Props> = ({ navigation }) => {
             )}
           </View>
         </View>
+
 
         {/* FOOTER */}
         <FooterSection />

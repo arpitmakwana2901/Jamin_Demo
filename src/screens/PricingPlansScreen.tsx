@@ -10,11 +10,14 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useTranslation } from 'react-i18next';
 import { TopBar } from '../components/TopBar';
 import { FooterSection } from '../components/home/FooterSection';
 import { colors } from '../theme/colors';
 
 export const PricingPlansScreen: React.FC = () => {
+  const { t } = useTranslation();
+
   const handleApplyNow = (planName: string) => {
     const phone = '919898072803';
     const message = `Hello Jamin24, I would like to apply for the ${planName} plan.`;
@@ -41,57 +44,57 @@ export const PricingPlansScreen: React.FC = () => {
           {/* GREEN BANNER CARD */}
           <View style={styles.greenBannerCard}>
             <View style={styles.pricingPillBadge}>
-              <Text style={styles.pricingPillText}>JAMIN24 PRICING</Text>
+              <Text style={styles.pricingPillText}>{t('pricing.pricingPill')}</Text>
             </View>
 
             <Text style={styles.heroHeadlineText}>
-              Plans for sellers, investors, traders, brokers, and premium promotion.
+              {t('pricing.heroHeadline')}
             </Text>
 
             <Text style={styles.heroDescriptionText}>
-              Choose listing visibility, media production, verification, dashboard access, and boost tools from one scalable pricing system.
+              {t('pricing.heroDesc')}
             </Text>
 
             {/* METRICS ROW INSIDE GREEN CARD */}
             <View style={styles.heroMetricsRow}>
               <View style={styles.metricCardBox}>
-                <Text style={styles.metricCardNumber}>6+</Text>
-                <Text style={styles.metricCardLabel}>Plan types</Text>
+                <Text style={styles.metricCardNumber}>{t('pricing.planTypesCount')}</Text>
+                <Text style={styles.metricCardLabel}>{t('pricing.planTypesLabel')}</Text>
               </View>
 
               <View style={styles.metricCardBox}>
-                <Text style={styles.metricCardNumber}>30 days</Text>
-                <Text style={styles.metricCardLabel}>Boost max duration</Text>
+                <Text style={styles.metricCardNumber}>{t('pricing.boostMaxDuration')}</Text>
+                <Text style={styles.metricCardLabel}>{t('pricing.boostDurationLabel')}</Text>
               </View>
             </View>
           </View>
 
           {/* BEFORE PLAN PURCHASE WHITE CARD */}
           <View style={styles.beforePurchaseCard}>
-            <Text style={styles.beforePurchaseTitle}>Before Plan Purchase</Text>
+            <Text style={styles.beforePurchaseTitle}>{t('pricing.beforePurchaseTitle')}</Text>
             <Text style={styles.beforePurchaseSub}>
-              Users see onboarding and plan benefits until a plan is purchased.
+              {t('pricing.beforePurchaseSub')}
             </Text>
 
             <View style={styles.checklistContainer}>
               <View style={styles.checkRow}>
                 <Ionicons name="checkmark-circle-outline" size={16} color={colors.primary} style={{ marginRight: 8 }} />
-                <Text style={styles.checkText}>Profile completion</Text>
+                <Text style={styles.checkText}>{t('pricing.profileCompletion')}</Text>
               </View>
 
               <View style={styles.checkRow}>
                 <Ionicons name="checkmark-circle-outline" size={16} color={colors.primary} style={{ marginRight: 8 }} />
-                <Text style={styles.checkText}>Verification status</Text>
+                <Text style={styles.checkText}>{t('pricing.verificationStatus')}</Text>
               </View>
 
               <View style={styles.checkRow}>
                 <Ionicons name="checkmark-circle-outline" size={16} color={colors.primary} style={{ marginRight: 8 }} />
-                <Text style={styles.checkText}>Plan details</Text>
+                <Text style={styles.checkText}>{t('pricing.planDetails')}</Text>
               </View>
 
               <View style={styles.checkRow}>
                 <Ionicons name="checkmark-circle-outline" size={16} color={colors.primary} style={{ marginRight: 8 }} />
-                <Text style={styles.checkText}>Benefits</Text>
+                <Text style={styles.checkText}>{t('pricing.benefits')}</Text>
               </View>
             </View>
           </View>
@@ -99,9 +102,9 @@ export const PricingPlansScreen: React.FC = () => {
 
         {/* SECTION 1: SELLER PLANS */}
         <View style={styles.sectionHeaderBox}>
-          <Text style={styles.sectionTitleText}>Seller Plans</Text>
+          <Text style={styles.sectionTitleText}>{t('pricing.sellerPlansTitle')}</Text>
           <Text style={styles.sectionSubtitleText}>
-            Listing packages scale from free visibility to premium sales support.
+            {t('pricing.sellerPlansSub')}
           </Text>
         </View>
 
@@ -111,18 +114,18 @@ export const PricingPlansScreen: React.FC = () => {
             {/* BADGES ROW */}
             <View style={styles.badgesRow}>
               <View style={styles.tagBadgePill}>
-                <Text style={styles.tagBadgePillText}>6 Months</Text>
+                <Text style={styles.tagBadgePillText}>{t('pricing.months6')}</Text>
               </View>
               <View style={styles.tagBadgePill}>
-                <Text style={styles.tagBadgePillText}>Standard Seller Dashboard</Text>
+                <Text style={styles.tagBadgePillText}>{t('pricing.standardSellerDashboard')}</Text>
               </View>
             </View>
 
-            <Text style={styles.planCardTitle}>Free Listing</Text>
+            <Text style={styles.planCardTitle}>{t('pricing.freeListingTitle')}</Text>
 
             {/* PRICE */}
             <View style={styles.priceRow}>
-              <Text style={styles.priceMainText}>Free</Text>
+              <Text style={styles.priceMainText}>{t('pricing.freePrice')}</Text>
             </View>
 
             {/* FEATURES CHECKLIST */}
@@ -149,9 +152,9 @@ export const PricingPlansScreen: React.FC = () => {
             <TouchableOpacity
               style={styles.applyBtn}
               activeOpacity={0.88}
-              onPress={() => handleApplyNow('Free Listing')}
+              onPress={() => handleApplyNow(t('pricing.freeListingTitle'))}
             >
-              <Text style={styles.applyBtnText}>Apply Now</Text>
+              <Text style={styles.applyBtnText}>{t('pricing.applyNow')}</Text>
               <Ionicons name="arrow-forward" size={15} color="#FFFFFF" style={{ marginLeft: 6 }} />
             </TouchableOpacity>
           </View>
@@ -161,18 +164,18 @@ export const PricingPlansScreen: React.FC = () => {
             {/* BADGES ROW */}
             <View style={styles.badgesRow}>
               <View style={styles.tagBadgePill}>
-                <Text style={styles.tagBadgePillText}>12 Months</Text>
+                <Text style={styles.tagBadgePillText}>{t('pricing.months12')}</Text>
               </View>
               <View style={styles.tagBadgePill}>
-                <Text style={styles.tagBadgePillText}>Standard Seller Dashboard</Text>
+                <Text style={styles.tagBadgePillText}>{t('pricing.standardSellerDashboard')}</Text>
               </View>
             </View>
 
-            <Text style={styles.planCardTitle}>Pro Listing</Text>
+            <Text style={styles.planCardTitle}>{t('pricing.proListingTitle')}</Text>
 
             {/* PRICE WITH STRIKETHROUGH */}
             <View style={styles.priceRow}>
-              <Text style={styles.priceMainText}>Free </Text>
+              <Text style={styles.priceMainText}>{t('pricing.freePrice')} </Text>
               <Text style={styles.strikeThroughPrice}>₹25,000</Text>
             </View>
 
@@ -236,9 +239,9 @@ export const PricingPlansScreen: React.FC = () => {
             <TouchableOpacity
               style={styles.applyBtn}
               activeOpacity={0.88}
-              onPress={() => handleApplyNow('Pro Listing')}
+              onPress={() => handleApplyNow(t('pricing.proListingTitle'))}
             >
-              <Text style={styles.applyBtnText}>Apply Now</Text>
+              <Text style={styles.applyBtnText}>{t('pricing.applyNow')}</Text>
               <Ionicons name="arrow-forward" size={15} color="#FFFFFF" style={{ marginLeft: 6 }} />
             </TouchableOpacity>
           </View>
@@ -246,9 +249,9 @@ export const PricingPlansScreen: React.FC = () => {
 
         {/* SECTION 2: ROLE SUBSCRIPTIONS */}
         <View style={[styles.sectionHeaderBox, { marginTop: 24 }]}>
-          <Text style={styles.sectionTitleText}>Role Subscriptions</Text>
+          <Text style={styles.sectionTitleText}>{t('pricing.roleSubscriptionsTitle')}</Text>
           <Text style={styles.sectionSubtitleText}>
-            Dedicated unlocks for investors, traders, and brokers with clear dashboard access rules.
+            {t('pricing.roleSubscriptionsSub')}
           </Text>
         </View>
 
@@ -258,20 +261,20 @@ export const PricingPlansScreen: React.FC = () => {
             {/* BADGES ROW */}
             <View style={styles.badgesRow}>
               <View style={styles.tagBadgePill}>
-                <Text style={styles.tagBadgePillText}>12 Months</Text>
+                <Text style={styles.tagBadgePillText}>{t('pricing.months12')}</Text>
               </View>
               <View style={styles.tagBadgePill}>
-                <Text style={styles.tagBadgePillText}>Broker Workspace</Text>
+                <Text style={styles.tagBadgePillText}>{t('pricing.brokerWorkspace')}</Text>
               </View>
             </View>
 
-            <Text style={styles.planCardTitle}>Broker Annual Subscription</Text>
+            <Text style={styles.planCardTitle}>{t('pricing.brokerAnnualSubTitle')}</Text>
 
             {/* PRICE WITH STRIKETHROUGH */}
             <View style={styles.priceRow}>
-              <Text style={styles.priceMainText}>Free </Text>
+              <Text style={styles.priceMainText}>{t('pricing.freePrice')} </Text>
               <Text style={styles.strikeThroughPrice}>₹5,000</Text>
-              <Text style={styles.pricePeriodSub}> / Year</Text>
+              <Text style={styles.pricePeriodSub}>{t('pricing.perYear')}</Text>
             </View>
 
             {/* FEATURES CHECKLIST */}
@@ -314,13 +317,14 @@ export const PricingPlansScreen: React.FC = () => {
             <TouchableOpacity
               style={styles.applyBtn}
               activeOpacity={0.88}
-              onPress={() => handleApplyNow('Broker Annual Subscription')}
+              onPress={() => handleApplyNow(t('pricing.brokerAnnualSubTitle'))}
             >
-              <Text style={styles.applyBtnText}>Apply Now</Text>
+              <Text style={styles.applyBtnText}>{t('pricing.applyNow')}</Text>
               <Ionicons name="arrow-forward" size={15} color="#FFFFFF" style={{ marginLeft: 6 }} />
             </TouchableOpacity>
           </View>
         </View>
+
 
         {/* FOOTER SECTION */}
         <FooterSection />

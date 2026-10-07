@@ -1,17 +1,20 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useTranslation } from 'react-i18next';
 import { TabParamList } from '../types';
 import { BrowseStack } from './BrowseStack';
 import { SearchStack } from './SearchStack';
 import { MapViewStack } from './MapViewStack';
 import { ProjectsScreen } from '../screens/ProjectsScreen';
-import { AccountScreen } from '../screens/AccountScreen';
+import { AccountStack } from './AccountStack';
 import { colors } from '../theme/colors';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
 export const TabNavigator: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <Tab.Navigator
       screenOptions={({ route }: { route: { name: string } }) => ({
@@ -57,28 +60,29 @@ export const TabNavigator: React.FC = () => {
       <Tab.Screen
         name="Home"
         component={BrowseStack}
-        options={{ tabBarLabel: 'Home' }}
+        options={{ tabBarLabel: t('tabs.home') }}
       />
       <Tab.Screen
         name="Search"
         component={SearchStack}
-        options={{ tabBarLabel: 'Search' }}
+        options={{ tabBarLabel: t('tabs.search') }}
       />
       <Tab.Screen
         name="MapView"
         component={MapViewStack}
-        options={{ tabBarLabel: 'Map View' }}
+        options={{ tabBarLabel: t('tabs.mapView') }}
       />
       <Tab.Screen
         name="Projects"
         component={ProjectsScreen}
-        options={{ tabBarLabel: 'Projects' }}
+        options={{ tabBarLabel: t('tabs.projects') }}
       />
       <Tab.Screen
         name="Account"
-        component={AccountScreen}
-        options={{ tabBarLabel: 'Account' }}
+        component={AccountStack}
+        options={{ tabBarLabel: t('tabs.account') }}
       />
     </Tab.Navigator>
   );
 };
+

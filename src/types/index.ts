@@ -106,6 +106,15 @@ export type MapViewStackParamList = {
   ContactUs: undefined;
 };
 
+export type AccountStackParamList = {
+  AccountHome: undefined;
+  AboutUs: undefined;
+  LanguageSetting: undefined;
+  ContactUs: undefined;
+  PricingPlans: undefined;
+  PropertyDetail: { property: Property };
+};
+
 export type TabParamList = {
   Home: undefined;
   Search: undefined;

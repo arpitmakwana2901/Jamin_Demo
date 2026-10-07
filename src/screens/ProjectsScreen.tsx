@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useTranslation } from 'react-i18next';
 import { TopBar } from '../components/TopBar';
 import { FooterSection } from '../components/home/FooterSection';
 import { PROJECTS } from '../data/mockData';
@@ -19,6 +20,7 @@ import { Project } from '../types';
 import { colors } from '../theme/colors';
 
 export const ProjectsScreen: React.FC = () => {
+  const { t } = useTranslation();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const handleOpenProject = (project: Project) => {
@@ -53,13 +55,13 @@ export const ProjectsScreen: React.FC = () => {
                 {/* STATUS BADGE */}
                 <View style={styles.statusBadge}>
                   <View style={styles.statusDot} />
-                  <Text style={styles.statusText}>{project.status || 'Active'}</Text>
+                  <Text style={styles.statusText}>{project.status === 'Active' ? t('projects.statusActive') : t('projects.statusComingSoon')}</Text>
                 </View>
 
                 {/* PLOTS AVAILABLE BADGE */}
                 <View style={styles.plotsBadge}>
                   <Text style={styles.plotsBadgeText}>
-                    {project.plotsAvailable || project.unitsAvailable} Plots Available
+                    {project.plotsAvailable || project.unitsAvailable} {t('projects.plotsAvailableSuffix')}
                   </Text>
                 </View>
               </View>
@@ -93,7 +95,7 @@ export const ProjectsScreen: React.FC = () => {
 
               {/* PROJECT DETAILS HEADER */}
               <View style={styles.detailsHeaderBox}>
-                <Text style={styles.detailsSectionTitle}>Project Details</Text>
+                <Text style={styles.detailsSectionTitle}>{t('projects.projectDetails')}</Text>
                 <View style={styles.greenUnderline} />
               </View>
 
@@ -104,7 +106,7 @@ export const ProjectsScreen: React.FC = () => {
                   <View style={styles.iconSquare}>
                     <Ionicons name="person-outline" size={16} color={colors.primary} />
                   </View>
-                  <Text style={styles.detailRowLabel}>Builder</Text>
+                  <Text style={styles.detailRowLabel}>{t('projects.builder')}</Text>
                   <Text style={styles.detailRowValue}>{project.builder || '-'}</Text>
                 </View>
 
@@ -113,7 +115,7 @@ export const ProjectsScreen: React.FC = () => {
                   <View style={styles.iconSquare}>
                     <Ionicons name="home-outline" size={16} color={colors.primary} />
                   </View>
-                  <Text style={styles.detailRowLabel}>City</Text>
+                  <Text style={styles.detailRowLabel}>{t('projects.city')}</Text>
                   <Text style={styles.detailRowValue}>{project.city || 'Ahmedabad'}</Text>
                 </View>
 
@@ -122,7 +124,7 @@ export const ProjectsScreen: React.FC = () => {
                   <View style={styles.iconSquare}>
                     <Ionicons name="location-outline" size={16} color={colors.primary} />
                   </View>
-                  <Text style={styles.detailRowLabel}>Location</Text>
+                  <Text style={styles.detailRowLabel}>{t('projects.location')}</Text>
                   <Text style={styles.detailRowValue}>{project.location || '-'}</Text>
                 </View>
               </View>
@@ -133,7 +135,7 @@ export const ProjectsScreen: React.FC = () => {
                 activeOpacity={0.88}
                 onPress={() => handleOpenProject(project)}
               >
-                <Text style={styles.viewProjectBtnText}>View Project</Text>
+                <Text style={styles.viewProjectBtnText}>{t('projects.viewProject')}</Text>
               </TouchableOpacity>
             </View>
           ))}
@@ -167,23 +169,23 @@ export const ProjectsScreen: React.FC = () => {
 
                     <View style={styles.modalMetaBox}>
                       <View style={styles.modalMetaRow}>
-                        <Text style={styles.modalMetaLabel}>Status:</Text>
-                        <Text style={styles.modalMetaValue}>{selectedProject.status}</Text>
+                        <Text style={styles.modalMetaLabel}>{t('common.status')}:</Text>
+                        <Text style={styles.modalMetaValue}>{selectedProject.status === 'Active' ? t('projects.statusActive') : t('projects.statusComingSoon')}</Text>
                       </View>
                       <View style={styles.modalMetaRow}>
-                        <Text style={styles.modalMetaLabel}>City / Location:</Text>
+                        <Text style={styles.modalMetaLabel}>{t('projects.city')} / {t('projects.location')}:</Text>
                         <Text style={styles.modalMetaValue}>
                           {selectedProject.city || 'Ahmedabad'}, {selectedProject.location}
                         </Text>
                       </View>
                       <View style={styles.modalMetaRow}>
-                        <Text style={styles.modalMetaLabel}>Plots Available:</Text>
+                        <Text style={styles.modalMetaLabel}>{t('common.plotsAvailable')}:</Text>
                         <Text style={styles.modalMetaValue}>
-                          {selectedProject.plotsAvailable || selectedProject.unitsAvailable} Plots
+                          {selectedProject.plotsAvailable || selectedProject.unitsAvailable} {t('projects.plotsAvailableSuffix')}
                         </Text>
                       </View>
                       <View style={styles.modalMetaRow}>
-                        <Text style={styles.modalMetaLabel}>Price Range:</Text>
+                        <Text style={styles.modalMetaLabel}>{t('projects.priceRange')}</Text>
                         <Text style={styles.modalMetaPrice}>{selectedProject.priceRange}</Text>
                       </View>
                     </View>
@@ -194,7 +196,7 @@ export const ProjectsScreen: React.FC = () => {
                       activeOpacity={0.88}
                     >
                       <Ionicons name="logo-whatsapp" size={18} color="#FFFFFF" style={{ marginRight: 6 }} />
-                      <Text style={styles.contactBuilderText}>Contact Builder / Sales</Text>
+                      <Text style={styles.contactBuilderText}>{t('projects.contactBuilder')}</Text>
                     </TouchableOpacity>
                   </View>
                 )}
@@ -206,6 +208,7 @@ export const ProjectsScreen: React.FC = () => {
     </SafeAreaView>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

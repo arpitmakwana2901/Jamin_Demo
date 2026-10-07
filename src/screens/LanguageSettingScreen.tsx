@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -10,8 +10,10 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useTranslation } from 'react-i18next';
 import { BrowseStackParamList } from '../types';
 import { colors } from '../theme/colors';
+import { changeAppLanguage } from '../i18n';
 
 type Props = NativeStackScreenProps<BrowseStackParamList, 'LanguageSetting'>;
 
@@ -44,18 +46,26 @@ const languages: LanguageOption[] = [
 ];
 
 export const LanguageSettingScreen: React.FC<Props> = ({ navigation }) => {
-  const [selectedLanguage, setSelectedLanguage] = useState<string>('en');
+  const { t, i18n } = useTranslation();
+  const [selectedLanguage, setSelectedLanguage] = useState<string>(i18n.language || 'en');
+
+  useEffect(() => {
+    if (i18n.language) {
+      setSelectedLanguage(i18n.language);
+    }
+  }, [i18n.language]);
 
   const handleSelectLanguage = (id: string) => {
     setSelectedLanguage(id);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    await changeAppLanguage(selectedLanguage);
     const selected = languages.find(lang => lang.id === selectedLanguage);
     Alert.alert(
-      'Language Updated',
-      `Language has been set to ${selected?.name} (${selected?.nativeName}).`,
-      [{ text: 'OK', onPress: () => navigation.goBack() }],
+      t('languageSetting.languageUpdated'),
+      `${t('languageSetting.languageSetTo')} ${selected?.name} (${selected?.nativeName}).`,
+      [{ text: t('common.ok'), onPress: () => navigation.goBack() }],
     );
   };
 
@@ -70,7 +80,7 @@ export const LanguageSettingScreen: React.FC<Props> = ({ navigation }) => {
         >
           <Ionicons name="arrow-back" size={24} color={colors.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Language Setting</Text>
+        <Text style={styles.headerTitle}>{t('languageSetting.headerTitle')}</Text>
         <View style={styles.placeholder} />
       </View>
 
@@ -88,9 +98,9 @@ export const LanguageSettingScreen: React.FC<Props> = ({ navigation }) => {
               color={colors.primary}
             />
           </View>
-          <Text style={styles.infoTitle}>Select Your Language</Text>
+          <Text style={styles.infoTitle}>{t('languageSetting.selectLanguage')}</Text>
           <Text style={styles.infoSubtitle}>
-            Choose your preferred language for using Jamin24.
+            {t('languageSetting.selectLanguageSub')}
           </Text>
         </View>
 
@@ -157,12 +167,13 @@ export const LanguageSettingScreen: React.FC<Props> = ({ navigation }) => {
           activeOpacity={0.85}
           onPress={handleSave}
         >
-          <Text style={styles.saveButtonText}>Apply Language</Text>
+          <Text style={styles.saveButtonText}>{t('languageSetting.applyLanguage')}</Text>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
 };
+
 
 const styles = StyleSheet.create({
   safeArea: {

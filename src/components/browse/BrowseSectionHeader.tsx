@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useTranslation } from 'react-i18next';
 import { colors } from '../../theme/colors';
 
 interface BrowseSectionHeaderProps {
@@ -16,6 +17,8 @@ export const BrowseSectionHeader: React.FC<BrowseSectionHeaderProps> = ({
   onPrev,
   onNext,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
@@ -26,8 +29,9 @@ export const BrowseSectionHeader: React.FC<BrowseSectionHeaderProps> = ({
           onPress={onViewAll}
           activeOpacity={0.8}
         >
-          <Text style={styles.viewAllText}>View All</Text>
+          <Text style={styles.viewAllText}>{t('common.viewAll')}</Text>
         </TouchableOpacity>
+
 
         <View style={styles.arrowsRow}>
           <TouchableOpacity

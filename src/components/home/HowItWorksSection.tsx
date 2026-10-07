@@ -1,43 +1,46 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useTranslation } from 'react-i18next';
 
 export const HowItWorksSection: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <View className="mt-8 px-4">
       <View className="bg-[#073B2A] rounded-[22px] p-5.5 border border-[#146C51] shadow-lg p-5">
         {/* Label Badge */}
         <View className="self-start bg-emerald-400/15 border border-emerald-400/30 px-2.5 py-1 rounded-full mb-2.5">
           <Text className="text-[10px] font-extrabold text-emerald-400 tracking-widest">
-            JAMIN24, SIMPLIFIED
+            {t('home.howItWorksBadge')}
           </Text>
         </View>
 
         {/* Heading */}
         <Text className="text-2xl font-black text-white leading-7">
-          From search to site visit,{'\n'}see how it works.
+          {t('home.howItWorksTitle')}
         </Text>
 
         {/* Description */}
         <Text className="text-[13px] text-white/85 mt-2 leading-5">
-          A simple 2-minute guide to finding verified land, connecting with owners and moving forward with clarity.
+          {t('home.howItWorksDesc')}
         </Text>
 
         {/* Checklist */}
         <View className="mt-4 gap-2.5">
           <View className="flex-row items-center">
             <Ionicons name="checkmark-circle" size={18} color="#4ADE80" className="mr-2" />
-            <Text className="text-white text-[13.5px] font-bold ml-2">Search smarter</Text>
+            <Text className="text-white text-[13.5px] font-bold ml-2">{t('home.searchSmarter')}</Text>
           </View>
 
           <View className="flex-row items-center">
             <Ionicons name="checkmark-circle" size={18} color="#4ADE80" className="mr-2" />
-            <Text className="text-white text-[13.5px] font-bold ml-2">Verify details</Text>
+            <Text className="text-white text-[13.5px] font-bold ml-2">{t('home.verifyDetails')}</Text>
           </View>
 
           <View className="flex-row items-center">
             <Ionicons name="checkmark-circle" size={18} color="#4ADE80" className="mr-2" />
-            <Text className="text-white text-[13.5px] font-bold ml-2">Connect directly</Text>
+            <Text className="text-white text-[13.5px] font-bold ml-2">{t('home.connectDirectly')}</Text>
           </View>
         </View>
 
@@ -51,10 +54,11 @@ export const HowItWorksSection: React.FC = () => {
             <Ionicons name="play" size={22} color="#0B5E42" className="ml-0.5" />
           </View>
           <Text className="text-white text-[13px] font-extrabold tracking-wider">
-            WATCH THE 2 MIN GUIDE
+            {t('home.watchGuide')}
           </Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
+

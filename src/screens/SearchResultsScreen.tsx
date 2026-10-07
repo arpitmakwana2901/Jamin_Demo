@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useTranslation } from 'react-i18next';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BrowseStackParamList, Property } from '../types';
 import { colors } from '../theme/colors';
@@ -28,6 +29,7 @@ type Props = {
 };
 
 export const SearchResultsScreen: React.FC<Props> = ({ route, navigation }) => {
+  const { t } = useTranslation();
   const { location, landType, budget } = route?.params || {};
 
   const filteredProperties = PROPERTIES.filter((p) => {
@@ -50,9 +52,9 @@ export const SearchResultsScreen: React.FC<Props> = ({ route, navigation }) => {
         </TouchableOpacity>
 
         <View style={styles.headerTextContainer}>
-          <Text style={styles.headerTitle}>खोज परिणाम (Search Results)</Text>
+          <Text style={styles.headerTitle}>{t('searchResult.headerTitle')}</Text>
           <Text style={styles.headerSubtitle}>
-            {location || 'गुजरात'} • {landType || 'सभी प्रकार'}
+            {location || t('searchResult.gujarat')} • {landType || t('searchResult.allTypes')}
           </Text>
         </View>
 
@@ -69,15 +71,15 @@ export const SearchResultsScreen: React.FC<Props> = ({ route, navigation }) => {
       >
         <View style={styles.resultCountRow}>
           <Text style={styles.resultCountText}>
-            <Text style={styles.resultCountHighlight}>{filteredProperties.length}</Text> संपत्तियां मिलीं
+            <Text style={styles.resultCountHighlight}>{filteredProperties.length}</Text> {t('searchResult.propertiesFoundSuffix')}
           </Text>
         </View>
 
         {filteredProperties.length === 0 ? (
           <EmptyState
-            title="कोई परिणाम नहीं मिला"
-            description="आपकी खोज मानदंड से मेल खाती कोई जमीन नहीं मिली। कृपया फ़िल्टर बदलें।"
-            actionText="वापस जाएं"
+            title={t('searchResult.noResultTitle')}
+            description={t('searchResult.noResultDesc')}
+            actionText={t('searchResult.goBack')}
             onAction={() => navigation.goBack()}
           />
         ) : (

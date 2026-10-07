@@ -11,11 +11,14 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useTranslation } from 'react-i18next';
 import { TopBar } from '../components/TopBar';
 import { FooterSection } from '../components/home/FooterSection';
 import { colors } from '../theme/colors';
 
 export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
+  const { t } = useTranslation();
+
   const handleContactUs = () => {
     const phone = '919898072803';
     const message = 'Hello Jamin24, I would like to get more information about your land services.';
@@ -46,21 +49,21 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
         <View style={styles.heroSection}>
           <View style={styles.heroTextContent}>
             <View style={styles.tagPillBadge}>
-              <Text style={styles.tagPillText}>WHO WE ARE & WHAT WE DO</Text>
+              <Text style={styles.tagPillText}>{t('aboutUs.tagPill')}</Text>
             </View>
 
-            <Text style={styles.heroMainTitle}>About Jamin 24</Text>
+            <Text style={styles.heroMainTitle}>{t('aboutUs.title')}</Text>
 
             <Text style={styles.heroParagraph}>
-              Jamin24 is a modern land real estate platform built to make land buying, selling, and project discovery simple, clear, and trustworthy.
+              {t('aboutUs.para1')}
             </Text>
 
             <Text style={styles.heroParagraph}>
-              Our primary focus is the Open Land real estate, where buyers can explore verified agricultural plots, non-agricultural (NA) land, commercial parcels, plotting developments, along with 360° drone view photos, plot boundaries, and structural video outlines to help users understand every Jamin better.
+              {t('aboutUs.para2')}
             </Text>
 
             <Text style={styles.heroParagraph}>
-              Jamin24 is backed by Saraswati Group, a trusted business name with over 25+ years of experience in finance, land real estate advisory, and structural plots.
+              {t('aboutUs.para3')}
             </Text>
 
             {/* HERO BUTTONS */}
@@ -70,7 +73,7 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
                 onPress={handleContactUs}
                 activeOpacity={0.88}
               >
-                <Text style={styles.contactUsBtnText}>Contact Us</Text>
+                <Text style={styles.contactUsBtnText}>{t('common.contactUs')}</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -78,7 +81,7 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
                 onPress={handleViewProperties}
                 activeOpacity={0.88}
               >
-                <Text style={styles.viewPropertiesBtnText}>View Properties</Text>
+                <Text style={styles.viewPropertiesBtnText}>{t('common.exploreJamin')}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -95,7 +98,7 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
             {/* OVERLAY BADGE ON IMAGE */}
             <View style={styles.imageGuideBadge}>
               <Ionicons name="compass-outline" size={14} color={colors.primary} style={{ marginRight: 4 }} />
-              <Text style={styles.imageGuideBadgeText}>View 360° Jamin guidelines</Text>
+              <Text style={styles.imageGuideBadgeText}>{t('aboutUs.view360Guidelines')}</Text>
             </View>
           </View>
         </View>
@@ -103,15 +106,15 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
         {/* SECTION 2: PURPOSE - MISSION & VISION */}
         <View style={styles.purposeSection}>
           <View style={styles.centerTagPill}>
-            <Text style={styles.tagPillText}>OUR PURPOSE</Text>
+            <Text style={styles.tagPillText}>{t('aboutUs.ourPurposeTag')}</Text>
           </View>
 
           <Text style={styles.centerSectionTitle}>
-            Built Around Trust, Clarity, and Better Jamin Decisions
+            {t('aboutUs.purposeTitle')}
           </Text>
 
           <Text style={styles.centerSectionSub}>
-            We combine market knowledge with a practical, clear filter process for residential, commercial, and agricultural land.
+            {t('aboutUs.purposeSub')}
           </Text>
 
           <View style={styles.missionVisionCardsGrid}>
@@ -121,25 +124,25 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
                 <Ionicons name="locate-outline" size={20} color={colors.primary} />
               </View>
 
-              <Text style={styles.pvCardTitle}>Our Mission</Text>
+              <Text style={styles.pvCardTitle}>{t('aboutUs.ourMission')}</Text>
               <Text style={styles.pvCardSub}>
-                To empower land buyers and sellers across India by providing transparent, verified, and technology-driven land deals.
+                {t('aboutUs.missionSub')}
               </Text>
 
               <View style={styles.pvChecklist}>
                 <View style={styles.pvCheckRow}>
                   <Ionicons name="checkmark-circle" size={15} color={colors.primary} style={{ marginRight: 6 }} />
-                  <Text style={styles.pvCheckText}>Simplify buying, selling, and land search guidelines</Text>
+                  <Text style={styles.pvCheckText}>{t('aboutUs.m1')}</Text>
                 </View>
 
                 <View style={styles.pvCheckRow}>
                   <Ionicons name="checkmark-circle" size={15} color={colors.primary} style={{ marginRight: 6 }} />
-                  <Text style={styles.pvCheckText}>Offer honest guidance and background verification</Text>
+                  <Text style={styles.pvCheckText}>{t('aboutUs.m2')}</Text>
                 </View>
 
                 <View style={styles.pvCheckRow}>
                   <Ionicons name="checkmark-circle" size={15} color={colors.primary} style={{ marginRight: 6 }} />
-                  <Text style={styles.pvCheckText}>Create a reliable framework for land trading</Text>
+                  <Text style={styles.pvCheckText}>{t('aboutUs.m3')}</Text>
                 </View>
               </View>
             </View>
@@ -150,25 +153,25 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
                 <Ionicons name="eye-outline" size={20} color={colors.primary} />
               </View>
 
-              <Text style={styles.pvCardTitle}>Our Vision</Text>
+              <Text style={styles.pvCardTitle}>{t('aboutUs.ourVision')}</Text>
               <Text style={styles.pvCardSub}>
-                To become India's premier online platform where buyers, sellers, traders, and brokers connect with confidence.
+                {t('aboutUs.visionSub')}
               </Text>
 
               <View style={styles.pvChecklist}>
                 <View style={styles.pvCheckRow}>
                   <Ionicons name="checkmark-circle" size={15} color={colors.primary} style={{ marginRight: 6 }} />
-                  <Text style={styles.pvCheckText}>Building long-term trust for open land market</Text>
+                  <Text style={styles.pvCheckText}>{t('aboutUs.v1')}</Text>
                 </View>
 
                 <View style={styles.pvCheckRow}>
                   <Ionicons name="checkmark-circle" size={15} color={colors.primary} style={{ marginRight: 6 }} />
-                  <Text style={styles.pvCheckText}>Enabling real plot video tours and 360° views</Text>
+                  <Text style={styles.pvCheckText}>{t('aboutUs.v2')}</Text>
                 </View>
 
                 <View style={styles.pvCheckRow}>
                   <Ionicons name="checkmark-circle" size={15} color={colors.primary} style={{ marginRight: 6 }} />
-                  <Text style={styles.pvCheckText}>Deliver value for buyers, sellers, and investors</Text>
+                  <Text style={styles.pvCheckText}>{t('aboutUs.v3')}</Text>
                 </View>
               </View>
             </View>
@@ -178,10 +181,10 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
         {/* SECTION 3: WHY CHOOSE US - START WITH CONFIDENCE */}
         <View style={styles.confidenceSection}>
           <View style={styles.centerTagPill}>
-            <Text style={styles.tagPillText}>WHY CHOOSE US</Text>
+            <Text style={styles.tagPillText}>{t('aboutUs.whyChooseUsTag')}</Text>
           </View>
 
-          <Text style={styles.centerSectionTitle}>Start with confidence</Text>
+          <Text style={styles.centerSectionTitle}>{t('aboutUs.startConfidenceTitle')}</Text>
 
           <View style={styles.confidenceGrid}>
             {/* FEATURE 1 */}
@@ -189,9 +192,9 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
               <View style={styles.confIconSquare}>
                 <Ionicons name="shield-checkmark-outline" size={18} color={colors.primary} />
               </View>
-              <Text style={styles.confTitle}>Verified Listings</Text>
+              <Text style={styles.confTitle}>{t('aboutUs.c1Title')}</Text>
               <Text style={styles.confDesc}>
-                Every verified plot is inspected for title, ownership integrity, and location clarity.
+                {t('aboutUs.c1Desc')}
               </Text>
             </View>
 
@@ -200,9 +203,9 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
               <View style={styles.confIconSquare}>
                 <Ionicons name="person-outline" size={18} color={colors.primary} />
               </View>
-              <Text style={styles.confTitle}>Trusted Agents</Text>
+              <Text style={styles.confTitle}>{t('aboutUs.c2Title')}</Text>
               <Text style={styles.confDesc}>
-                Connect with experienced agents who bring market knowledge and verified regional track records.
+                {t('aboutUs.c2Desc')}
               </Text>
             </View>
 
@@ -211,9 +214,9 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
               <View style={styles.confIconSquare}>
                 <Ionicons name="document-text-outline" size={18} color={colors.primary} />
               </View>
-              <Text style={styles.confTitle}>Easy Process</Text>
+              <Text style={styles.confTitle}>{t('aboutUs.c3Title')}</Text>
               <Text style={styles.confDesc}>
-                From 360° drone views to document reviews, we make land search simple and organized.
+                {t('aboutUs.c3Desc')}
               </Text>
             </View>
 
@@ -222,9 +225,9 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
               <View style={styles.confIconSquare}>
                 <Ionicons name="headset-outline" size={18} color={colors.primary} />
               </View>
-              <Text style={styles.confTitle}>Expert Support</Text>
+              <Text style={styles.confTitle}>{t('aboutUs.c4Title')}</Text>
               <Text style={styles.confDesc}>
-                Get dedicated support for land discovery, pricing, documentation, and site visits.
+                {t('aboutUs.c4Desc')}
               </Text>
             </View>
           </View>
@@ -233,61 +236,61 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
         {/* SECTION 4: WHAT WE OFFER GRID */}
         <View style={styles.offerSection}>
           <View style={styles.centerTagPill}>
-            <Text style={styles.tagPillText}>WHAT WE OFFER</Text>
+            <Text style={styles.tagPillText}>{t('aboutUs.whatWeOfferTag')}</Text>
           </View>
 
           <Text style={styles.centerSectionTitle}>
-            A clearer land experience, from discovery to decision
+            {t('aboutUs.offerTitle')}
           </Text>
 
           <Text style={styles.centerSectionSub}>
-            See part of overall platform features that helps land buyers, sellers, and future project promotion.
+            {t('aboutUs.offerSub')}
           </Text>
 
           <View style={styles.offerGrid}>
             <View style={styles.offerChip}>
               <Ionicons name="videocam-outline" size={16} color={colors.primary} style={{ marginRight: 8 }} />
-              <Text style={styles.offerChipText}>360° virtual walkthrough</Text>
+              <Text style={styles.offerChipText}>{t('home.feature1Title')}</Text>
             </View>
 
             <View style={styles.offerChip}>
               <Ionicons name="navigate-outline" size={16} color={colors.primary} style={{ marginRight: 8 }} />
-              <Text style={styles.offerChipText}>Location guidance</Text>
+              <Text style={styles.offerChipText}>{t('common.location')}</Text>
             </View>
 
             <View style={styles.offerChip}>
               <Ionicons name="film-outline" size={16} color={colors.primary} style={{ marginRight: 8 }} />
-              <Text style={styles.offerChipText}>Drone aerial shoot videos</Text>
+              <Text style={styles.offerChipText}>{t('home.feature1Title')}</Text>
             </View>
 
             <View style={styles.offerChip}>
               <Ionicons name="pricetag-outline" size={16} color={colors.primary} style={{ marginRight: 8 }} />
-              <Text style={styles.offerChipText}>Clear land price information</Text>
+              <Text style={styles.offerChipText}>{t('common.totalPrice')}</Text>
             </View>
 
             <View style={styles.offerChip}>
               <Ionicons name="folder-open-outline" size={16} color={colors.primary} style={{ marginRight: 8 }} />
-              <Text style={styles.offerChipText}>Document format & transparent inquiries</Text>
+              <Text style={styles.offerChipText}>{t('home.legalVerified')}</Text>
             </View>
 
             <View style={styles.offerChip}>
               <Ionicons name="business-outline" size={16} color={colors.primary} style={{ marginRight: 8 }} />
-              <Text style={styles.offerChipText}>Builder and commercial promotion project availability</Text>
+              <Text style={styles.offerChipText}>{t('projects.projectDetails')}</Text>
             </View>
 
             <View style={styles.offerChip}>
               <Ionicons name="chatbubbles-outline" size={16} color={colors.primary} style={{ marginRight: 8 }} />
-              <Text style={styles.offerChipText}>Agent & buyer support</Text>
+              <Text style={styles.offerChipText}>{t('home.support247')}</Text>
             </View>
 
             <View style={styles.offerChip}>
               <Ionicons name="phone-portrait-outline" size={16} color={colors.primary} style={{ marginRight: 8 }} />
-              <Text style={styles.offerChipText}>Digital promotional packages</Text>
+              <Text style={styles.offerChipText}>{t('home.heroTagline')}</Text>
             </View>
 
             <View style={styles.offerChip}>
               <Ionicons name="megaphone-outline" size={16} color={colors.primary} style={{ marginRight: 8 }} />
-              <Text style={styles.offerChipText}>Promotion tools and seller portal</Text>
+              <Text style={styles.offerChipText}>{t('account.listYourLand')}</Text>
             </View>
           </View>
         </View>
@@ -295,30 +298,30 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
         {/* SECTION 5: CALLOUT HIGHLIGHT BANNER */}
         <View style={styles.calloutCard}>
           <View style={styles.tagPillBadge}>
-            <Text style={styles.tagPillText}>WHY VERIFICATION MATTERS</Text>
+            <Text style={styles.tagPillText}>{t('aboutUs.verificationMattersTag')}</Text>
           </View>
 
           <Text style={styles.calloutTitle}>
-            Because land decisions need clarity before commitment.
+            {t('aboutUs.calloutTitle')}
           </Text>
 
           <Text style={styles.calloutSub}>
-            Jamin24 helps users see the land properly, understand the project clearly, and make better decisions with confidence.
+            {t('aboutUs.calloutSub')}
           </Text>
         </View>
 
         {/* SECTION 6: TEAM SECTION */}
         <View style={styles.teamSection}>
           <View style={styles.centerTagPill}>
-            <Text style={styles.tagPillText}>OUR TEAM</Text>
+            <Text style={styles.tagPillText}>{t('aboutUs.ourTeamTag')}</Text>
           </View>
 
           <Text style={styles.centerSectionTitle}>
-            Experienced People Behind Every Deal
+            {t('aboutUs.teamTitle')}
           </Text>
 
           <Text style={styles.centerSectionSub}>
-            A focused team where transparent support is backed by industry experience, market experts, and verified guidance.
+            {t('aboutUs.teamSub')}
           </Text>
 
           <View style={styles.teamCardsGrid}>
@@ -330,8 +333,8 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
                 resizeMode="cover"
               />
               <View style={styles.teamMemberInfoBox}>
-                <Text style={styles.teamMemberName}>JAINIKBHAI PATEL</Text>
-                <Text style={styles.teamMemberRole}>Founder and CEO</Text>
+                <Text style={styles.teamMemberName}>{t('aboutUs.jainikName')}</Text>
+                <Text style={styles.teamMemberRole}>{t('aboutUs.jainikRole')}</Text>
               </View>
             </View>
 
@@ -343,8 +346,8 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
                 resizeMode="cover"
               />
               <View style={styles.teamMemberInfoBox}>
-                <Text style={styles.teamMemberName}>AJAYBHAI PATEL</Text>
-                <Text style={styles.teamMemberRole}>Founder & Chairman</Text>
+                <Text style={styles.teamMemberName}>{t('aboutUs.ajayName')}</Text>
+                <Text style={styles.teamMemberRole}>{t('aboutUs.ajayRole')}</Text>
               </View>
             </View>
           </View>
@@ -360,13 +363,13 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
             <View style={styles.ctaDarkOverlay} />
             <View style={styles.ctaContentContainer}>
               <View style={styles.ctaPillBadge}>
-                <Text style={styles.ctaPillBadgeText}>START YOUR SEARCH TODAY</Text>
+                <Text style={styles.ctaPillBadgeText}>{t('aboutUs.startTodayTag')}</Text>
               </View>
 
-              <Text style={styles.ctaHeadline}>Ready to Start Your Jamin Journey?</Text>
+              <Text style={styles.ctaHeadline}>{t('aboutUs.readyTitle')}</Text>
 
               <Text style={styles.ctaSubtext}>
-                Discover verified listings, schedule a site visit, or list your land plot with maximum visibility and transparency.
+                {t('aboutUs.readySub')}
               </Text>
 
               <View style={styles.ctaButtonsRow}>
@@ -375,7 +378,7 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
                   onPress={handleContactUs}
                   activeOpacity={0.88}
                 >
-                  <Text style={styles.ctaWhiteBtnText}>Contact Us</Text>
+                  <Text style={styles.ctaWhiteBtnText}>{t('common.contactUs')}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -383,7 +386,7 @@ export const AboutUsScreen: React.FC<any> = ({ navigation }) => {
                   onPress={handleViewProperties}
                   activeOpacity={0.88}
                 >
-                  <Text style={styles.ctaOutlineBtnText}>View Properties</Text>
+                  <Text style={styles.ctaOutlineBtnText}>{t('common.exploreJamin')}</Text>
                 </TouchableOpacity>
               </View>
             </View>

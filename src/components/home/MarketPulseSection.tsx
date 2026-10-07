@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import Svg, { Path } from 'react-native-svg';
+import { useTranslation } from 'react-i18next';
 import { MAP_MARKERS, LAND_POSTING_INDICATORS, DISTRICT_LIST } from '../../data/homeData';
 
 export const MarketPulseSection: React.FC = () => {
+  const { t } = useTranslation();
   const [zoomLevel, setZoomLevel] = useState<number>(1);
   const [selectedChip, setSelectedChip] = useState<string>('Highway Touch');
 
@@ -22,16 +24,16 @@ export const MarketPulseSection: React.FC = () => {
       <View className="mb-4">
         <View className="self-start bg-[#E8F5E9] border border-[#A7F3D0] px-2.5 py-1 rounded-full mb-2">
           <Text className="text-[10.5px] font-extrabold text-[#0B5E42] tracking-wider">
-            LIVE MARKET PULSE
+            {t('home.marketPulseBadge')}
           </Text>
         </View>
 
         <Text className="text-2xl font-extrabold text-slate-900 leading-7">
-          Know where Gujarat is moving
+          {t('home.marketPulseTitle')}
         </Text>
 
         <Text className="text-[13px] text-slate-600 mt-1.5 leading-5">
-          Deal activity at a glance. Spot momentum, compare interest and explore opportunities before everyone else.
+          {t('home.marketPulseDesc')}
         </Text>
       </View>
 
@@ -42,12 +44,12 @@ export const MarketPulseSection: React.FC = () => {
           <View className="flex-row items-center">
             <Ionicons name="map-outline" size={16} color="#4ADE80" />
             <Text className="text-[#F0FDF4] text-[12.5px] font-bold ml-1.5">
-              Gujarat Activity Heatmap
+              {t('home.heatmapTitle')}
             </Text>
           </View>
           <View className="flex-row items-center bg-red-500/20 px-2 py-0.5 rounded-lg border border-red-500/40">
             <View className="w-1.5 h-1.5 rounded-full bg-red-500 mr-1" />
-            <Text className="text-red-500 text-[9.5px] font-extrabold">LIVE</Text>
+            <Text className="text-red-500 text-[9.5px] font-extrabold">{t('home.live')}</Text>
           </View>
         </View>
 
@@ -107,7 +109,8 @@ export const MarketPulseSection: React.FC = () => {
         {/* Map Footer stats bar */}
         <View className="px-3 py-2 bg-[#02120B] items-center">
           <Text className="text-[#A7F3D0] text-xs">
-            🔥 High activity detected in <Text className="font-extrabold text-white">Mehsana</Text> & <Text className="font-extrabold text-white">Gandhinagar</Text>
+            {t('home.highActivityText')}{' '}
+            <Text className="font-extrabold text-white">{t('home.inMehsanaGandhinagar')}</Text>
           </Text>
         </View>
       </View>
@@ -115,7 +118,7 @@ export const MarketPulseSection: React.FC = () => {
       {/* Land Posting Indicators */}
       <View className="mb-5">
         <Text className="text-xs font-extrabold text-slate-500 tracking-wider mb-2.5">
-          LAND POSTING INDICATORS
+          {t('home.landPostingIndicators')}
         </Text>
         <ScrollView
           horizontal
@@ -152,9 +155,9 @@ export const MarketPulseSection: React.FC = () => {
       <View className="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm">
         <View className="flex-row items-center mb-3.5">
           <Ionicons name="location" size={18} color="#0B5E42" />
-          <Text className="text-base font-extrabold text-slate-900 ml-1.5 flex-1">Districts List</Text>
+          <Text className="text-base font-extrabold text-slate-900 ml-1.5 flex-1">{t('home.districtsList')}</Text>
           <View className="bg-[#E8F5E9] px-2 py-0.5 rounded-lg">
-            <Text className="text-[10px] font-bold text-[#0B5E42]">{DISTRICT_LIST.length} Active</Text>
+            <Text className="text-[10px] font-bold text-[#0B5E42]">{DISTRICT_LIST.length} {t('home.activeCount')}</Text>
           </View>
         </View>
 
@@ -172,3 +175,4 @@ export const MarketPulseSection: React.FC = () => {
     </View>
   );
 };
+

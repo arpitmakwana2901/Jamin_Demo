@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useTranslation } from 'react-i18next';
 
 interface SearchCardProps {
   onSearch?: (location: string, propertyId: string, landType: string, budget: string) => void;
@@ -49,6 +50,7 @@ const BUDGET_OPTIONS = [
 ];
 
 export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
+  const { t } = useTranslation();
   const [location, setLocation] = useState<string>('Select City / District');
   const [propertyId, setPropertyId] = useState<string>('');
   const [landType, setLandType] = useState<string>('All Land Types');
@@ -80,12 +82,12 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
     <View className="bg-white mx-4 -mt-[50px] rounded-[20px] p-5 shadow-lg border border-slate-200 z-10">
       {/* Title */}
       <Text className="text-xl font-extrabold text-[#074430] text-center mb-4">
-        Find Your Dream Jamin
+        {t('home.searchCardTitle')}
       </Text>
 
       {/* Location Field */}
       <View className="mb-3">
-        <Text className="text-xs font-bold text-slate-900 mb-1.5">Location</Text>
+        <Text className="text-xs font-bold text-slate-900 mb-1.5">{t('home.location')}</Text>
         <TouchableOpacity
           className="flex-row items-center bg-slate-50 border border-slate-200 rounded-xl px-3 h-[46px]"
           activeOpacity={0.7}
@@ -98,7 +100,7 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
             }`}
             numberOfLines={1}
           >
-            {location}
+            {location === 'Select City / District' ? t('home.selectLocation') : location}
           </Text>
           <Ionicons name="chevron-down-outline" size={16} color="#9CA3AF" />
         </TouchableOpacity>
@@ -106,12 +108,12 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
 
       {/* Property ID Field */}
       <View className="mb-3">
-        <Text className="text-xs font-bold text-slate-900 mb-1.5">Property ID</Text>
+        <Text className="text-xs font-bold text-slate-900 mb-1.5">{t('home.propertyId')}</Text>
         <View className="flex-row items-center bg-slate-50 border border-slate-200 rounded-xl px-3 h-[46px]">
           <Ionicons name="barcode-outline" size={18} color="#0B5E42" className="mr-2" />
           <TextInput
             className="flex-1 text-[12.5px] text-slate-900 font-medium p-0"
-            placeholder="e.g. GJ-01-382120-0001"
+            placeholder={t('home.propertyIdPlaceholder')}
             placeholderTextColor="#9CA3AF"
             value={propertyId}
             onChangeText={setPropertyId}
@@ -123,7 +125,7 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
       <View className="flex-row gap-2.5 mb-3.5">
         {/* Land Type */}
         <View className="flex-1">
-          <Text className="text-xs font-bold text-slate-900 mb-1.5">Land Type</Text>
+          <Text className="text-xs font-bold text-slate-900 mb-1.5">{t('home.landType')}</Text>
           <TouchableOpacity
             className="flex-row items-center bg-slate-50 border border-slate-200 rounded-xl px-3 h-[46px]"
             activeOpacity={0.7}
@@ -136,7 +138,7 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
               }`}
               numberOfLines={1}
             >
-              {landType}
+              {landType === 'All Land Types' ? t('home.selectAllLandTypes') : landType}
             </Text>
             <Ionicons name="chevron-down-outline" size={14} color="#9CA3AF" />
           </TouchableOpacity>
@@ -144,7 +146,7 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
 
         {/* Your Budget */}
         <View className="flex-1">
-          <Text className="text-xs font-bold text-slate-900 mb-1.5">Your Budget</Text>
+          <Text className="text-xs font-bold text-slate-900 mb-1.5">{t('home.yourBudget')}</Text>
           <TouchableOpacity
             className="flex-row items-center bg-slate-50 border border-slate-200 rounded-xl px-3 h-[46px]"
             activeOpacity={0.7}
@@ -157,7 +159,7 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
               }`}
               numberOfLines={1}
             >
-              {budget}
+              {budget === 'Max Budget (₹)' ? t('home.maxBudget') : budget}
             </Text>
             <Ionicons name="chevron-down-outline" size={14} color="#9CA3AF" />
           </TouchableOpacity>
@@ -171,7 +173,7 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
         onPress={handleSearch}
       >
         <Ionicons name="search-outline" size={18} color="#FFFFFF" className="mr-2" />
-        <Text className="text-white text-base font-extrabold">Search Jamin</Text>
+        <Text className="text-white text-base font-extrabold">{t('home.searchButton')}</Text>
       </TouchableOpacity>
 
       {/* Trust Indicators */}
@@ -179,8 +181,8 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
         {/* Badge 1 */}
         <View className="flex-1 items-center px-0.5">
           <Ionicons name="shield-checkmark-outline" size={20} color="#0B5E42" />
-          <Text className="text-[11px] font-extrabold text-slate-900 text-center mt-1">100% Secure</Text>
-          <Text className="text-[9.5px] text-slate-600 text-center mt-0.5">Safe & Transparent</Text>
+          <Text className="text-[11px] font-extrabold text-slate-900 text-center mt-1">{t('home.secure100')}</Text>
+          <Text className="text-[9.5px] text-slate-600 text-center mt-0.5">{t('home.safeTransparent')}</Text>
         </View>
 
         <View className="w-[1px] h-[38px] bg-slate-200" />
@@ -188,8 +190,8 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
         {/* Badge 2 */}
         <View className="flex-1 items-center px-0.5">
           <Ionicons name="document-text-outline" size={20} color="#0B5E42" />
-          <Text className="text-[11px] font-extrabold text-slate-900 text-center mt-1">Legal Verified</Text>
-          <Text className="text-[9.5px] text-slate-600 text-center mt-0.5">All Documents Checked</Text>
+          <Text className="text-[11px] font-extrabold text-slate-900 text-center mt-1">{t('home.legalVerified')}</Text>
+          <Text className="text-[9.5px] text-slate-600 text-center mt-0.5">{t('home.allDocsChecked')}</Text>
         </View>
 
         <View className="w-[1px] h-[38px] bg-slate-200" />
@@ -197,8 +199,8 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
         {/* Badge 3 */}
         <View className="flex-1 items-center px-0.5">
           <Ionicons name="headset-outline" size={20} color="#0B5E42" />
-          <Text className="text-[11px] font-extrabold text-slate-900 text-center mt-1">24/7 Support</Text>
-          <Text className="text-[9.5px] text-slate-600 text-center mt-0.5">We're Here to Help</Text>
+          <Text className="text-[11px] font-extrabold text-slate-900 text-center mt-1">{t('home.support247')}</Text>
+          <Text className="text-[9.5px] text-slate-600 text-center mt-0.5">{t('home.hereToHelp')}</Text>
         </View>
       </View>
 
@@ -215,10 +217,10 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
               <View className="bg-white w-full max-h-[400px] rounded-2xl p-4.5">
                 <Text className="text-base font-extrabold text-slate-900 mb-3 pb-2.5 border-b border-slate-200">
                   {activeModal === 'location'
-                    ? 'Select Location'
+                    ? t('home.selectLocationModal')
                     : activeModal === 'landType'
-                    ? 'Select Land Type'
-                    : 'Select Budget'}
+                    ? t('home.selectLandTypeModal')
+                    : t('home.selectBudgetModal')}
                 </Text>
                 <FlatList
                   data={getModalData()}
@@ -241,3 +243,4 @@ export const SearchCard: React.FC<SearchCardProps> = ({ onSearch }) => {
     </View>
   );
 };
+

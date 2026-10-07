@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useTranslation } from 'react-i18next';
 import { colors } from '../../theme/colors';
 import {
   FILTER_LAND_TYPES,
@@ -45,6 +46,7 @@ export const BrowseFilterCard: React.FC<BrowseFilterCardProps> = ({
   onReset,
   onSearchSubmit,
 }) => {
+  const { t } = useTranslation();
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [modalOptions, setModalOptions] = useState<string[]>([]);
   const [modalTitle, setModalTitle] = useState<string>('');
@@ -71,14 +73,14 @@ export const BrowseFilterCard: React.FC<BrowseFilterCardProps> = ({
     <View style={styles.container}>
       {/* PAGE HEADING & TOP SEARCH INPUT */}
       <View style={styles.pageHeaderRow}>
-        <Text style={styles.pageTitle}>List of Jamin</Text>
+        <Text style={styles.pageTitle}>{t('browse.title')}</Text>
 
         {/* SEARCH BAR */}
         <View style={styles.searchBarBox}>
           <Ionicons name="search" size={16} color="#94A3B8" style={styles.searchIcon} />
           <TextInput
             style={styles.searchInput}
-            placeholder="Enter Taluka Name"
+            placeholder={t('browse.enterTalukaPlaceholder')}
             placeholderTextColor="#94A3B8"
             value={filters.searchQuery}
             onChangeText={(text) => onFilterChange({ ...filters, searchQuery: text })}
@@ -91,7 +93,7 @@ export const BrowseFilterCard: React.FC<BrowseFilterCardProps> = ({
             activeOpacity={0.8}
           >
             <Ionicons name="search" size={14} color="#FFFFFF" style={{ marginRight: 4 }} />
-            <Text style={styles.searchButtonText}>Search</Text>
+            <Text style={styles.searchButtonText}>{t('browse.searchButton')}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -102,7 +104,7 @@ export const BrowseFilterCard: React.FC<BrowseFilterCardProps> = ({
         <View style={styles.filterCardHeader}>
           <View style={styles.filterTitleRow}>
             <Ionicons name="funnel-outline" size={18} color="#1E293B" style={{ marginRight: 6 }} />
-            <Text style={styles.filterTitleText}>Filter</Text>
+            <Text style={styles.filterTitleText}>{t('browse.filterTitle')}</Text>
           </View>
 
           <View style={styles.topRightControls}>
@@ -112,7 +114,7 @@ export const BrowseFilterCard: React.FC<BrowseFilterCardProps> = ({
               onPress={() => openPicker('Sort By', 'sortBy', FILTER_SORT_OPTIONS)}
               activeOpacity={0.8}
             >
-              <Text style={styles.sortByBtnText}>{filters.sortBy}</Text>
+              <Text style={styles.sortByBtnText}>{filters.sortBy === 'Sort By' ? t('browse.sortBy') : filters.sortBy}</Text>
               <Ionicons name="chevron-down" size={14} color="#64748B" style={{ marginLeft: 4 }} />
             </TouchableOpacity>
 
@@ -123,7 +125,7 @@ export const BrowseFilterCard: React.FC<BrowseFilterCardProps> = ({
               activeOpacity={0.8}
             >
               <Ionicons name="refresh-outline" size={14} color="#334155" style={{ marginRight: 4 }} />
-              <Text style={styles.resetBtnText}>Reset Filters</Text>
+              <Text style={styles.resetBtnText}>{t('browse.resetFilters')}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -132,7 +134,7 @@ export const BrowseFilterCard: React.FC<BrowseFilterCardProps> = ({
         <View style={styles.filterGrid}>
           {/* 1. LAND TYPE */}
           <View style={styles.fieldBox}>
-            <Text style={styles.fieldLabel}>Land Type</Text>
+            <Text style={styles.fieldLabel}>{t('browse.landTypeLabel')}</Text>
             <TouchableOpacity
               style={styles.dropdownPicker}
               onPress={() => openPicker('Land Type', 'landType', FILTER_LAND_TYPES)}
@@ -145,7 +147,7 @@ export const BrowseFilterCard: React.FC<BrowseFilterCardProps> = ({
                 ]}
                 numberOfLines={1}
               >
-                {filters.landType}
+                {filters.landType.startsWith('Select') ? t('browse.selectLandType') : filters.landType}
               </Text>
               <Ionicons name="chevron-down" size={14} color="#94A3B8" />
             </TouchableOpacity>
@@ -153,7 +155,7 @@ export const BrowseFilterCard: React.FC<BrowseFilterCardProps> = ({
 
           {/* 2. TOTAL PRICE */}
           <View style={styles.fieldBox}>
-            <Text style={styles.fieldLabel}>Total Price</Text>
+            <Text style={styles.fieldLabel}>{t('browse.totalPriceLabel')}</Text>
             <TouchableOpacity
               style={styles.dropdownPicker}
               onPress={() => openPicker('Total Price', 'price', FILTER_PRICES)}
@@ -166,7 +168,7 @@ export const BrowseFilterCard: React.FC<BrowseFilterCardProps> = ({
                 ]}
                 numberOfLines={1}
               >
-                {filters.price}
+                {filters.price.startsWith('Price') ? t('browse.selectPrice') : filters.price}
               </Text>
               <Ionicons name="chevron-down" size={14} color="#94A3B8" />
             </TouchableOpacity>
@@ -174,7 +176,7 @@ export const BrowseFilterCard: React.FC<BrowseFilterCardProps> = ({
 
           {/* 3. STATE */}
           <View style={styles.fieldBox}>
-            <Text style={styles.fieldLabel}>State</Text>
+            <Text style={styles.fieldLabel}>{t('browse.stateLabel')}</Text>
             <TouchableOpacity
               style={styles.dropdownPicker}
               onPress={() => openPicker('State', 'state', FILTER_STATES)}
@@ -189,7 +191,7 @@ export const BrowseFilterCard: React.FC<BrowseFilterCardProps> = ({
 
           {/* 4. DISTRICT / CITY */}
           <View style={styles.fieldBox}>
-            <Text style={styles.fieldLabel}>District / City</Text>
+            <Text style={styles.fieldLabel}>{t('browse.districtLabel')}</Text>
             <TouchableOpacity
               style={styles.dropdownPicker}
               onPress={() => openPicker('District / City', 'district', FILTER_DISTRICTS)}
@@ -202,7 +204,7 @@ export const BrowseFilterCard: React.FC<BrowseFilterCardProps> = ({
                 ]}
                 numberOfLines={1}
               >
-                {filters.district}
+                {filters.district.startsWith('Select') ? t('browse.selectDistrict') : filters.district}
               </Text>
               <Ionicons name="chevron-down" size={14} color="#94A3B8" />
             </TouchableOpacity>
@@ -210,7 +212,7 @@ export const BrowseFilterCard: React.FC<BrowseFilterCardProps> = ({
 
           {/* 5. TALUKA */}
           <View style={styles.fieldBox}>
-            <Text style={styles.fieldLabel}>Taluko</Text>
+            <Text style={styles.fieldLabel}>{t('browse.talukaLabel')}</Text>
             <TouchableOpacity
               style={styles.dropdownPicker}
               onPress={() => openPicker('Taluko', 'taluka', FILTER_TALUKAS)}
@@ -223,7 +225,7 @@ export const BrowseFilterCard: React.FC<BrowseFilterCardProps> = ({
                 ]}
                 numberOfLines={1}
               >
-                {filters.taluka}
+                {filters.taluka.startsWith('Select') ? t('browse.selectTaluka') : filters.taluka}
               </Text>
               <Ionicons name="chevron-down" size={14} color="#94A3B8" />
             </TouchableOpacity>
@@ -231,7 +233,7 @@ export const BrowseFilterCard: React.FC<BrowseFilterCardProps> = ({
 
           {/* 6. AREA / VILLAGE */}
           <View style={styles.fieldBox}>
-            <Text style={styles.fieldLabel}>Area / Village</Text>
+            <Text style={styles.fieldLabel}>{t('browse.villageLabel')}</Text>
             <TouchableOpacity
               style={styles.dropdownPicker}
               onPress={() => openPicker('Area / Village', 'village', FILTER_VILLAGES)}
@@ -244,13 +246,14 @@ export const BrowseFilterCard: React.FC<BrowseFilterCardProps> = ({
                 ]}
                 numberOfLines={1}
               >
-                {filters.village}
+                {filters.village.startsWith('Select') ? t('browse.selectVillage') : filters.village}
               </Text>
               <Ionicons name="chevron-down" size={14} color="#94A3B8" />
             </TouchableOpacity>
           </View>
         </View>
       </View>
+
 
       {/* OPTION PICKER MODAL */}
       <Modal

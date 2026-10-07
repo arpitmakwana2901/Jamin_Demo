@@ -12,11 +12,13 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import { useTranslation } from 'react-i18next';
 import { TopBar } from '../components/TopBar';
 import { FooterSection } from '../components/home/FooterSection';
 import { colors } from '../theme/colors';
 
 export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
+  const { t } = useTranslation();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
@@ -96,13 +98,13 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
 
             <View style={styles.heroContentBox}>
               <View style={styles.heroTagPill}>
-                <Text style={styles.heroTagPillText}>JAMIN EXPERTS NEAR YOU</Text>
+                <Text style={styles.heroTagPillText}>{t('contact.heroTag')}</Text>
               </View>
 
-              <Text style={styles.heroTitleText}>Get in Touch with Jamin24</Text>
+              <Text style={styles.heroTitleText}>{t('contact.heroTitle')}</Text>
 
               <Text style={styles.heroSubText}>
-                Share your Jamin goals with us. Whether you want to buy, sell, invest, or partner as an agent, our team will help you move with clarity and confidence.
+                {t('contact.heroSub')}
               </Text>
 
               {/* BUTTONS */}
@@ -112,7 +114,7 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
                   onPress={handleCallUs}
                   activeOpacity={0.88}
                 >
-                  <Text style={styles.contactNowBtnText}>Contact Now</Text>
+                  <Text style={styles.contactNowBtnText}>{t('common.contactNow')}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -120,7 +122,7 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
                   onPress={handleExploreJamin}
                   activeOpacity={0.88}
                 >
-                  <Text style={styles.exploreJaminBtnText}>Explore Jamin</Text>
+                  <Text style={styles.exploreJaminBtnText}>{t('common.exploreJamin')}</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -128,18 +130,18 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
             {/* RIGHT SIDE 3 TRANSLUCENT GLASS METRIC CARDS */}
             <View style={styles.glassMetricsContainer}>
               <View style={styles.glassCardBox}>
-                <Text style={styles.glassCardNumber}>24 hours</Text>
-                <Text style={styles.glassCardLabel}>Quick response</Text>
+                <Text style={styles.glassCardNumber}>{t('contact.quickResponseVal')}</Text>
+                <Text style={styles.glassCardLabel}>{t('contact.quickResponseLabel')}</Text>
               </View>
 
               <View style={styles.glassCardBox}>
-                <Text style={styles.glassCardNumber}>1000+</Text>
-                <Text style={styles.glassCardLabel}>Deals supported</Text>
+                <Text style={styles.glassCardNumber}>{t('contact.dealsVal')}</Text>
+                <Text style={styles.glassCardLabel}>{t('contact.dealsLabel')}</Text>
               </View>
 
               <View style={styles.glassCardBox}>
-                <Text style={styles.glassCardNumber}>Verified</Text>
-                <Text style={styles.glassCardLabel}>Jamin options</Text>
+                <Text style={styles.glassCardNumber}>{t('contact.verifiedVal')}</Text>
+                <Text style={styles.glassCardLabel}>{t('contact.verifiedLabel')}</Text>
               </View>
             </View>
           </ImageBackground>
@@ -153,9 +155,9 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
               <Ionicons name="location-outline" size={18} color="#FFFFFF" />
             </View>
             <View style={styles.infoTextContainer}>
-              <Text style={styles.infoLabel}>Office Address</Text>
+              <Text style={styles.infoLabel}>{t('contact.officeAddress')}</Text>
               <Text style={styles.infoValue}>
-                109 Pavan plaza opp. Lifecare hospital Nr sardar Patel statue naranpura, ahmedabad 380013
+                {t('contact.officeAddressVal')}
               </Text>
             </View>
           </View>
@@ -170,8 +172,8 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
               <Ionicons name="call-outline" size={18} color="#FFFFFF" />
             </View>
             <View style={styles.infoTextContainer}>
-              <Text style={styles.infoLabel}>Call Us</Text>
-              <Text style={styles.infoValueBold}>+91 9898072803</Text>
+              <Text style={styles.infoLabel}>{t('common.callUs')}</Text>
+              <Text style={styles.infoValueBold}>{t('contact.callUsBold')}</Text>
             </View>
           </TouchableOpacity>
 
@@ -185,8 +187,8 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
               <Ionicons name="mail-outline" size={18} color="#FFFFFF" />
             </View>
             <View style={styles.infoTextContainer}>
-              <Text style={styles.infoLabel}>Email Us</Text>
-              <Text style={styles.infoValueBold}>info@jamin24.com</Text>
+              <Text style={styles.infoLabel}>{t('common.emailUs')}</Text>
+              <Text style={styles.infoValueBold}>{t('contact.emailUsBold')}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -196,22 +198,22 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
           {/* LEFT: INQUIRY FORM CARD */}
           <View style={styles.inquiryFormCard}>
             <View style={styles.sectionTagPill}>
-              <Text style={styles.sectionTagText}>SEND INQUIRY</Text>
+              <Text style={styles.sectionTagText}>{t('contact.sendInquiryTag')}</Text>
             </View>
 
-            <Text style={styles.formTitle}>Tell Us What You Need</Text>
+            <Text style={styles.formTitle}>{t('contact.formTitle')}</Text>
 
             <Text style={styles.formSubtitle}>
-              Fill out the form and our team will reach out with the next best step for your Jamin journey.
+              {t('contact.formSubtitle')}
             </Text>
 
             {/* FORM INPUTS */}
             <View style={styles.formGrid}>
               <View style={styles.fieldBox}>
-                <Text style={styles.fieldLabel}>Full Name</Text>
+                <Text style={styles.fieldLabel}>{t('contact.fullName')}</Text>
                 <TextInput
                   style={styles.formInput}
-                  placeholder="Enter Full Name"
+                  placeholder={t('contact.fullNamePlaceholder')}
                   placeholderTextColor="#94A3B8"
                   value={fullName}
                   onChangeText={setFullName}
@@ -219,10 +221,10 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
               </View>
 
               <View style={styles.fieldBox}>
-                <Text style={styles.fieldLabel}>Email</Text>
+                <Text style={styles.fieldLabel}>{t('contact.emailLabel')}</Text>
                 <TextInput
                   style={styles.formInput}
-                  placeholder="Enter Email Address"
+                  placeholder={t('contact.emailPlaceholder')}
                   placeholderTextColor="#94A3B8"
                   keyboardType="email-address"
                   autoCapitalize="none"
@@ -232,10 +234,10 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
               </View>
 
               <View style={styles.fieldBox}>
-                <Text style={styles.fieldLabel}>Mobile Number</Text>
+                <Text style={styles.fieldLabel}>{t('contact.mobileNumber')}</Text>
                 <TextInput
                   style={styles.formInput}
-                  placeholder="Enter Whatsapp Number"
+                  placeholder={t('contact.mobilePlaceholder')}
                   placeholderTextColor="#94A3B8"
                   keyboardType="phone-pad"
                   value={mobileNumber}
@@ -244,10 +246,10 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
               </View>
 
               <View style={styles.fieldBox}>
-                <Text style={styles.fieldLabel}>Subject</Text>
+                <Text style={styles.fieldLabel}>{t('contact.subject')}</Text>
                 <TextInput
                   style={styles.formInput}
-                  placeholder="Buying, selling, site visit..."
+                  placeholder={t('contact.subjectPlaceholder')}
                   placeholderTextColor="#94A3B8"
                   value={subject}
                   onChangeText={setSubject}
@@ -255,10 +257,10 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
               </View>
 
               <View style={styles.fieldBoxFull}>
-                <Text style={styles.fieldLabel}>Message</Text>
+                <Text style={styles.fieldLabel}>{t('contact.message')}</Text>
                 <TextInput
                   style={[styles.formInput, styles.formTextArea]}
-                  placeholder="Tell us about your requirement, budget, location, or listing..."
+                  placeholder={t('contact.messagePlaceholder')}
                   placeholderTextColor="#94A3B8"
                   multiline
                   numberOfLines={4}
@@ -273,7 +275,7 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
                 onPress={handleSubmitInquiry}
                 activeOpacity={0.88}
               >
-                <Text style={styles.submitInquiryBtnText}>Submit Inquiry</Text>
+                <Text style={styles.submitInquiryBtnText}>{t('contact.submitInquiryBtn')}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -281,13 +283,13 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
           {/* RIGHT: CONNECT CARD & URGENT SITE VISIT */}
           <View style={styles.connectCard}>
             <View style={styles.sectionTagPill}>
-              <Text style={styles.sectionTagText}>CONNECT</Text>
+              <Text style={styles.sectionTagText}>{t('contact.connectTag')}</Text>
             </View>
 
-            <Text style={styles.formTitle}>Reach Us Anywhere</Text>
+            <Text style={styles.formTitle}>{t('contact.reachUsTitle')}</Text>
 
             <Text style={styles.formSubtitle}>
-              Follow Jamin24 for fresh Jamin listings, market updates, and Jamin investment insights.
+              {t('contact.reachUsSubtitle')}
             </Text>
 
             {/* SOCIAL ICONS ROW */}
@@ -323,9 +325,9 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
 
             {/* URGENT SITE VISIT BOX */}
             <View style={styles.urgentSiteVisitBox}>
-              <Text style={styles.urgentSiteTitle}>For urgent site visits</Text>
+              <Text style={styles.urgentSiteTitle}>{t('contact.urgentSiteTitle')}</Text>
               <Text style={styles.urgentSiteSub}>
-                Call our team directly and we will help schedule a visit for shortlisted Jamin or Jamin options.
+                {t('contact.urgentSiteSub')}
               </Text>
             </View>
           </View>
@@ -334,10 +336,10 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
         {/* SECTION 4: VISIT JAMIN24 IN AHMEDABAD (MAP LOCATION) */}
         <View style={styles.officeMapSection}>
           <View style={styles.sectionTagPill}>
-            <Text style={styles.sectionTagText}>OFFICE LOCATION</Text>
+            <Text style={styles.sectionTagText}>{t('contact.officeLocationTag')}</Text>
           </View>
 
-          <Text style={styles.officeMapTitle}>Visit Jamin24 in Ahmedabad</Text>
+          <Text style={styles.officeMapTitle}>{t('contact.officeMapTitle')}</Text>
 
           <View style={styles.mapContainerBox}>
             <ImageBackground
@@ -352,7 +354,7 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
                 activeOpacity={0.8}
               >
                 <Ionicons name="location" size={18} color={colors.primary} style={{ marginRight: 4 }} />
-                <Text style={styles.officePinText}>Jamin24 Office</Text>
+                <Text style={styles.officePinText}>{t('contact.officePinText')}</Text>
               </TouchableOpacity>
             </ImageBackground>
           </View>
@@ -361,14 +363,14 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
         {/* SECTION 5: BOTTOM CTA BANNER */}
         <View style={styles.ctaCardBox}>
           <View style={styles.sectionTagPill}>
-            <Text style={styles.sectionTagText}>WE HAVE SUITABLE JAMIN FOR YOU.</Text>
+            <Text style={styles.sectionTagText}>{t('contact.suitableJaminTag')}</Text>
           </View>
 
           <View style={styles.ctaRowContent}>
             <View style={styles.ctaTextContainer}>
-              <Text style={styles.ctaMainTitle}>Let's help you find your perfect Jamin</Text>
+              <Text style={styles.ctaMainTitle}>{t('contact.ctaMainTitle')}</Text>
               <Text style={styles.ctaMainSub}>
-                Browse verified options or speak with our experts for a tailored recommendation.
+                {t('contact.ctaMainSub')}
               </Text>
             </View>
 
@@ -377,7 +379,7 @@ export const ContactUsScreen: React.FC<any> = ({ navigation }) => {
               onPress={handleExploreJamin}
               activeOpacity={0.88}
             >
-              <Text style={styles.ctaExploreBtnText}>Explore Jamin</Text>
+              <Text style={styles.ctaExploreBtnText}>{t('common.exploreJamin')}</Text>
             </TouchableOpacity>
           </View>
         </View>
